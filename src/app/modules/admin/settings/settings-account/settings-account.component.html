@@ -1,0 +1,228 @@
+<div class="w-full max-w-3xl" *transloco="let t">
+    <!-- Form -->
+    <form [formGroup]="accountForm">
+        <!-- Section -->
+        <div class="w-full">
+            <div class="text-xl">{{ t("profile") }}</div>
+            <div class="text-secondary">
+                {{ t("following_information") }}
+            </div>
+        </div>
+
+        <div class="px-6">
+            <!-- Profile photo -->
+            <div
+                *ngIf="user?.adminTypeId != 1"
+                class="group relative flex flex-0 mt-8 w-40 h-40 rounded-full"
+            >
+                <div
+                    class="hidden group-hover:flex absolute inset-0 flex-col items-center justify-center backdrop-filter backdrop-blur bg-opacity-80 rounded-full cursor-pointer bg-gray-800"
+                >
+                    <label
+                        class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
+                        for="avatar-file-input"
+                        matRipple
+                    >
+                        <mat-icon
+                            class="text-white"
+                            [svgIcon]="'heroicons_outline:camera'"
+                        ></mat-icon>
+                    </label>
+                    <div class="mt-2 mx-6 font-medium text-center text-white">
+                        Change Profile Photo
+                    </div>
+                    <input
+                        id="avatar-file-input"
+                        class="absolute h-0 w-0 opacity-0 invisible pointer-events-none"
+                        type="file"
+                        [multiple]="false"
+                        [accept]="'image/jpeg, image/png'"
+                        (change)="onFileChange($event, 'uplodingProfile')"
+                        #avatarFileInput
+                    />
+                </div>
+                <img
+                    class="w-full h-full rounded-full object-cover"
+                    src="{{
+                        profileImg
+                            ? profileImg
+                            : 'assets/images/avatars/user.png'
+                    }}"
+                    [alt]="'Profile avatar'"
+                />
+            </div>
+        </div>
+
+        <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+            <!-- Name -->
+            <div class="sm:col-span-2">
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-label>{{ t("first_name") }}</mat-label>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:user'"
+                        matPrefix
+                    ></mat-icon>
+                    <input [formControlName]="'first_name'" matInput />
+                </mat-form-field>
+            </div>
+            <div class="sm:col-span-2">
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-label>{{ t("last_name") }}</mat-label>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:user'"
+                        matPrefix
+                    ></mat-icon>
+                    <input [formControlName]="'last_name'" matInput />
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="my-10 border-t"></div>
+
+        <!-- Section -->
+        <div class="w-full">
+            <div class="text-xl">{{ t("personal_information") }}</div>
+            <div class="text-secondary">
+                {{ t("communication_details") }}
+            </div>
+        </div>
+        <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+            <!-- Email -->
+            <div class="sm:col-span-2">
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-label>{{ t("email") }}</mat-label>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:mail'"
+                        matPrefix
+                    ></mat-icon>
+                    <input [formControlName]="'userEmail'" matInput />
+                </mat-form-field>
+            </div>
+
+            <!-- Phone -->
+            <div class="sm:col-span-2">
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-label>{{ t("phone") }}</mat-label>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:phone'"
+                        matPrefix
+                    ></mat-icon>
+                    <input [formControlName]="'phone_number'" matInput />
+                </mat-form-field>
+            </div>
+
+            <!-- Doctor's Pin -->
+            <div *ngIf="user?.adminTypeId === 3" class="sm:col-span-2">
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-label>{{ t("doctor_pin") }}</mat-label>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'mat_solid:fiber_pin'"
+                        matPrefix
+                    ></mat-icon>
+                    <input
+                        maxlength="6"
+                        matInput
+                        [formControlName]="'doctorPin'"
+                    />
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- Signature -->
+        <div
+            *ngIf="user?.adminTypeId === 3"
+            class="grid sm:grid-cols-1 gap-6 w-full mt-8"
+        >
+            <mat-label>{{ t("signature") }}</mat-label>
+            <div>
+                <!-- SIGNATURE UPLOAD BUTTON -->
+                <label *ngIf="!accountForm?.value?.doctor_signature" for="file">
+                    <button
+                        mat-flat-button
+                        type="button"
+                        (click)="file.click()"
+                        [color]="'primary'"
+                    >
+                        <span> {{ t("upload_signature") }}</span>
+                    </button>
+                </label>
+
+                <input
+                    type="file"
+                    #file
+                    style="display: none"
+                    (change)="onFileChange($event)"
+                    id="uploadDoc"
+                />
+
+                <!-- UPLOADED FILE IS DISPLAYED HERE -->
+                <a
+                    *ngIf="accountForm?.value?.doctor_signature"
+                    mat-stroked-button
+                    [color]="'primary'"
+                    (click)="openFile(accountForm?.value?.doctor_signature)"
+                >
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:document'"
+                    ></mat-icon>
+                    <span
+                        class="ml-2 underline"
+                        [matTooltip]="accountForm?.value?.doctor_signature"
+                        >{{
+                            accountForm?.value?.doctor_signature | slice: 0:20
+                        }}</span
+                    >
+                    <span
+                        class="remove-badge"
+                        (click)="$event.stopPropagation(); removeSignature()"
+                    >
+                        <mat-icon
+                            class="icon-size-3"
+                            style="color: white !important"
+                            [svgIcon]="'heroicons_solid:x'"
+                        ></mat-icon>
+                    </span>
+                </a>
+            </div>
+
+            <div *ngIf="displaySignature">
+                <img
+                    [src]="displaySignature"
+                    alt=""
+                    style="
+                        width: 250px;
+                        height: 200px;
+                        border-radius: 10px;
+                        border: 1px solid black;
+                    "
+                />
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="mt-11 mb-10 border-t"></div>
+
+        <!-- Actions -->
+        <div
+            *ngIf="user?.adminTypeId != 1"
+            class="flex items-center justify-end"
+        >
+            <button
+                class="ml-4 bg-theme"
+                mat-flat-button
+                type="button"
+                [color]="'primary'"
+                (click)="updateData()"
+            >
+                <span> {{ t("update_changes") }} </span>
+            </button>
+        </div>
+    </form>
+</div>

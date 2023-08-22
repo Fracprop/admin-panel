@@ -1,0 +1,86 @@
+.parent_card {
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.05);
+    padding: 15px;
+}
+.cards {
+    border-radius: 10px;
+    width: 355px;
+    height: 160px;
+}
+.logos {
+    flex-shrink: 0 !important;
+}
+.cards > img {
+    width: 60px;
+    height: 60px;
+}
+.card1 {
+    background: rgba(35, 106, 152, 0.5);
+}
+.card2 {
+    background: rgba(255, 113, 10, 0.5);
+}
+.card3 {
+    background: rgba(89, 81, 175, 0.5);
+}
+.card4 {
+    background: rgba(81, 175, 91, 0.13);
+}
+.card4 {
+    background: rgba(136, 134, 12, 0.5);
+}
+.card5 {
+    background: rgba(151, 10, 132, 0.5);
+}
+.card6 {
+    background: rgba(204, 10, 26, 0.5);
+}
+.card7 {
+    background: rgba(82, 32, 4, 0.5);
+}
+
+.card8 {
+    background: rgba(104, 177, 8, 0.5);
+}
+
+.card-bg-1 {
+    background-color: #ef7c4f;
+}
+
+.card-bg-2 {
+    background-color: #7a7fd1;
+}
+
+.card-bg-3 {
+    background-color: #3bacd6;
+}
+
+.m-center {
+    margin: 0 auto;
+}
+
+.dis-ib {
+    display: inline-block;
+    margin-right: 150px;
+}
+
+h3 {
+    margin-bottom: 40px;
+}
+.blink {
+    animation: blink 5s linear infinite;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}

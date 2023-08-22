@@ -1,0 +1,178 @@
+<!-- Navigation userDetails?.adminTypeId==1?navigation.ADMIN:navigation.default-->
+<fuse-vertical-navigation
+    class="dark bg-gray-900 print:hidden fuse-vertical-navigation-content"
+    [mode]="isScreenSmall ? 'over' : 'side'"
+    [name]="'mainNavigation'"
+    [navigation]="fetchNavItems(userDetails?.adminTypeId)"
+    [opened]="!isScreenSmall"
+>
+    <!-- Navigation header hook -->
+    <ng-container fuseVerticalNavigationContentHeader>
+        <div class="flex justify-center items-center w-full p-4 pl-6">
+            <!-- Logo -->
+            <div class="flex items-center justify-center">
+                <img
+                    class=""
+                    style="width: 10rem"
+                    src="assets/images/brand/logo.svg"
+                />
+            </div>
+            <!-- Components -->
+            <!-- <div class="flex items-center ml-auto"> -->
+            <!-- <notifications></notifications> -->
+            <!-- </div> -->
+        </div>
+        <!-- User -->
+        <!-- <div class="flex flex-col items-center w-full p-4">
+            <div class="relative w-24 h-24">
+                <img
+                    class="w-full h-full rounded-full"
+                    [src]="'assets/images/avatars/user.png'"
+                    alt="User avatar"
+                />
+
+                <img
+                    class="w-full h-full rounded-full"
+                    *ngIf="userAvatar && showAvatar"
+                    [src]="userAvatar"
+                />
+
+                <mat-icon
+                    *ngIf="!userAvatar || !showAvatar"
+                    class="icon-size-24"
+                    [svgIcon]="'heroicons_solid:user-circle'"
+                ></mat-icon>
+            </div>
+            <div class="flex flex-col items-center justify-center w-full mt-6">
+                <div
+                    class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden text-center leading-normal font-medium"
+                    *ngIf="userDetails?.adminTypeId > 2"
+                >
+                    {{ userDetails?.designation_m?.designation_name }}
+                </div>
+                <div
+                    class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden text-center leading-normal font-medium"
+                    *ngIf="userDetails?.adminTypeId <= 2"
+                >
+                    {{
+                        userDetails?.adminTypeId == 1 ? "SUPER ADMIN" : "ADMIN"
+                    }}
+                </div>
+                <div
+                    class="w-full mt-0.5 whitespace-nowrap overflow-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary"
+                    *ngIf="
+                        userDetails?.adminTypeId > 1 &&
+                        userDetails?.adminTypeId < 4
+                    "
+                >
+                    {{ userDetails?.facility_m?.facility_name || "ADMIN" }}
+                    {{
+                        userDetails?.state?.state_name
+                            ? ", " + userDetails?.state?.state_name
+                            : ""
+                    }}
+                </div>
+                <div
+                    class="w-full mt-0.5 whitespace-nowrap overflow-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary"
+                    *ngIf="userDetails?.adminTypeId === 4"
+                >
+                    FRACPROP ADMIN
+                </div>
+                <div
+                    class="w-full mt-0.5 whitespace-nowrap overflow-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary"
+                    *ngIf="userDetails?.adminTypeId === 5"
+                >
+                    SACS
+                </div>
+                <div
+                    class="w-full mt-0.5 whitespace-nowrap overflow-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary"
+                    *ngIf="userDetails?.adminTypeId === 6"
+                >
+                    DAPSU
+                </div>
+                <div
+                    class="w-full mt-0.5 whitespace-nowrap overflow-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary"
+                    *ngIf="
+                        userDetails?.adminTypeId == 1 ||
+                        userDetails?.adminTypeId == 4 ||
+                        userDetails?.adminTypeId == 5 ||
+                        userDetails?.adminTypeId == 6
+                    "
+                >
+                    {{ userDetails?.userEmail }}
+                </div>
+                <div
+                    class="w-full mt-0.5 whitespace-nowrap overflow-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary"
+                    *ngIf="userDetails?.adminTypeId > 1"
+                >
+                    {{ userDetails?.facility_m?.facility_National_id || "" }}
+                </div>
+            </div>
+        </div> -->
+    </ng-container>
+    <!-- Navigation footer hook -->
+    <!-- <ng-container fuseVerticalNavigationContentFooter>
+        <div
+            class="flex flex-0 items-center justify-center h-16 pr-6 pl-2 mt-2 mb-4 left-20 bottom-0"
+        >
+            <img style="width: 5rem" src="assets/images/brand/AILogo.svg" />
+        </div>
+    </ng-container> -->
+</fuse-vertical-navigation>
+
+<!-- Wrapper -->
+<div class="flex flex-col flex-auto w-full min-w-0">
+    <!-- Header -->
+    <div
+        class="dark bg-gray-900 relative flex flex-0 items-center w-full h-16 px-4 md:px-6 z-49 shadow dark:shadow-none dark:border-b bg-card dark:bg-transparent print:hidden"
+    >
+        <!-- Navigation toggle button -->
+        <button
+            mat-icon-button
+            class="bg-theme"
+            (click)="toggleNavigation('mainNavigation')"
+        >
+            <mat-icon
+                [svgIcon]="'heroicons_outline:menu'"
+                class="text-white"
+            ></mat-icon>
+        </button>
+        <!-- Components -->
+        <div class="flex items-center pl-2 ml-auto space-x-0.5 sm:space-x-2">
+            <!-- <languages></languages> -->
+            <!-- <fuse-fullscreen class="hidden md:block"></fuse-fullscreen> -->
+            <!-- <search [appearance]="'bar'"></search> -->
+            <!-- <shortcuts></shortcuts> -->
+            <!-- <messages></messages> -->
+            <small *transloco="let t">{{ t("welcome_to_fracProp") }}</small>
+            <!-- <notifications></notifications> -->
+            <user></user>
+            <!-- <button
+                class="lg:hidden"
+                mat-icon-button
+                (click)="quickChat.toggle()"
+            >
+                <mat-icon [svgIcon]="'heroicons_outline:chat-alt-2'"></mat-icon>
+            </button> -->
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="flex flex-col flex-auto">
+        <!-- *ngIf="true" hack is required here for router-outlet to work correctly.
+             Otherwise, layout changes won't be registered and the view won't be updated! -->
+        <router-outlet *ngIf="true"></router-outlet>
+    </div>
+
+    <!-- Footer -->
+    <div
+        class="dark bg-gray-900 relative flex flex-0 items-center justify-start w-full h-14 px-4 md:px-6 z-49 border-t bg-card dark:bg-transparent print:hidden"
+    >
+        <span *transloco="let t" class="font-medium text-secondary"
+            >{{ t("fracProp") }} &copy; {{ currentYear }}</span
+        >
+    </div>
+</div>
+
+<!-- Quick chat -->
+<!-- <quick-chat #quickChat="quickChat"></quick-chat> -->

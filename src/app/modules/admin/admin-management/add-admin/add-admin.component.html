@@ -1,0 +1,255 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10">
+        <div class="max-w-5xl m-auto" *transloco="let t">
+            <!-- Sectioned form with dividers -->
+            <div>
+                <h2 class="text-3xl font-semibold tracking-tight leading-8">
+                    {{ t("add_admin") }}
+                </h2>
+            </div>
+
+            <form
+                class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden"
+                [formGroup]="form"
+                (submit)="submit()"
+            >
+                <p
+                    class="text-xl font-bold tracking-tight leading-6 truncate text-color-blue mb-2"
+                >
+                    {{ t("basic_information") }}
+                </p>
+                <div
+                    class="grid sm:grid-cols-3 md:grid-cols-3 gap-4 w-full min-w-0"
+                    *ngIf="!isQuery"
+                >
+                  
+                    <div
+                        class="flex"
+                        *ngIf="
+                            form?.value?.adminTypeId == 5 ||
+                            form?.value?.adminTypeId == 6
+                        "
+                    >
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto"
+                        >
+                            <mat-label class="text-header"
+                                >{{ t("region")
+                                }}<span class="text-warn">*</span></mat-label
+                            >
+                            <mat-select
+                                placeholder="{{ t('select_region') }}"
+                                [formControlName]="'region_id'"
+                                (selectionChange)="getStatesList()"
+                            >
+                                <mat-option
+                                    *ngFor="let d of regions$"
+                                    [value]="d?.region_id"
+                                    >{{ d?.region_name || "" }}</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div
+                        class="flex flex-col gt-xs:flex-row"
+                        *ngIf="
+                            form?.value?.adminTypeId == 5 ||
+                            form?.value?.adminTypeId == 6
+                        "
+                    >
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto"
+                        >
+                            <mat-label class="text-header"
+                                >{{ t("state")
+                                }}<span class="text-warn">*</span></mat-label
+                            >
+                            <mat-select
+                                placeholder="{{ t('select_state') }}"
+                                [formControlName]="'state_id'"
+                                (selectionChange)="getDistrictsList()"
+                                *ngIf="form?.value?.adminTypeId == 6"
+                            >
+                                <mat-option
+                                    *ngFor="let d of states$"
+                                    [value]="d?.state_id"
+                                    >{{ d?.state_name || "" }}</mat-option
+                                >
+                            </mat-select>
+                            <mat-select
+                                placeholder="{{ t('select_state') }}"
+                                *ngIf="form?.value?.adminTypeId == 5"
+                                [formControlName]="'state_id'"
+                                multiple
+                            >
+                                <mat-option
+                                    *ngFor="let d of states$"
+                                    [value]="d?.state_id"
+                                    >{{ d?.state_name || "" }}</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex" *ngIf="form?.value?.adminTypeId == 6">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto"
+                        >
+                            <mat-label class="text-header"
+                                >{{ t("district")
+                                }}<span class="text-warn">*</span></mat-label
+                            >
+                            <mat-select
+                                placeholder="{{ t('select_district') }}"
+                                [formControlName]="'district_id'"
+                                multiple
+                            >
+                                <mat-option
+                                    *ngFor="let d of districts$"
+                                    [value]="d?.distirict_id"
+                                    >{{ d?.distirict_name || "" }}</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                        >
+                            <mat-label class="text-header"
+                                >{{ t("first_name")
+                                }}<span class="text-warn">*</span></mat-label
+                            >
+                            <input
+                                matInput
+                                [formControlName]="'first_name'"
+                                placeholder="{{ t('enter_first_name') }}"
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                        >
+                            <mat-label class="text-header"
+                                >{{ t("last_name")
+                                }}<span class="text-warn">*</span></mat-label
+                            >
+                            <input
+                                matInput
+                                [formControlName]="'last_name'"
+                                placeholder="{{ t('enter_last_name') }}"
+                            />
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div></div>
+
+                <mat-divider class="mt-6 mb-10"></mat-divider>
+
+                <p
+                    class="text-xl font-bold tracking-tight leading-6 truncate text-color-blue mb-2"
+                >
+                    {{ t("contact_details") }}
+                </p>
+                <div
+                    class="grid sm:grid-cols-3 md:grid-cols-3 gap-6 w-full min-w-0"
+                >
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                        >
+                            <mat-label class="text-header"
+                                >{{ t("email")
+                                }}<span class="text-warn">*</span></mat-label
+                            >
+                            <input
+                                matInput
+                                [formControlName]="'userEmail'"
+                                placeholder="{{ t('enter_email') }}"
+                            />
+                            <mat-error
+                                *ngIf="
+                                    !form.controls['userEmail'].hasError(
+                                        'required'
+                                    ) &&
+                                    form.controls['userEmail'].hasError(
+                                        'pattern'
+                                    )
+                                "
+                            >
+                                {{ t("invalid_email") }}(valid e.g.
+                                example@gmail.com)
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                        >
+                            <mat-label class="text-header"
+                                >{{ t("phone_number")
+                                }}<span class="text-warn">*</span></mat-label
+                            >
+                            <input
+                                matInput
+                                [formControlName]="'phone_number'"
+                                placeholder="{{ t('enter_phone_no') }}"
+                            />
+                            <mat-error
+                                *ngIf="
+                                    !form.controls['phone_number'].hasError(
+                                        'required'
+                                    ) &&
+                                    form.controls['phone_number'].hasError(
+                                        'pattern'
+                                    )
+                                "
+                            >
+                                {{ t("phone_no_must") }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <mat-divider class="mt-6 mb-10"></mat-divider>
+
+                <p
+                    class="text-xl font-bold tracking-tight leading-6 truncate text-color-blue mb-2"
+                >
+                    {{ t("assign_roles") }}
+                </p>
+                <div
+                    class="grid sm:grid-cols-3 md:grid-cols-3 gap-6 w-full min-w-0"
+                ></div>
+
+                <div
+                    class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700"
+                >
+                    <button routerLink="/admins/list" mat-button>
+                        {{ t("cancel") }}
+                    </button>
+                    <button
+                        class="px-6 ml-3 bg-theme"
+                        mat-flat-button
+                        [color]="'primary'"
+                        [disabled]="!this.form.valid"
+                    >
+                        <span *ngIf="!loading"> {{ t("add") }} </span>
+                        <mat-progress-spinner
+                            *ngIf="loading"
+                            [diameter]="24"
+                            [mode]="'indeterminate'"
+                        ></mat-progress-spinner>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

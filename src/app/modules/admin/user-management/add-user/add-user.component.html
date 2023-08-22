@@ -1,0 +1,820 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-2">
+        <div class="px-3 m-auto" *transloco="let t">
+            <!-- Sectioned form with dividers -->
+            <div class="prose prose-sm max-w-3xl">
+                <h2 class="text-4xl font-semibold tracking-tight leading-8">
+                    {{ t("add_user") }}
+                </h2>
+            </div>
+
+            <form
+                class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden"
+                [formGroup]="form"
+                (submit)="submit()"
+            >
+                <p
+                    class="text-2xl font-bold tracking-tight leading-6 truncate text-color-blue mb-2"
+                >
+                    {{ t("basic_information") }}
+                </p>
+                <div
+                    class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0 pt-2 pb-2"
+                    *ngIf="form.value.institutionTypeId"
+                >
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-radio-group
+                            class="flex items-center"
+                            [color]="'primary'"
+                            [value]="'doctor'"
+                            [formControlName]="'userType'"
+                            [disabled]="form.value.institutionTypeId != 2"
+                        >
+                            <!-- <mat-label class="text-header font-bold"
+                                >{{ t("Type")
+                                }}<span class="text-warn">*</span></mat-label
+                            > -->
+                            <mat-radio-button
+                                class="mb-2 mr-5"
+                                [value]="'doctor'"
+                            >
+                                {{ t("doctor") }}
+                            </mat-radio-button>
+                            <mat-radio-button class="mb-2 mr-5" [value]="'cho'">
+                                {{ t("cho") }}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+                <div
+                    class="grid sm:grid-cols-3 md:grid-cols-3 gap-6 w-full pb-2 min-w-0"
+                >
+                    <div class="flex">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >{{ t("facility_type_add")
+                                }}<span class="text-warn">*</span></mat-label
+                            >
+
+                            <mat-select
+                                [formControlName]="'institutionTypeId'"
+                                placeholder="{{ t('select_facility_type') }}"
+                                (selectionChange)="
+                                    getSubFacilityTypesList();
+                                    getFacilities();
+                                    setRoles();
+                                    form.get('institutionSubTypeId').reset();
+                                    form.get('institutionId').reset()
+                                "
+                                [disabled]="query?.id"
+                            >
+                                <mat-option
+                                    *ngFor="let d of facilityTypes$"
+                                    [value]="d?.institutionTypeId"
+                                    >{{ d?.typeName || "" }}</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div
+                        class="flex"
+                        *ngIf="form?.controls['institutionTypeId']"
+                    >
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >{{ t("sub_facility_type")
+                                }}<span class="text-warn">*</span></mat-label
+                            >
+                            <mat-select
+                                [formControlName]="'institutionSubTypeId'"
+                                placeholder="{{
+                                    t('select_sub_facility_type')
+                                }}"
+                                (selectionChange)="
+                                    getFacilities();
+                                    form.get('institutionId').reset()
+                                "
+                                [disabled]="query?.id"
+                            >
+                                <mat-option
+                                    *ngFor="let d of subFacilityTypes$"
+                                    [value]="d?.institutionTypeId"
+                                    >{{ d?.typeName || "" }}</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                            *ngIf="
+                                form?.value?.institutionSubTypeId === 50 ||
+                                form?.value?.institutionSubTypeId === 58
+                            "
+                        >
+                            <mat-label class="text-header font-bold"
+                                ><span class="text-warn"></span
+                            ></mat-label>
+                            <input
+                                matInput
+                                placeholder="Enter Facility sub-type"
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >{{ t("facility_name")
+                                }}<span class="text-warn">*</span></mat-label
+                            >
+                            <mat-select
+                                [formControlName]="'institutionId'"
+                                placeholder="{{ t('select_facility_name') }}"
+                                [disabled]="query?.id"
+                            >
+                                <mat-option
+                                    *ngFor="let d of facilityNames$"
+                                    [value]="d?.institutionId"
+                                    >{{ d?.name || "" }}</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div
+                    class="grid sm:grid-cols-3 md:grid-cols-3 gap-6 w-full min-w-0"
+                >
+                    <div class="w-full flex">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="w-1/3 mr-1"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >{{ t("first_name")
+                                }}<span class="text-warn">*</span></mat-label
+                            >
+                            <mat-select
+                                [formControlName]="'prefix'"
+                                placeholder="{{ t('prefix') }}"
+                            >
+                                <mat-option
+                                    *ngFor="let d of namePrefixes$"
+                                    [value]="d?.value"
+                                    >{{ d?.name || "" }}</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                        >
+                            <mat-label class="text-header font-bold">
+                                <span class="text-warn"></span
+                            ></mat-label>
+                            <input
+                                matInput
+                                [formControlName]="'firstName'"
+                                placeholder="{{ t('enter_first_name') }}"
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >{{ t("middle_name")
+                                }}<span class="text-warn"></span
+                            ></mat-label>
+                            <input
+                                matInput
+                                [formControlName]="'middleName'"
+                                placeholder="{{ t('enter_middle_name') }}"
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >{{ t("last_name")
+                                }}<span class="text-warn">*</span></mat-label
+                            >
+                            <input
+                                matInput
+                                [formControlName]="'lastName'"
+                                placeholder="{{ t('enter_last_name') }}"
+                            />
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div
+                    class="grid sm:grid-cols-3 md:grid-cols-3 gap-6 w-full min-w-0"
+                >
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >{{ t("date_of_birth")
+                                }}<span class="text-warn">*</span></mat-label
+                            >
+                            <input
+                                readonly
+                                matInput
+                                [matDatepicker]="dob"
+                                placeholder="mm/dd/yyyy"
+                                [formControlName]="'dob'"
+                            />
+                            <mat-datepicker-toggle
+                                matSuffix
+                                [for]="dob"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #dob> </mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >{{ t("login_name")
+                                }}<span class="text-warn">*</span></mat-label
+                            >
+                            <input
+                                matInput
+                                [formControlName]="'userName'"
+                                placeholder="{{ t('enter_login_name') }}"
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >{{ t("gender")
+                                }}<span class="text-warn">*</span></mat-label
+                            >
+                            <mat-select
+                                [formControlName]="'genderId'"
+                                placeholder="{{ t('select_gender') }}"
+                            >
+                                <mat-option
+                                    *ngFor="let d of gender$"
+                                    [value]="d?.genderId"
+                                    >{{ d?.genderName || "" }}</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <mat-divider class="mt-5 mb-5"></mat-divider>
+
+                <p
+                    class="text-xl font-bold tracking-tight leading-6 truncate text-color-blue mb-2"
+                >
+                    {{ t("contact_details") }}
+                </p>
+                <div
+                    class="grid sm:grid-cols-3 md:grid-cols-3 gap-6 w-full min-w-0"
+                >
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >{{ t("email")
+                                }}<span class="text-warn">*</span></mat-label
+                            >
+                            <input
+                                matInput
+                                [formControlName]="'email'"
+                                placeholder="{{ t('enter_email') }}"
+                            />
+                            <mat-error
+                                *ngIf="
+                                    !form.controls['email'].hasError(
+                                        'required'
+                                    ) &&
+                                    form.controls['email'].hasError('pattern')
+                                "
+                            >
+                                {{ t("invalid_email") }}(valid e.g.
+                                example@gmail.com)
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >{{ t("phone_number")
+                                }}<span class="text-warn">*</span></mat-label
+                            >
+                            <input
+                                matInput
+                                [formControlName]="'mobile'"
+                                type="number"
+                                placeholder="{{ t('enter_phone_no') }}"
+                            />
+                            <mat-error
+                                *ngIf="
+                                    !form.controls['mobile'].hasError(
+                                        'required'
+                                    ) &&
+                                    form.controls['mobile'].hasError('pattern')
+                                "
+                            >
+                                {{ t("phone_no_must") }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <mat-divider class="mt-5 mb-5"></mat-divider>
+
+                <p
+                    class="text-xl font-bold tracking-tight leading-6 truncate text-color-blue mb-2"
+                >
+                    {{ t("professional_details") }}
+                </p>
+                <div
+                    class="grid sm:grid-cols-3 md:grid-cols-3 gap-6 w-full min-w-0"
+                >
+                    <div class="flex gt-xs:flex-row">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >{{ t("specialization")
+                                }}<span class="text-warn">*</span></mat-label
+                            >
+                            <mat-select
+                                [formControlName]="'specializationId'"
+                                placeholder="{{ t('select_specialization') }}"
+                                (selectionChange)="
+                                    specialityChange(
+                                        form.value.specializationId
+                                    )
+                                "
+                            >
+                                <mat-option
+                                    *ngFor="let d of speciality$"
+                                    [value]="d?.specialityId"
+                                    >{{ d?.specialityName || "" }}</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                            *ngIf="form?.value?.specializationId === 73"
+                        >
+                            <mat-label class="text-header font-bold"
+                                ><span class="text-warn"></span
+                            ></mat-label>
+                            <input
+                                matInput
+                                placeholder="Enter specialization"
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div class="flex gt-xs:flex-row">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >{{ t("qualification")
+                                }}<span class="text-warn">*</span></mat-label
+                            >
+                            <mat-select
+                                [formControlName]="'qualificationId'"
+                                placeholder="{{ t('select_qualification') }}"
+                            >
+                                <mat-option
+                                    *ngFor="let d of qualifications$"
+                                    [value]="d?.qualificationId"
+                                    >{{
+                                        d?.qualificationName || ""
+                                    }}</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                            *ngIf="form?.value?.qualificationId === 4"
+                        >
+                            <mat-label class="text-header font-bold"
+                                ><span class="text-warn"></span
+                            ></mat-label>
+                            <input matInput placeholder="Enter qualification" />
+                        </mat-form-field>
+                    </div>
+                </div>
+                <mat-divider class="mt-5 mb-5"></mat-divider>
+
+                <p
+                    class="text-xl font-bold tracking-tight leading-6 truncate text-color-blue mb-2"
+                >
+                    {{ t("availability_details") }}
+                </p>
+
+                <div
+                    class="grid sm:grid-cols-3 md:grid-cols-3 gap-6 w-full min-w-0"
+                >
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >{{ t("available_days")
+                                }}<span class="text-warn">*</span></mat-label
+                            >
+                            <mat-select
+                                placeholder="{{ t('select_available_days') }}"
+                                [formControlName]="'day'"
+                                multiple
+                            >
+                                <mat-option
+                                    *ngFor="let d of weekdays$"
+                                    checked
+                                    [value]="d?.value"
+                                    >{{ d?.name || "" }}</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="fuse-mat-textarea fuse-mat-no-subscript flex-auto"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >{{ t("available_time")
+                                }}<span class="text-warn">*</span></mat-label
+                            >
+                            <div>
+                                <input
+                                    [formControlName]="'slotFrom'"
+                                    matInput
+                                    [ngxTimepicker]="start"
+                                    placeholder="{{ t('select_start_time') }}"
+                                />
+                                <ngx-material-timepicker
+                                    style="z-index: 9999 !important"
+                                    #start
+                                ></ngx-material-timepicker>
+                            </div>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="fuse-mat-textarea fuse-mat-no-subscript flex-auto"
+                        >
+                            <mat-label class="text-header font-bold">
+                            </mat-label>
+
+                            <div>
+                                <input
+                                    [formControlName]="'slotTo'"
+                                    matInput
+                                    [ngxTimepicker]="end"
+                                    placeholder="{{ t('select_end_time') }}"
+                                />
+                                <ngx-material-timepicker
+                                    style="z-index: 9999 !important"
+                                    #end
+                                ></ngx-material-timepicker>
+                            </div>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <mat-divider class="mt-5 mb-5"></mat-divider>
+
+                <!-- ADDRESS DETAILS -->
+                <p
+                    class="text-xl font-bold tracking-tight leading-6 truncate text-color-blue mb-2"
+                >
+                    {{ t("address_details") }}
+                </p>
+                <div class="flex flex-col py-4 gt-xs:flex-row">
+                    <mat-radio-group
+                        class="flex items-center"
+                        [color]="'primary'"
+                        [formControlName]="'regionType'"
+                        (change)="resetOnChange(1)"
+                    >
+                        <!-- <mat-label class="text-header"
+                            >{{ t("Type")
+                            }}<span class="text-warn">*</span></mat-label
+                        > -->
+                        <mat-radio-button class="mb-2 mr-5" [value]="'Urban'">
+                            Urban
+                        </mat-radio-button>
+                        <mat-radio-button class="mb-2 mr-5" [value]="'Rural'">
+                            Rural
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div
+                    class="grid sm:grid-cols-3 md:grid-cols-3 gap-6 w-full min-w-0"
+                >
+                    <!-- <div class="flex flex-col gt-xs:flex-row">
+                   <mat-form-field
+                       [floatLabel]="'always'"
+                       class="flex-auto"
+                   >
+                       <mat-label class="text-header font-bold"
+                           >{{ t("state")
+                           }}<span class="text-warn">*</span></mat-label
+                       >
+                       <mat-select
+                           placeholder="{{ t('select_state') }}"
+                           [formControlName]="'state_id'"
+                           (selectionChange)="getDistrictsList()"
+                       >
+                           <mat-option
+                               *ngFor="let d of states$"
+                               [value]="d?.state_id"
+                               >{{ d?.state_name || "" }}</mat-option
+                           >
+                       </mat-select>
+                   </mat-form-field>
+               </div> -->
+                    <div class="flex">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >{{ t("district")
+                                }}<span class="text-warn">*</span></mat-label
+                            >
+                            <mat-select
+                                placeholder="{{ t('select_district') }}"
+                                [formControlName]="'districtId'"
+                                (selectionChange)="
+                                    getCities();
+                                    getBlocksList();
+                                    resetOnChange(2)
+                                "
+                                [disabled]="_authService.user.districtId != 0"
+                            >
+                                <mat-option
+                                    *ngFor="let d of districts$"
+                                    [value]="d?.districtId"
+                                    >{{ d?.districtName || "" }}</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div
+                        class="flex"
+                        *ngIf="form?.value?.regionType !== 'Rural'"
+                    >
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >{{ t("city") }}<span class="text-warn"></span
+                            ></mat-label>
+                            <mat-select
+                                placeholder="{{ t('select_city_village') }}"
+                                [formControlName]="'cityId'"
+                                (selectionChange)="
+                                    getMunicipalityList(); resetOnChange(3)
+                                "
+                            >
+                                <mat-option
+                                    *ngFor="let d of cities$"
+                                    [value]="d?.cityId"
+                                    >{{ d?.cityName || "" }}</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div
+                        class="flex"
+                        *ngIf="form?.value?.regionType === 'Urban'"
+                    >
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >Municipality<span class="text-warn"></span
+                            ></mat-label>
+                            <mat-select
+                                placeholder="Select municipality"
+                                [formControlName]="'municipalityId'"
+                                (selectionChange)="
+                                    getWardList(); resetOnChange(4)
+                                "
+                            >
+                                <mat-option
+                                    *ngFor="let d of municipalityList$"
+                                    [value]="d?.municipalityId"
+                                    >{{ d?.municipalityName || "" }}</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div
+                        class="flex"
+                        *ngIf="form?.value?.regionType === 'Urban'"
+                    >
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >Ward<span class="text-warn"></span
+                            ></mat-label>
+                            <mat-select
+                                placeholder="Select Ward"
+                                [formControlName]="'wardId'"
+                            >
+                                <mat-option
+                                    *ngFor="let d of wardList$"
+                                    [value]="d?.wardId"
+                                    >{{ d?.wardName || "" }}</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div
+                        class="flex"
+                        *ngIf="form?.value?.regionType === 'Rural'"
+                    >
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >{{ t("block") }}<span class="text-warn"></span
+                            ></mat-label>
+                            <mat-select
+                                placeholder="{{ t('select_block') }}"
+                                [formControlName]="'blockId'"
+                                (selectionChange)="
+                                    resetOnChange(5); getGramPanchayatList()
+                                "
+                            >
+                                <mat-option
+                                    *ngFor="let d of blocksList$"
+                                    [value]="d?.blockId"
+                                    >{{ d?.blockName || "" }}</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div
+                        class="flex"
+                        *ngIf="form?.value?.regionType === 'Rural'"
+                    >
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >Gram Panchayat<span class="text-warn"></span
+                            ></mat-label>
+                            <mat-select
+                                placeholder="Select Gram Panchayat"
+                                [formControlName]="'grampanchayatId'"
+                            >
+                                <mat-option
+                                    *ngFor="let d of gramPanchayatList$"
+                                    [value]="d?.grampanchayatId"
+                                    >{{
+                                        d?.grampanchayatName || ""
+                                    }}</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="flex">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >{{ t("address_line")
+                                }}<span class="text-warn">*</span></mat-label
+                            >
+                            <input
+                                matInput
+                                [formControlName]="'addressLine1'"
+                                placeholder="{{ t('enter_address_line') }}"
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                        >
+                            <mat-label class="text-header font-bold">{{
+                                t("address_two")
+                            }}</mat-label>
+                            <input
+                                matInput
+                                [formControlName]="'addressLine2'"
+                                placeholder="{{ t('enter_address_two') }}"
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >{{ t("pin_code")
+                                }}<span class="text-warn">*</span></mat-label
+                            >
+                            <input
+                                matInput
+                                [formControlName]="'pinCode'"
+                                placeholder="{{ t('enter_pin_code') }}"
+                            />
+                        </mat-form-field>
+                    </div>
+                </div>
+                <mat-divider class="mt-5 mb-5"></mat-divider>
+                <p
+                    class="text-xl font-bold tracking-tight leading-6 truncate text-color-blue mb-2"
+                >
+                    {{ t("assign-roles") }}<span class="text-warn">*</span>
+                </p>
+                <div class="flex flex-wrap gap-6 w-full min-w-0">
+                    <div
+                        formArrayName="userMenu"
+                        *ngFor="let order of userRoles.controls; let i = index"
+                    >
+                        <mat-checkbox
+                            class="flex flex-wrap items-center"
+                            [color]="'primary'"
+                            class="mr-4 text-black"
+                            [formControlName]="i"
+                        >
+                            {{ userRoleList$[i].subMenuName }}
+                        </mat-checkbox>
+                    </div>
+                </div>
+                <mat-divider class="mt-5 mb-5"></mat-divider>
+
+                <div
+                    class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700"
+                >
+                    <button routerLink="/users/list" mat-button>
+                        {{ t("cancel") }}
+                    </button>
+                    <button
+                        class="px-6 ml-3 bg-theme"
+                        mat-flat-button
+                        [color]="'primary'"
+                    >
+                        <span> {{ t("save") }} </span>
+                        <mat-progress-spinner
+                            *ngIf="loading"
+                            [diameter]="24"
+                            [mode]="'indeterminate'"
+                        ></mat-progress-spinner>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

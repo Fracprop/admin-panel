@@ -1,0 +1,199 @@
+<div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6"
+*transloco="let t"
+>
+    <!-- Header -->
+    <div
+        class="
+            flex flex-0
+            items-center
+            justify-between
+            h-16
+            pr-3
+            sm:pr-5
+            pl-6
+            sm:pl-8
+            bg-theme
+            text-on-primary
+        "
+    >
+        <div class="text-lg font-medium">{{ getHeaderText() }}</div>
+        <button mat-icon-button (click)="close()" [tabIndex]="-1">
+            <mat-icon
+                class="text-current"
+                [svgIcon]="'heroicons_outline:x'"
+                (click)="close()"
+            ></mat-icon>
+        </button>
+    </div>
+
+    <!-- Compose form -->
+    <form
+        class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"
+        [formGroup]="composeForm"
+        (submit)="send()"
+    >
+        <!-- To -->
+        <mat-form-field>
+            <mat-label>{{t('file_name')}}</mat-label>
+            <input matInput [formControlName]="'name'" />
+        </mat-form-field>
+
+        <!-- Subject -->
+        <!-- New board -->
+        <div
+            draggable="true"
+            *ngIf="!returnObj?.upload_file_path"
+            ngClass="{{ dragAreaClass }}"
+            class="
+                flex flex-col
+                items-center
+                justify-center
+                w-full
+                h-50
+                rounded-lg
+                cursor-pointer
+                border-2 border-gray-300 border-dashed
+                hover:bg-hover
+                transition-colors
+                duration-150
+                ease-in-out
+            "
+        >
+            {{t('drag_a_file_or')}}<a
+                href="javascript:void(0)"
+                class="text-theme"
+                style="text-decoration: underline"
+                (click)="file.click()"
+            >
+                {{t('browse')}}</a
+            >
+            <input
+                type="file"
+                #file
+                style="display: none"
+                (change)="onFileChange($event)"
+                id="uploadDoc"
+            />
+        </div>
+        <div
+            class="
+                flex flex-col
+                items-center
+                justify-center
+                w-full
+                h-50
+                rounded-lg
+            "
+            *ngIf="returnObj?.upload_file_path"
+        >
+            <ng-container>
+                <ng-container>
+                    <div
+                        class="
+                            relative
+                            w-40
+                            h-40
+                            m-2
+                            p-4
+                            shadow
+                            rounded-2xl
+                            bg-card
+                        "
+                    >
+                        <a
+                            class="
+                                absolute
+                                z-20
+                                top-1.5
+                                right-1.5
+                                w-8
+                                h-8
+                                min-h-8
+                            "
+                            (click)="
+                                $event.preventDefault(); removeUploadedFile()
+                            "
+                            mat-icon-button
+                        >
+                            <mat-icon
+                                class="icon-size-5"
+                                [svgIcon]="'heroicons_solid:x'"
+                            ></mat-icon>
+                        </a>
+                        <a
+                            class="
+                                z-10
+                                absolute
+                                inset-0
+                                flex flex-col
+                                p-4
+                                cursor-pointer
+                            "
+                        >
+                            <div class="aspect-w-9 aspect-h-6">
+                                <div class="flex items-center justify-center">
+                                    <!-- Icon -->
+                                    <mat-icon
+                                        class="icon-size-14 text-hint"
+                                        [svgIcon]="'heroicons_solid:document'"
+                                    ></mat-icon>
+                                </div>
+                            </div>
+                            <div
+                                class="
+                                    flex flex-col flex-auto
+                                    justify-center
+                                    text-center text-sm
+                                    font-medium
+                                "
+                            >
+                                <div class="truncate">
+                                    {{ composeForm.value.name }}
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </div>
+
+        <!-- Actions -->
+        <div
+            class="
+                flex flex-col
+                sm:flex-row sm:items-center
+                justify-between
+                mt-4
+                sm:mt-6
+            "
+        >
+            <div class="-ml-2"></div>
+
+            <div class="flex items-center mt-4 sm:mt-0">
+                <!-- Discard -->
+                <button
+                    class="ml-auto sm:ml-0"
+                    mat-stroked-button
+                    (click)="close()"
+                    type="button"
+                >
+                    {{t('cancel')}}
+                </button>
+                <!-- Send -->
+                <button
+                    class="order-first sm:order-last ml-2 bg-theme"
+                    mat-flat-button
+                    [color]="'primary'"
+                    type="submit"
+                >
+                    {{t('submit')}} &nbsp;
+                    <mat-progress-spinner
+                        *ngIf="loading"
+                        [diameter]="24"
+                        [mode]="'indeterminate'"
+                    ></mat-progress-spinner>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,100 @@
+<div
+    *transloco="let t"
+    class="flex flex-col max-w-240 md:min-w-200 max-h-screen -m-6"
+>
+    <!-- Header -->
+    <div
+        class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-theme text-on-primary"
+    >
+        <div class="text-lg font-medium">{{ t("mapped_facilities") }}</div>
+        <button mat-icon-button (click)="close()" [tabIndex]="-1">
+            <mat-icon
+                class="text-current"
+                [svgIcon]="'heroicons_outline:x'"
+                (click)="close()"
+            ></mat-icon>
+        </button>
+    </div>
+
+    <!-- Content -->
+    <div
+        class="relative flex flex-col flex-auto max-h-125 divide-y overflow-y-auto bg-card"
+        #scrollMe
+    >
+        <!-- Messages -->
+        <ng-container>
+            <div class="text-2xl pl-3 mt-2 mb-2 font-extrabold tracking-tight">
+                <button
+                    *ngIf="clickHistory.length > 1"
+                    mat-icon-button
+                    class="bg-theme mx-3"
+                    (click)="backTrackFacility()"
+                >
+                    <mat-icon
+                        [svgIcon]="'mat_outline:arrow_back'"
+                        class="text-white"
+                    ></mat-icon>
+                </button>
+                {{ t("facility") }} - {{ data?.type?.Facility_name }}
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <label>{{ t("created_date") }}</label>
+                        </th>
+                        <th>
+                            <label>{{ t("name_id") }}</label>
+                        </th>
+                        <th>
+                            <label> {{ t("type") }} </label>
+                        </th>
+                        <th>
+                            <label> {{ t("contact") }} </label>
+                        </th>
+                        <th>
+                            <label> {{ t("actions") }} </label>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let f of facilities">
+                        <td data-label="Date">
+                            {{ f?.CreatedOn | date: "mediumDate" }}
+                        </td>
+                        <td data-label="Name">
+                            {{ f?.Facility_name }}<br />
+                            {{ f?.Facility_National_id }}
+                        </td>
+                        <td>
+                            {{ f?.Facility_type_name }}
+                        </td>
+                        <td>
+                            {{ f?.primary_email }}<br />
+                            {{ f?.primary_number }}
+                        </td>
+                        <td>
+                            <button
+                                class="min-w-10 min-h-7 h-7 px-2 leading-6 ml-1"
+                                (click)="viewMappedFacilities(f)"
+                                #tooltip="matTooltip"
+                                matTooltip="View Child Facilities"
+                            >
+                                <mat-icon
+                                    class="icon-size-5"
+                                    [svgIcon]="'heroicons_solid:eye'"
+                                ></mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div
+                class="text-center p-5 text-primary bg-white"
+                *ngIf="!facilities.length"
+            >
+                {{ t("no_facilities_found") }}
+            </div>
+        </ng-container>
+    </div>
+</div>

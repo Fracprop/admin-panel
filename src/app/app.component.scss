@@ -1,0 +1,73 @@
+:host {
+    display: flex;
+    flex: 1 1 auto;
+    width: 100%;
+    height: 100%;
+}
+
+:host ::ng-deep.ps > .ps__rail-y .ps__thumb-y {
+    background: white !important;
+}
+
+:host
+    ::ng-deep.mat-button-toggle-group
+    .mat-button-toggle.mat-button-toggle-checked
+    .mat-button-toggle-label-content {
+    color: #ffffff !important ;
+    background-color: #E2BC72 !important;
+}
+
+:host
+    ::ng-deep.mat-button-toggle-group
+    .mat-button-toggle
+    .mat-button-toggle-label-content {
+    color: #E2BC72 !important ;
+    background-color: transparent !important;
+    border: 1.5px solid #E2BC72 !important ;
+    border-radius: 21px !important;
+}
+
+:host ::ng-deep.mat-button-toggle-group .mat-button-toggle {
+    border-radius: 21px !important;
+    overflow: hidden;
+    border: none !important;
+    background: transparent;
+}
+
+:host ::ng-deep.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+    background-color: rgba(0, 165, 0, 1) !important;
+}
+:host ::ng-deep.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+    background-color: rgba(255, 255, 255, 1) !important;
+    height: 20px !important;
+    width: 20px !important;
+}
+:host ::ng-deep.mat-slide-toggle-bar {
+    width: 48px !important;
+    height: 28px !important;
+    border-radius: 16px !important;
+}
+
+:host ::ng-deep.mat-slide-toggle-thumb-container {
+    position: absolute;
+    z-index: 1;
+    width: 20px;
+    height: 20px;
+    top: 4px;
+    left: 4px;
+}
+
+:host ::ng-deep.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container {
+    top: 6px !important;
+    left: 4px !important;
+    height: 20px !important;
+    width: 20px !important;
+}
+
+:host ::ng-deep.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container {
+    transform: translate3d(19px, -2px, 0) !important;
+    top: 6px !important;
+    left: 4px !important;
+    height: 20px !important;
+    width: 20px !important;
+}

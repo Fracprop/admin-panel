@@ -1,0 +1,80 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-2">
+        <div class="px-3 m-auto" *transloco="let t">
+            <!-- Sectioned form with dividers -->
+            <div class="prose prose-sm max-w-3xl">
+                <h2 class="text-4xl font-semibold tracking-tight leading-8">
+                   Add Bank
+                </h2>
+            </div>
+
+            <form
+                class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden"
+                [formGroup]="form"
+                (submit)="submit()"
+            >
+            <div
+            class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0"
+        >
+            <div class="w-full flex">
+             
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-bold">
+                        Bank Name <span class="text-warn"></span
+                    ></mat-label>
+                    <input
+                        matInput
+                        [formControlName]="'name'"
+                        placeholder="Enter Bank Name"
+                    />
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-bold"
+                        >Country<span class="text-warn"></span
+                    ></mat-label>
+                    <input
+                        matInput
+                        [formControlName]="'country'"
+                        placeholder="Enter Country"
+                    />
+                </mat-form-field>
+            </div>
+          
+        </div>
+        <mat-divider class="mt-5 mb-5"></mat-divider>
+
+        <div
+            class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700"
+        >
+            <button routerLink="/users/list" mat-button>
+                Cancel
+            </button>
+            <button
+                class="px-6 ml-3 bg-theme"
+                mat-flat-button
+                [color]="'primary'"
+            >
+                <span> Save</span>
+                <mat-progress-spinner
+                    *ngIf="loading"
+                    [diameter]="24"
+                    [mode]="'indeterminate'"
+                ></mat-progress-spinner>
+            </button>
+        </div>
+
+               
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,278 @@
+<div
+    *transloco="let t"
+    class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent"
+>
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-4 px-6 md:px-4"
+    >
+        <!-- Loader -->
+
+        <div class="absolute inset-x-0 top-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+        <div class="flex items-start justify-between w-full">
+            <div>
+                <h2
+                    class="text-3xl font-bold tracking-tight leading-8 text-theme"
+                >
+                   User Management
+                   
+                </h2>
+            </div>
+
+            <div class="flex flex-col">
+                <div>
+                    <mat-button-toggle-group [value]="currentTab">
+                        <mat-button-toggle
+                            class="font-semibold mr-2"
+                            [value]="0"
+                            (click)="currentTab = 0; resetPagination()"
+                        >
+                            Individual</mat-button-toggle
+                        >
+                        <mat-button-toggle
+                            class="font-semibold mr-2"
+                            [value]="1"
+                            (click)="currentTab = 1; resetPagination()"
+                        >
+                            Business</mat-button-toggle
+                        >
+                       
+
+                       
+                    </mat-button-toggle-group>
+                </div>
+
+                <div
+                    class="text-xl font-bold tracking-tight leading-8 text-theme text-right pt-4"
+                >
+                    Total Count:
+                    {{ pagination.TotalCount || 0 }}
+                </div>
+            </div>
+        </div>
+    </div>
+   
+        <div class="mr-4 flex justify-end">
+            <!-- Add product button -->
+            <!-- <button
+                
+                routerLink="/users/add-user"
+                class="ml-4 bg-header rounded-lg"
+                mat-flat-button
+                type="button"
+                [matTooltip]="'Add User'"
+                [color]="'primary'"
+            >
+                <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                <span class="ml-2 mr-1">Add User</span>
+            </button> -->
+         
+          
+        </div>
+        <div class="flex justify-between items-center">
+            <div class="flex items-center justify-start w-full m-4">
+                <!-- Search -->
+                <!-- <mat-form-field
+                    class="fuse-mat-dense fuse-mat-no-subscript rounded-lg w-4/12 mr-2"
+                >
+                    <mat-icon
+                        class="icon-size-5"
+                        matPrefix
+                        [svgIcon]="'heroicons_solid:search'"
+                    ></mat-icon>
+                    <input
+                        matInput
+                        [formControlName]="'EnterSearch'"
+                        [autocomplete]="'off'"
+                        placeholder="{{ t('search_users') }}"
+                        (keyup.enter)="resetPagination()"
+                    />
+                </mat-form-field> -->
+
+                <!-- filters -->
+                <!-- <mat-form-field
+                    class="fuse-mat-dense fuse-mat-no-subscript rounded-lg w-3/12 mr-2"
+                >
+                    <mat-select
+                        [formControlName]="'Speciality'"
+                        placeholder="{{ t('select_specialization') }}"
+                        (selectionChange)="resetPagination()"
+                    >
+                        <mat-option
+                            *ngFor="let d of speciality$"
+                            [value]="d?.specialityId"
+                            >{{ d?.specialityName || "" }}</mat-option
+                        >
+                    </mat-select>
+                </mat-form-field> -->
+                <!-- District filter -->
+                <!-- <mat-form-field
+                    *ngIf="_authService.user.districtId === 0"
+                    class="fuse-mat-dense fuse-mat-no-subscript rounded-lg w-3/12 mr-2 ml-2"
+                    [floatLabel]="'always'"
+                >
+                    <mat-select
+                        placeholder="{{ t('select_district') }}"
+                        [formControlName]="'DistrictID'"
+                        (selectionChange)="resetPagination()"
+                    >
+                        <mat-option
+                            *ngFor="let d of districts$"
+                            [value]="d?.districtId"
+                            >{{ d?.districtName || "" }}</mat-option
+                        >
+                    </mat-select>
+                </mat-form-field> -->
+                <!-- <div class="w-2/12">
+                    <button
+                        mat-icon-button
+                        class="bg-theme"
+                        [matTooltip]="'Reset Filters'"
+                        type="button"
+                        (click)="resetFilter()"
+                    >
+                        <mat-icon
+                            [svgIcon]="'heroicons_outline:refresh'"
+                            class="text-white"
+                        ></mat-icon>
+                    </button>
+                </div> -->
+            </div>
+        </div>
+  
+
+    <!-- Main -->
+    <div class="flex flex-auto overflow-hidden">
+        <!-- Userslist -->
+        <div
+            class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto"
+        >
+            <ng-container *ngIf="users$.length; else noAdmin">
+                <ng-container>
+                    <div class="grid table_tr_bg">
+                        <!-- Header -->
+                        <div
+                            class="admin-grid z-10 text-lg sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold"
+                            style="background-color: #ecf1f2"
+                        >
+                            <div class="hidden md:block">S No.</div>
+                            <div class="hidden md:block">{{ t("name") }}</div>
+                            <div class="hidden md:block">
+                                {{ t("Facility_type_Name") }}
+                            </div>
+                            <!-- <div class="hidden md:block">
+                            {{ t("gender") }}
+                        </div> -->
+                            <div class="hidden md:block">
+                                {{ t("User Name") }}
+                            </div>
+                            <div class="hidden md:block">
+                                {{ t("mobile_mail") }}
+                            </div>
+                            <div class="hidden md:block">
+                                {{ t("district") }}
+                            </div>
+                            <div class="hidden md:block">
+                                {{ t("actions") }}
+                            </div>
+                        </div>
+                        <!-- Rows -->
+                        <ng-container>
+                            <ng-container
+                                *ngFor="let user of users$; let i = index"
+                            >
+                                <div
+                                    class="admin-grid font-medium grid items-center gap-4 py-3 px-6 md:px-8 border-b-2 border-gray-300"
+                                >
+                                    <div>
+                                        {{
+                                            pagination?.PageNo *
+                                                pagination?.LimitRecords +
+                                                i +
+                                                1
+                                        }}
+                                    </div>
+                                    <!-- Name -->
+                                    <div class="">
+                                        {{ user?.name || "-" }}<br />
+                                        {{ user?.specialityName }}
+                                    </div>
+
+                                    <!-- ID -->
+                                    <div class="">
+                                        {{ user?.institutiontypeName }}<br />
+                                        {{ user?.institutionName }}
+                                    </div>
+
+                                    <!-- Gender -->
+                                    <div class="">
+                                        {{ user?.userName || "-" }}
+                                    </div>
+
+                                    <!-- Phone Number -->
+                                    <div class="">
+                                        {{ user?.mobile }} <br />
+                                        {{ user?.email }}
+                                    </div>
+                                    <!-- district -->
+                                    <div class="">
+                                        {{ user?.districtName || "-" }}
+                                    </div>
+
+                                    <div class="flex justify-start">
+                                        <!-- Block button -->
+                                        <!-- <mat-slide-toggle
+                                            class="min-w-10 min-h-7 h-7 px-2 leading-6 ml-1"
+                                            [color]="'warn'"
+                                            matTooltip="Block/Unblock User"
+                                            [checked]="user?.isActive"
+                                            (change)="blockUser(user?.id)"
+                                        ></mat-slide-toggle> -->
+
+                                        <!-- Edit button -->
+                                        <button
+                                            routerLink="/users/edit-user/{{
+                                                user?.id
+                                            }}"
+                                            class="min-w-10 min-h-7 h-7 px-2 ml-1 bg-green-600 rounded-2xl"
+                                            matTooltip="Edit"
+                                        >
+                                            <mat-icon
+                                                class="text-white p-0.5"
+                                                svgIcon="mat_outline:edit"
+                                            ></mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+
+                    <mat-paginator
+                        *ngIf="users$.length"
+                        class="sm:absolute sm:inset-x-0 sm:bottom-0 border-b sm:border-t sm:border-b-0 z-10 bg-gray-50 dark:bg-transparent justify-center text-header"
+                        [ngClass]="{ 'pointer-events-none': isLoading }"
+                        [length]="pagination.TotalCount"
+                        [pageIndex]="pagination.PageNo"
+                        [pageSize]="pagination.LimitRecords"
+                        [pageSizeOptions]="[5, 10, 25, 100]"
+                        (page)="pageChanged($event)"
+                        [showFirstLastButtons]="true"
+                    ></mat-paginator>
+                </ng-container>
+            </ng-container>
+
+            <ng-template #noAdmin>
+                <div
+                    class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center"
+                >
+                    {{
+                        isLoading ? "Fetching Users": "There are no users!"
+                    }}
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

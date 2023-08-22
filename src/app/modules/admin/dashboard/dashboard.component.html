@@ -1,0 +1,44 @@
+<!-- <div
+    class="sm:inset-0 flex flex-col flex-auto min-w-0 sm: bg-card dark:bg-transparent"
+    style="background-color: rgb(241 245 249) !important"
+>
+
+    <app-filters
+        (dashboardData)="dashboardDataUpdated($event)"
+        (facilityData)="facilityDataUpdated($event)"
+        (consultationData)="consultationDataUpdated($event)"
+        (genderData)="genderDataUpdated($event)"
+        (consultationPerData)="consultationPerDataUpdated($event)"
+        (districtId)="addDistrict($event)"
+        (districtData)="districtDataUpdated($event)"
+        (resetData)="resetDataUpdate($event)"
+    ></app-filters>
+
+    <div>
+ 
+
+        <app-collective-statistics
+            [districtData]="districtData"
+            [districtId]="districtID"
+            [resetData]="resetData"
+            [dashboardData]="dashboardData"
+            [genderData]="genderData"
+            [facilityData]="facilityData"
+            [consultationData]="consultationData"
+            [consultationPerData]="consultationPerData"
+        ></app-collective-statistics>
+    </div>
+</div> -->
+
+<div class="flex flex-col flex-auto min-w-0 bg-white">
+    <div *transloco="let t" class="w-full m-auto mt-3">
+        <div class="absolute inset-x-0 top-0"></div>
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight pl-8">
+           
+            {{ t("dashboard") }}
+        </div>
+        <!-- Actions -->
+     
+    </div>
+</div>

@@ -1,0 +1,186 @@
+<form [formGroup]="form">
+    <div
+        *transloco="let t"
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-4 px-6 md:px-8 border-b"
+        style="background-color: rgb(255 255 255) !important"
+    >
+        <!-- Loader -->
+        <div class="absolute inset-x-0 top-0"></div>
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">
+            {{ t("dashboard") }}
+        </div>
+        <!-- Actions -->
+        <div
+            class="flex flex-wrap sm:flex flex-col sm:flex-row flex-0 items-center mt-6 sm:mt-0 sm:ml-4"
+        >
+            <!-- State filter -->
+            <!-- <mat-form-field
+                *ngIf="
+                    userDetails?.adminTypeId == 1 ||
+                    userDetails?.adminTypeId == 4 ||
+                    userDetails?.adminTypeId == 5 ||
+                    userDetails?.adminTypeId == 6
+                "
+                class="fuse-mat-dense fuse-mat-no-subscript fuse-mat-rounded min-w-50 mr-2 ml-2"
+                [floatLabel]="'always'"
+            >
+                <mat-select
+                    [formControlName]="'State_Id'"
+                    placeholder="{{ t('select_state') }}"
+                    *ngIf="
+                        userDetails?.adminTypeId == 1 ||
+                        userDetails?.adminTypeId == 4
+                    "
+                    (selectionChange)="submit('state')"
+                    multiple
+                >
+                    <mat-option
+                        *ngFor="let d of states$"
+                        [value]="d?.state_id"
+                        >{{ d?.state_name || "" }}</mat-option
+                    >
+                </mat-select>
+
+                <mat-select
+                    [formControlName]="'State_Id'"
+                    placeholder="{{ t('select_state') }}"
+                    *ngIf="userDetails?.adminTypeId == 5"
+                    (selectionChange)="submit('state')"
+                    multiple
+                >
+                    <mat-option
+                        *ngFor="let d of states$"
+                        [value]="d?.state_ID"
+                        >{{ d?.state_Name || "" }}</mat-option
+                    >
+                </mat-select>
+                <mat-select
+                    [formControlName]="'State_Id'"
+                    placeholder="{{ t('select_state') }}"
+                    *ngIf="userDetails?.adminTypeId == 6"
+                    (selectionChange)="submit('state'); getDistrictsList()"
+                    multiple
+                >
+                    <mat-option
+                        *ngFor="let d of states$"
+                        [value]="d?.state_ID"
+                        >{{ d?.state_Name || "" }}</mat-option
+                    >
+                </mat-select>
+            </mat-form-field> -->
+            <!-- State filter ends here -->
+
+            <!-- District filter -->
+            <mat-form-field
+                class="fuse-mat-dense fuse-mat-no-subscript min-w-50 mr-2 ml-2"
+                [floatLabel]="'always'"
+            >
+                <mat-select
+                    placeholder="{{ t('select_district') }}"
+                    [formControlName]="'District_Id'"
+                    (selectionChange)="submit()"
+                >
+                    <mat-option
+                        *ngFor="let d of districts$"
+                        [value]="d?.districtId"
+                        >{{ d?.districtName || "" }}</mat-option
+                    >
+                </mat-select>
+            </mat-form-field>
+            <!-- District filter ends here -->
+
+            <!-- Facility type filter -->
+            <!-- <mat-form-field
+                *ngIf="
+                    userDetails?.adminTypeId == 1 ||
+                    userDetails?.adminTypeId == 4 ||
+                    userDetails?.adminTypeId == 5 ||
+                    userDetails?.adminTypeId == 6
+                "
+                class="fuse-mat-dense fuse-mat-no-subscript fuse-mat-rounded min-w-50 mr-2 ml-2"
+                [floatLabel]="'always'"
+            >
+                <mat-select
+                    [formControlName]="'Facility_Type_Id'"
+                    placeholder="{{ t('select_facility_type') }}"
+                    (selectionChange)="submit('type')"
+                >
+                    <mat-option
+                        *ngFor="let d of facilityTypes$"
+                        [value]="d?.Facility_type_id"
+                        >{{ d?.Facility_type_name || "" }}</mat-option
+                    >
+                </mat-select>
+            </mat-form-field> -->
+            <!-- Facility type filter ends here -->
+
+            <!-- Facility filter -->
+            <!-- <mat-form-field
+                *ngIf="
+                    userDetails?.adminTypeId == 1 ||
+                    userDetails?.adminTypeId == 4 ||
+                    userDetails?.adminTypeId == 5 ||
+                    userDetails?.adminTypeId == 6
+                "
+                class="fuse-mat-dense fuse-mat-no-subscript fuse-mat-rounded min-w-50 mr-2 ml-2"
+                [floatLabel]="'always'"
+            >
+                <mat-select
+                    [formControlName]="'Facility_Id'"
+                    placeholder="{{ t('select_facility') }}"
+                    (selectionChange)="submit('facility')"
+                    multiple
+                >
+                    <mat-option
+                        *ngFor="let d of facilities$"
+                        [value]="d?.Facility_id"
+                        >{{ d?.Facility_name || "" }}</mat-option
+                    >
+                </mat-select>
+            </mat-form-field> -->
+            <!-- Facility filter ends here -->
+
+            <!-- Date range filter -->
+            <!-- <mat-form-field
+                class="fuse-mat-dense fuse-mat-no-subscript rounded-lg w-96 mr-2"
+            >
+                <mat-date-range-input
+                    [rangePicker]="fromto"
+                    [max]="currentDate"
+                >
+                    <input
+                        [formControlName]="'from_date'"
+                        matStartDate
+                        placeholder="{{ t('from') }}"
+                    />
+                    <input
+                        [formControlName]="'to_date'"
+                        matEndDate
+                        placeholder="{{ t('to') }}"
+                        (dateChange)="submit('date')"
+                    />
+                </mat-date-range-input>
+                <mat-datepicker-toggle
+                    matSuffix
+                    [for]="fromto"
+                ></mat-datepicker-toggle>
+                <mat-date-range-picker #fromto> </mat-date-range-picker>
+            </mat-form-field> -->
+            <!-- Date range filter ends here -->
+
+            <!-- Reset button -->
+            <button
+                mat-icon-button
+                class="bg-theme"
+                [matTooltip]="'Reset Filters'"
+                (click)="resetFilter()"
+            >
+                <mat-icon
+                    [svgIcon]="'heroicons_outline:refresh'"
+                    class="text-white"
+                ></mat-icon>
+            </button>
+        </div>
+    </div>
+</form>
