@@ -64,11 +64,11 @@
                     <input
                         id="username"
                         matInput
-                        [formControlName]="'username'"
+                        [formControlName]="'email'"
                         placeholder="{{ t('enter_email') }}"
                     />
                     <mat-error
-                        *ngIf="signInForm.get('username').hasError('required')"
+                        *ngIf="signInForm.get('email').hasError('required')"
                     >
                         {{ t("user_name_required") }}
                     </mat-error>

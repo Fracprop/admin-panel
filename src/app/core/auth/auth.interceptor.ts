@@ -54,15 +54,15 @@ export class AuthInterceptor implements HttpInterceptor {
             if (this._authService.accessToken) {
                 newReq = req.clone({
                     setHeaders: {
-                        Authorization:
+                        'x-jwttoken':
                             'Bearer ' + this._authService.accessToken,
-                        rejectUnauthorized: 'false',
+                     //   rejectUnauthorized: 'false',
                     },
                 });
             } else {
                 newReq = req.clone({
                     setHeaders: {
-                        rejectUnauthorized: 'false',
+                       // rejectUnauthorized: 'false',
                     },
                 });
             }

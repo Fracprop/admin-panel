@@ -21,10 +21,10 @@ export class UserManagementService {
             })
             .pipe(switchMap((response: any) => of(response)));
     }
-    getUserDetails(obj) {
+    getUserDetails(id) {
         return this._httpClient
-            .get(environment.apiEndPoint + 'Doctors/GetDoctor', {
-                params: { ...obj },
+            .get(environment.apiEndPoint + 'user/KycDetails/'+id, {
+               
             })
             .pipe(switchMap((response: any) => of(response)));
     }
@@ -61,11 +61,25 @@ export class UserManagementService {
             .pipe(switchMap((response: any) => of(response)));
     }
 
-    getAdmins(obj) {
+    getUsers(obj) {
+        let url = '';
+        console.log(obj)
+        if (obj.currentTab === 1) {
+            url = 'user/getAllBusiness/';
+        } else {
+            url = 'user/getAllStandard/';
+        }
         return this._httpClient
-            .get(environment.apiEndPoint + 'Masters/GetDoctorList', {
-                params: { ...obj },
-            })
+            .get(
+                environment.apiEndPoint +
+                    url +
+                    obj.pageNo +
+                    '/' +
+                    obj.limit,
+                {
+                    // params: { ...obj },
+                }
+            )
             .pipe(switchMap((response: any) => of(response)));
     }
     getUserMenu(obj) {

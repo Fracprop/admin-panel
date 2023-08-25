@@ -60,8 +60,8 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
 
     isBlocked: boolean = false;
     pagination: any = {
-        LimitRecords: 10,
-        SkipRecords: 0,
+        limit: 10,
+        pageNo: 0,
         TotalCount: 0,
         PageNo: 0,
     };
@@ -93,7 +93,9 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     /**
      * On init
      */
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.getUsers();
+    }
 
     /**
      * After view init
@@ -118,11 +120,11 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
      */
     getUsers() {
         let paginationParams = {
-            InstitutionTypeId: this?.currentTab,
-            SkipRecords: this.pagination?.SkipRecords,
-            LimitRecords: this.pagination?.LimitRecords,
+          
+            pageNo: this.pagination?.pageNo,
+            limit: this.pagination?.limit,
         };
-        if (this.form?.value.EnterSearch) {
+        /* if (this.form?.value.EnterSearch) {
             paginationParams['EnterSearch'] = this.form?.value.EnterSearch;
         }
         if (this.form?.value.Speciality) {
@@ -130,11 +132,11 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         if (this.form?.value.DistrictID) {
             paginationParams['DistrictID'] = this.form?.value.DistrictID;
-        }
+        } */
         this.isLoading = true;
-        this._userService.getAdmins({ ...paginationParams }).subscribe(
+        this._userService.getUsers({ ...paginationParams,currentTab:this.currentTab }).subscribe(
             (response) => {
-                if (!response.success) {
+                if (!response) {
                     if (response.requestCode == 401) {
                         this.isLoading = false;
                         return;
@@ -147,11 +149,11 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
                 } else {
                     this.isLoading = false;
 
-                    this.pagination.TotalCount = response?.total_Records;
+                    this.pagination.TotalCount = response?.totalCount;
 
-                    this.users$ = response?.lstModel
-                        ? [...response?.lstModel]
-                        : [];
+                    this.users$ = response?.users
+                        ? [...response?.users]
+                        : []; 
                     this._changeDetectorRef.detectChanges();
                 }
             },
@@ -162,15 +164,15 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     pageChanged(e) {
-        if (e?.pageSize !== this.pagination?.LimitRecords) {
-            this.pagination.LimitRecords = e?.pageSize;
+        if (e?.pageSize !== this.pagination?.limit) {
+            this.pagination.limit = e?.pageSize;
             this.resetPagination();
             return;
         }
-        this.pagination.LimitRecords = e?.pageSize;
+        this.pagination.limit = e?.pageSize;
         this.pagination.PageNo = e?.pageIndex;
-        this.pagination.SkipRecords =
-            this.pagination?.LimitRecords * this.pagination?.PageNo;
+        this.pagination.pageNo =
+            this.pagination?.limit * this.pagination?.PageNo;
 
         this.getUsers();
     }
@@ -180,8 +182,8 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
 
     resetPagination() {
         this.pagination = {
-            LimitRecords: this.pagination.LimitRecords,
-            SkipRecords: 0,
+            limit: this.pagination.limit,
+            pageNo: 0,
             TotalCount: 0,
             PageNo: 0,
         };
@@ -196,8 +198,8 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
             this._authService.user.districtId
         );
         this.pagination = {
-            LimitRecords: this.pagination.LimitRecords,
-            SkipRecords: 0,
+            limit: this.pagination.limit,
+            pageNo: 0,
             TotalCount: 0,
             PageNo: 0,
         };

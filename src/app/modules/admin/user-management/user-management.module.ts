@@ -54,7 +54,7 @@ const facilityRoutes: Route[] = [
     },
     {
         // canActivate: [AdminGuard],
-        path: 'details',
+        path: 'details/:id',
         component: DetailsComponent,
     },
    

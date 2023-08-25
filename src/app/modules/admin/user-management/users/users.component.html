@@ -158,24 +158,25 @@
                             style="background-color: #ecf1f2"
                         >
                             <div class="hidden md:block">S No.</div>
-                            <div class="hidden md:block">{{ t("name") }}</div>
-                            <div class="hidden md:block">
-                                {{ t("Facility_type_Name") }}
-                            </div>
+                         
+                          
                             <!-- <div class="hidden md:block">
                             {{ t("gender") }}
                         </div> -->
                             <div class="hidden md:block">
-                                {{ t("User Name") }}
+                               {{currentTab===1?'Company Name':'Username'}}
                             </div>
                             <div class="hidden md:block">
-                                {{ t("mobile_mail") }}
+                              Email ID
                             </div>
                             <div class="hidden md:block">
-                                {{ t("district") }}
+                                {{currentTab===1?'Registeration No.':'Mobile No.'}}
                             </div>
                             <div class="hidden md:block">
-                                {{ t("actions") }}
+                              Status
+                             </div>
+                            <div class="hidden md:block">
+                                Actions
                             </div>
                         </div>
                         <!-- Rows -->
@@ -188,38 +189,35 @@
                                 >
                                     <div>
                                         {{
-                                            pagination?.PageNo *
-                                                pagination?.LimitRecords +
+                                            pagination?.pageNo *
+                                                pagination?.limit +
                                                 i +
                                                 1
                                         }}
                                     </div>
                                     <!-- Name -->
                                     <div class="">
-                                        {{ user?.name || "-" }}<br />
-                                        {{ user?.specialityName }}
+                                        {{ currentTab===1?user?.company_name:user?.username  }}<br />
+                                      
                                     </div>
 
-                                    <!-- ID -->
+                                    <!-- email-->
                                     <div class="">
-                                        {{ user?.institutiontypeName }}<br />
-                                        {{ user?.institutionName }}
+                                        {{ user?.email}}
                                     </div>
 
-                                    <!-- Gender -->
+                                    <!-- mobile no -->
                                     <div class="">
-                                        {{ user?.userName || "-" }}
+                                        {{ currentTab===1?user?.registeration_no:user?.work_number }}
+                                     
                                     </div>
 
-                                    <!-- Phone Number -->
+                                    <!-- Status -->
                                     <div class="">
-                                        {{ user?.mobile }} <br />
-                                        {{ user?.email }}
+                                        {{ user?.verfied?'Verified':'Not Verfied' }} 
+                                      
                                     </div>
-                                    <!-- district -->
-                                    <div class="">
-                                        {{ user?.districtName || "-" }}
-                                    </div>
+                                  
 
                                     <div class="flex justify-start">
                                         <!-- Block button -->
@@ -233,16 +231,13 @@
 
                                         <!-- Edit button -->
                                         <button
-                                            routerLink="/users/edit-user/{{
+                                            routerLink="/users/details/{{
                                                 user?.id
                                             }}"
                                             class="min-w-10 min-h-7 h-7 px-2 ml-1 bg-green-600 rounded-2xl"
-                                            matTooltip="Edit"
+                                            matTooltip="Details"
                                         >
-                                            <mat-icon
-                                                class="text-white p-0.5"
-                                                svgIcon="mat_outline:edit"
-                                            ></mat-icon>
+                                         View Details
                                         </button>
                                     </div>
                                 </div>

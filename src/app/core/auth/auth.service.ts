@@ -107,12 +107,13 @@ export class AuthService {
      *
      * @param credentials
      */
+     
     signIn(credentials: {
-        UserName: string;
+        email: string;
         Password: string;
     }): Observable<any> {
         let c = {
-            userName: credentials['username'],
+            email: credentials['email'],
             password: credentials['password'],
         };
         // Throw error, if the user is already logged in
@@ -125,14 +126,16 @@ export class AuthService {
         //     .pipe();
 
         return this._httpClient
-            .post(environment.apiEndPoint + 'Auth/SignInAdmin', c)
+            .post(environment.apiEndPoint + 'user/login', c)
             .pipe(
                 switchMap((response: any) => {
-                    if (response.success) {
+                    if (response?.userValue?.role==='ADMIN') {
+                        console.log('-login')
+                        
                         // Store the access token in the local storage
-                        this.accessToken = response.token;
+                        this.accessToken = response.access_token;
 
-                        this.user = response.model;
+                        this.user = response.userValue;
 
                         // Set the authenticated flag to true
                         this._authenticated = true;

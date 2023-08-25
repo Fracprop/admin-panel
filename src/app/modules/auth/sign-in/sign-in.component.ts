@@ -55,7 +55,7 @@ export class AuthSignInComponent implements OnInit {
         this.availableLangs = this._translocoService.getAvailableLangs();
         // Create the form
         this.signInForm = this._formBuilder.group({
-            username: ['', [Validators.required]],
+            email: ['', [Validators.required]],
             password: ['', Validators.required],
             // rememberMe: [''],
         });
@@ -92,7 +92,7 @@ export class AuthSignInComponent implements OnInit {
         // Sign in
         this._authService.signIn(obj).subscribe(
             (response) => {
-                if (!response.success) {
+                if (response?.userValue?.role!=='ADMIN') {
                     let msg = this._errorService.errorMessage(response);
                     this.alert = {
                         type: 'error',
