@@ -1,4 +1,8 @@
 <div class="w-full min-h-full flex items-center justify-center">
+    <!-- Loader -->
+    <div class="absolute inset-x-0 top-0" *ngIf="isLoading">
+        <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+    </div>
     <div
         class="flex flex-col items-center justify-center gap-4 border-2 p-8 bg-white w-1/2"
     >
@@ -6,12 +10,15 @@
         <div>
             <button
                 class="text-3xl bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-
             >
-                {{userDetails$?.role==='BUSINESS'?userDetails$?.company_name:userDetails$?.username}}
+                {{
+                    userDetails$?.role === "BUSINESS"
+                        ? userDetails$?.company_name
+                        : userDetails$?.username
+                }}
             </button>
         </div>
-        <div class="w-full" *ngIf="userDetails$?.role==='STANDARD_USER'">
+        <div class="w-full" *ngIf="userDetails$?.role === 'STANDARD_USER'">
             <table
                 class="border-collapse border border-slate-400 text-3xl w-full"
             >
@@ -23,25 +30,12 @@
                 </thead>
                 <tbody class="">
                     <tr class="">
-                        <td class="p-4 border border-slate-300">ID Type</td>
+                        <td class="p-4 border border-slate-300">Legal Name</td>
                         <td class="p-4 border border-slate-300">
-                            {{ userDetails$?.id_type }}
+                            {{ userDetails$?.legal_name }}
                         </td>
                     </tr>
-                    <tr>
-                        <td class="p-4 border border-slate-300">ID Number</td>
-                        <td class="p-4 border border-slate-300">
-                            {{ userDetails$?.identify_number || "-" }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="p-4 border border-slate-300">
-                            Marital Status
-                        </td>
-                        <td class="p-4 border border-slate-300">
-                            {{ userDetails$?.marital_status || "-" }}
-                        </td>
-                    </tr>
+
                     <tr>
                         <td class="p-4 border border-slate-300">
                             Need for liquidity
@@ -66,6 +60,126 @@
                             {{ userDetails$?.fracprop_association || "-" }}
                         </td>
                     </tr>
+                    <tr class="">
+                        <td class="p-4 border border-slate-300">
+                            Source of fund
+                        </td>
+                        <td class="p-4 border border-slate-300">
+                            {{ userDetails$?.source_of_fund || "-" }}
+                        </td>
+                    </tr>
+                    <tr class="">
+                        <td class="p-4 border border-slate-300">Bank</td>
+                        <td class="p-4 border border-slate-300">
+                            {{ userDetails$?.bank_id || "-" }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-4 border border-slate-300">
+                            Employment status
+                        </td>
+                        <td class="p-4 border border-slate-300">
+                            {{ userDetails$?.employment_status || "-" }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-4 border border-slate-300">Education</td>
+                        <td class="p-4 border border-slate-300">
+                            {{ userDetails$?.education || "-" }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-4 border border-slate-300">Occupation</td>
+                        <td class="p-4 border border-slate-300">
+                            {{ userDetails$?.occupation || "-" }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-4 border border-slate-300">
+                            Work Industry
+                        </td>
+                        <td class="p-4 border border-slate-300">
+                            {{ userDetails$?.work_industry || "-" }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-4 border border-slate-300">
+                            Investment objectives
+                        </td>
+                        <td class="p-4 border border-slate-300">
+                            {{ userDetails$?.investment_objectivesNew || "-" }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-4 border border-slate-300">
+                            Level of risk
+                        </td>
+                        <td class="p-4 border border-slate-300">
+                            {{ userDetails$?.level_of_risk || "-" }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-4 border border-slate-300">
+                            Investment decisions
+                        </td>
+                        <td class="p-4 border border-slate-300">
+                            {{ userDetails$?.investment_decisions || "-" }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-4 border border-slate-300">
+                            Identity type
+                        </td>
+                        <td class="p-4 border border-slate-300">
+                            {{ userDetails$?.id_type || "-" }}
+                            <div class="relative" *ngIf="userDetails$?.upload_front">
+                             
+                              <div *ngIf="fileFlagBack === 'application/pdf'; else otherFileTypes">
+                                <a [href]="backImage" target="_blank">
+                                  <img
+                                    src="../../../assets/images/pdf.png"
+                                    class="w-14 h-16"
+                                    alt="pdf"
+                                  />
+                                </a>
+                              </div>
+                    
+                              <ng-template #otherFileTypes>
+                                <div>
+                                  <a [href]="userDetails$?.upload_front" target="_blank">
+                                    <img
+                                      [src]="userDetails$?.upload_front"
+                                      class="w-14 h-16 rounded-lg border-2 border-slate-800"
+                                      alt=""
+                                  /></a>
+                                </div>
+                              </ng-template>
+                            </div>
+                            <div class="relative" *ngIf="userDetails$?.upload_back">
+                             
+                              <div *ngIf="fileFlagBack === 'application/pdf'; else otherFileTypes">
+                                <a [href]="userDetails$?.upload_back" target="_blank">
+                                  <img
+                                    src="../../../assets/images/pdf.png"
+                                    class="w-14 h-16"
+                                    alt="pdf"
+                                  />
+                                </a>
+                              </div>
+                    
+                              <ng-template #otherFileTypes>
+                                <div>
+                                  <a [href]="userDetails$?.upload_back" target="_blank">
+                                    <img
+                                      [src]="userDetails$?.upload_back"
+                                      class="w-14 h-16 rounded-lg border-2 border-slate-800"
+                                      alt=""
+                                  /></a>
+                                </div>
+                              </ng-template>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -76,7 +190,7 @@
                     <span class="text-3xl">{{ userDetails$?.trade_name }}</span>
                 </div>
             </div>
-            <div class="flex items-center justify-center space-x-4 ">
+            <div class="flex items-center justify-center space-x-4">
                 <div class="w-1/2">
                     <mat-label class="text-3xl">
                         Registration Document</mat-label
@@ -106,7 +220,50 @@
                         </div>
                     </a>
                 </div>
+                <div class="w-1/2">
+                    <mat-label class="text-3xl"
+                        >Resolution of Director’s</mat-label
+                    >
 
+                    <a
+                        [href]="userDetails$?.resulation_of_director"
+                        target="_blank"
+                    >
+                        <div
+                            class=""
+                            *ngIf="userDetails$?.resulation_of_director"
+                        >
+                            <div class="w-1/3 pl-4">
+                                <img src="assets/images/logo/pdf.png" />
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="flex space-x-3">
+                <div class="w-1/2">
+                    <mat-label class="text-3xl"
+                        >Registered Company Address Proof</mat-label
+                    >
+
+                    <a
+                        [href]="userDetails$?.registered_company_address_proof"
+                        target="_blank"
+                    >
+                        <div
+                            class=""
+                            *ngIf="
+                                userDetails$?.registered_company_address_proof
+                            "
+                        >
+                            <div class="w-1/3 pl-4">
+                                <img src="assets/images/logo/pdf.png" />
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="flex space-x-4">
                 <div class="w-1/2">
                     <mat-label class="text-3xl">
                         Director’s ID Document</mat-label
@@ -134,57 +291,19 @@
                     </div>
                 </div>
             </div>
-            <div class="flex space-x-3">
-                <div class="w-1/2">
-                    <mat-label class="text-3xl"
-                        >Resolution of Director’s</mat-label
-                    >
-
-                    <a
-                        [href]="userDetails$?.resulation_of_director"
-                        target="_blank"
-                    >
-                        <div
-                            class=""
-                            *ngIf="userDetails$?.resulation_of_director"
-                        >
-                            <div class="w-1/3 pl-4">
-                                <img src="assets/images/logo/pdf.png" />
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="w-1/2">
-                    <mat-label class="text-3xl"
-                        >Registered Company Address Proof</mat-label
-                    >
-
-                    <a
-                        [href]="userDetails$?.registered_company_address_proof"
-                        target="_blank"
-                    >
-                        <div
-                            class=""
-                            *ngIf="
-                                userDetails$?.registered_company_address_proof
-                            "
-                        >
-                            <div class="w-1/3 pl-4">
-                                <img src="assets/images/logo/pdf.png" />
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
         </div>
         <div class="space-x-4">
             <button
                 class="bg-green-600 h-12 w-40 text-white font-bold py-2 px-4 rounded"
+                (click)="updateStatus('APPROVED')"
+                [disabled]="isLoading"
             >
                 Approve
             </button>
             <button
                 class="bg-red-600 h-12 w-40 text-white font-bold py-2 px-4 rounded"
+                (click)="updateStatus('REJECTED')"
+                [disabled]="isLoading"
             >
                 Reject
             </button>

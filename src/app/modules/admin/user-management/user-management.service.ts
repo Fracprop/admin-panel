@@ -53,10 +53,10 @@ export class UserManagementService {
             .pipe(switchMap((response: any) => of(response)));
     }
 
-    updateUser(obj): Observable<any> {
+    updateUserStatus(obj): Observable<any> {
         return this._httpClient
-            .post(environment.apiEndPoint + 'user_master_m/Add_NormalUser', {
-                ...obj,
+            .patch(environment.apiEndPoint + 'user/userStatus/'+obj.status+'/'+obj.id, {
+                
             })
             .pipe(switchMap((response: any) => of(response)));
     }
