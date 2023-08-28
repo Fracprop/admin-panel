@@ -119,11 +119,13 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
      * Fetching  user list
      */
     getUsers() {
+
         let paginationParams = {
-          
-            pageNo: this.pagination?.pageNo,
+            pageNo: this.pagination?.PageNo,
             limit: this.pagination?.limit,
         };
+        console.log(paginationParams)
+        
         /* if (this.form?.value.EnterSearch) {
             paginationParams['EnterSearch'] = this.form?.value.EnterSearch;
         }
@@ -164,8 +166,10 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     pageChanged(e) {
+        console.log(   this.pagination?.limit ,this.pagination?.PageNo)
+        console.log(e?.pageSize , this.pagination?.limit)
         if (e?.pageSize !== this.pagination?.limit) {
-            this.pagination.limit = e?.pageSize;
+            this.pagination.LimitRecords = e?.pageSize;
             this.resetPagination();
             return;
         }
@@ -173,6 +177,7 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
         this.pagination.PageNo = e?.pageIndex;
         this.pagination.pageNo =
             this.pagination?.limit * this.pagination?.PageNo;
+            console.log(   this.pagination?.limit ,this.pagination?.PageNo)
 
         this.getUsers();
     }
