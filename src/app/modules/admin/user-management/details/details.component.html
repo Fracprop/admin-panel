@@ -4,7 +4,8 @@
         <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
     </div>
     <div
-        class="flex flex-col items-center justify-center gap-4 border-2 p-8 bg-white w-1/2"
+        *ngIf="!isLoading"
+        class="flex flex-col items-center justify-center gap-4 border-2 p-8 m-4 bg-white w-1/2"
     >
         <div class="text-4xl font-semibold text-center">User Details</div>
         <div>
@@ -71,7 +72,7 @@
                     <tr class="">
                         <td class="p-4 border border-slate-300">Bank</td>
                         <td class="p-4 border border-slate-300">
-                            {{ userDetails$?.bank_id || "-" }}
+                            {{ userDetails$?.bank_details?.name || "-" }}
                         </td>
                     </tr>
                     <tr>
@@ -128,55 +129,101 @@
                     </tr>
                     <tr>
                         <td class="p-4 border border-slate-300">
+                            Trusted contact
+                        </td>
+                        <td class="p-4 border border-slate-300">
+                            {{
+                                userDetails$?.truested_user?.first_name || "-"
+                            }}
+                            {{ userDetails$?.truested_user?.last_name || "-" }},
+                            {{ userDetails$?.truested_user?.email || "-" }}
+                            {{
+                                userDetails$?.truested_user?.phone_number ||
+                                    "-"
+                            }},
+                            {{ userDetails$?.truested_user?.alt_number || "-" }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-4 border border-slate-300">
                             Identity type
                         </td>
                         <td class="p-4 border border-slate-300">
                             {{ userDetails$?.id_type || "-" }}
-                            <div class="relative" *ngIf="userDetails$?.upload_front">
-                             
-                              <div *ngIf="fileFlagBack === 'application/pdf'; else otherFileTypes">
-                                <a [href]="backImage" target="_blank">
-                                  <img
-                                    src="../../../assets/images/pdf.png"
-                                    class="w-14 h-16"
-                                    alt="pdf"
-                                  />
-                                </a>
-                              </div>
-                    
-                              <ng-template #otherFileTypes>
-                                <div>
-                                  <a [href]="userDetails$?.upload_front" target="_blank">
-                                    <img
-                                      [src]="userDetails$?.upload_front"
-                                      class="w-14 h-16 rounded-lg border-2 border-slate-800"
-                                      alt=""
-                                  /></a>
+                            <div
+                                class="relative"
+                                *ngIf="userDetails$?.upload_front"
+                            >
+                                <div
+                                    *ngIf="
+                                    userDetails$?.upload_front_file_type
+                                    === 'application/pdf';
+                                        else otherFileTypes
+                                    "
+                                >
+                                    <a [href]="fronImage" target="_blank">
+                                        <img
+                                            src="../../../../../assets/images/logo/pdf.png"
+                                            class="w-14 h-16"
+                                            alt="pdf"
+                                        />
+                                    </a>
                                 </div>
-                              </ng-template>
+
+                                <ng-template #otherFileTypes>
+                                    <div>
+                                        <a
+                                            [href]="userDetails$?.upload_front"
+                                            target="_blank"
+                                        >
+                                            <img
+                                                [src]="
+                                                    userDetails$?.upload_front
+                                                "
+                                                class="w-14 h-16 rounded-lg border-2 border-slate-800"
+                                                alt=""
+                                        /></a>
+                                    </div>
+                                </ng-template>
                             </div>
-                            <div class="relative" *ngIf="userDetails$?.upload_back">
-                             
-                              <div *ngIf="fileFlagBack === 'application/pdf'; else otherFileTypes">
-                                <a [href]="userDetails$?.upload_back" target="_blank">
-                                  <img
-                                    src="../../../assets/images/pdf.png"
-                                    class="w-14 h-16"
-                                    alt="pdf"
-                                  />
-                                </a>
-                              </div>
-                    
-                              <ng-template #otherFileTypes>
-                                <div>
-                                  <a [href]="userDetails$?.upload_back" target="_blank">
-                                    <img
-                                      [src]="userDetails$?.upload_back"
-                                      class="w-14 h-16 rounded-lg border-2 border-slate-800"
-                                      alt=""
-                                  /></a>
+                            <div
+                                class="relative"
+                                *ngIf="userDetails$?.upload_back"
+                            >
+                                <div
+                                    *ngIf="
+                                        userDetails$?.upload_back_file_type ===
+                                            'application/pdf';
+                                        else otherFileTypes
+                                    "
+                                >
+                                    <a
+                                        [href]="userDetails$?.upload_back"
+                                        target="_blank"
+                                    >
+                                        <img
+                                            src="../../../../../assets/images/logo/pdf.png"
+                                            class="w-14 h-16"
+                                            alt="pdf"
+                                        />
+                                    </a>
                                 </div>
-                              </ng-template>
+
+                                <ng-template #otherFileTypes>
+                                    <div>
+                                        <a
+                                            [href]="userDetails$?.upload_back"
+                                            target="_blank"
+                                        >
+                                            <img
+                                                [src]="
+                                                    userDetails$?.upload_back
+                                                "
+                                                class="w-14 h-16 rounded-lg border-2 border-slate-800"
+                                                alt=""
+                                        /></a>
+                                    </div>
+                                </ng-template>
                             </div>
                         </td>
                     </tr>
@@ -292,7 +339,7 @@
                 </div>
             </div>
         </div>
-        <div class="space-x-4">
+        <div class="space-x-4" *ngIf="status !== 'APPROVED'">
             <button
                 class="bg-green-600 h-12 w-40 text-white font-bold py-2 px-4 rounded"
                 (click)="updateStatus('APPROVED')"

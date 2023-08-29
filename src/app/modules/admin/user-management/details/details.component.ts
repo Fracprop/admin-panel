@@ -16,6 +16,7 @@ import { CommonService } from '../../common/common.service';
 import { ErrorHandlingService } from 'app/shared/services/error-handling.service';
 import { AuthService } from 'app/core/auth/auth.service';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-details',
@@ -26,6 +27,7 @@ export class DetailsComponent implements OnInit {
     isLoading: boolean = false;
     selectedUserId: String = '';
     userDetails$: any;
+    status: String = '';
 
     /**
      * Constructor
@@ -38,12 +40,14 @@ export class DetailsComponent implements OnInit {
         private _userService: UserManagementService,
         private _commonService: CommonService,
         private _errorService: ErrorHandlingService,
-        private _authService: AuthService
+        private _authService: AuthService,
+        private _router: Router
     ) {
         this.titleService.setTitle('FracProp');
         this._activatedRoute.paramMap.subscribe((params) => {
             if (params.get('id')) {
                 this.selectedUserId = params.get('id');
+                this.status = params.get('status');
                 this.fetchUserDetails();
             }
         });
@@ -66,7 +70,10 @@ export class DetailsComponent implements OnInit {
                         this.isLoading = false;
                         return;
                     } else {
-                        let msg = this._errorService.errorMessage(response);
+                        console.log(response);
+                        let msg = this._errorService.errorMessage(
+                            response.message
+                        );
                         this._commonService.error(msg);
 
                         this.isLoading = false;
@@ -89,36 +96,40 @@ export class DetailsComponent implements OnInit {
                 }
             },
             (err) => {
+                console.log(err.error.message);
+                let msg = this._errorService.errorMessage(err.error.message);
+                this._commonService.error(msg);
+                this._router.navigate(['/users/list']);
                 this.isLoading = false;
             }
         );
     }
     updateStatus(status) {
-      console.log(status);
-      this.isLoading = true;
-      this._userService.updateUserStatus({id:this.selectedUserId ,status:status}).subscribe(
-          (response) => {
-              if (!response) {
-                  if (response.requestCode == 401) {
-                      this.isLoading = false;
-                      return;
-                  } else {
-                      let msg = this._errorService.errorMessage(response);
-                      this._commonService.error(msg);
+        console.log(status);
+        this.isLoading = true;
+        this._userService
+            .updateUserStatus({ id: this.selectedUserId, status: status })
+            .subscribe(
+                (response) => {
+                    if (!response) {
+                        if (response.requestCode == 401) {
+                            this.isLoading = false;
+                            return;
+                        } else {
+                            let msg = this._errorService.errorMessage(response);
+                            this._commonService.error(msg);
 
-                      this.isLoading = false;
-                  }
-              } else {
-                
-                  this.isLoading = false;
-                
-                 
-                 
-              }
-          },
-          (err) => {
-              this.isLoading = false;
-          }
-      );
-  }
+                            this.isLoading = false;
+                        }
+                    } else {
+                        this._router.navigate(['/users/list']);
+
+                        this.isLoading = false;
+                    }
+                },
+                (err) => {
+                    this.isLoading = false;
+                }
+            );
+    }
 }

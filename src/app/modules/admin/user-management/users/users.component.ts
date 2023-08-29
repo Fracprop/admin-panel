@@ -35,11 +35,11 @@ import { environment } from '../../../../../environments/environment';
                 }
 
                 @screen md {
-                    grid-template-columns: 50px 200px 200px 200px 200px 200px 200px;
+                    grid-template-columns: 100px 250px 250px 250px 250px 250px ;
                 }
 
                 @screen lg {
-                    grid-template-columns: 50px 200px 200px 200px 200px 200px 200px;
+                    grid-template-columns:100px 250px 250px 250px 250px 250px ;
                 }
             }
         `,
