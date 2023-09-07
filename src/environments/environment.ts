@@ -5,9 +5,9 @@
 export const environment = {
     production: false,
     apiEndPoint: 'http://13.244.75.169/',
-    signalREndPoint: 'https://beta-api.swasthyaingit.in/chat',
+   signalREndPoint: 'https://beta-api.swasthyaingit.in/chat',
     webSocketEndpoint: 'wss://beta-api.fracProp.esanjeevani.in/ws',
-    snoMedEndPoint: 'http://43.204.0.14:8080/csnoserv/',
+  
 };
 
 /*

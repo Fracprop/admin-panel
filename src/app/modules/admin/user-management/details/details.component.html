@@ -4,13 +4,14 @@
         <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
     </div>
     <div
-        *ngIf="!isLoading"
         class="flex flex-col items-center justify-center gap-4 border-2 p-8 m-4 bg-white w-1/2"
+        *ngIf="userDetails$?.role"
     >
         <div class="text-4xl font-semibold text-center">User Details</div>
         <div>
             <button
                 class="text-3xl bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+               
             >
                 {{
                     userDetails$?.role === "BUSINESS"
@@ -21,7 +22,7 @@
         </div>
         <div class="w-full" *ngIf="userDetails$?.role === 'STANDARD_USER'">
             <table
-                class="border-collapse border border-slate-400 text-3xl w-full"
+                class="border-collapse border border-slate-400 text-2xl w-full"
             >
                 <thead>
                     <tr>
@@ -129,12 +130,18 @@
                     </tr>
                     <tr>
                         <td class="p-4 border border-slate-300">
+                            Family/Friend
+                        </td>
+                        <td class="p-4 border border-slate-300">
+                            {{ userDetails$?.isFamily === true ? "Yes" : "No" }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-4 border border-slate-300">
                             Trusted contact
                         </td>
                         <td class="p-4 border border-slate-300">
-                            {{
-                                userDetails$?.truested_user?.first_name || "-"
-                            }}
+                            {{ userDetails$?.truested_user?.first_name || "-" }}
                             {{ userDetails$?.truested_user?.last_name || "-" }},
                             {{ userDetails$?.truested_user?.email || "-" }}
                             {{
@@ -150,96 +157,109 @@
                         </td>
                         <td class="p-4 border border-slate-300">
                             {{ userDetails$?.id_type || "-" }}
-                            <div
-                                class="relative"
-                                *ngIf="userDetails$?.upload_front"
-                            >
+                            <div class="flex w-full gap-4">
                                 <div
-                                    *ngIf="
-                                    userDetails$?.upload_front_file_type
-                                    === 'application/pdf';
-                                        else otherFileTypes
-                                    "
+                                    class="flex flex-col relative"
+                                    *ngIf="userDetails$?.upload_front"
                                 >
-                                    <a [href]="fronImage" target="_blank">
-                                        <img
-                                            src="../../../../../assets/images/logo/pdf.png"
-                                            class="w-14 h-16"
-                                            alt="pdf"
-                                        />
-                                    </a>
-                                </div>
-
-                                <ng-template #otherFileTypes>
-                                    <div>
-                                        <a
-                                            [href]="userDetails$?.upload_front"
-                                            target="_blank"
-                                        >
+                                    <div
+                                        *ngIf="
+                                            userDetails$?.upload_front_file_type ===
+                                                'application/pdf';
+                                            else otherFileTypes
+                                        "
+                                    >
+                                        <a [href]="fronImage" target="_blank">
                                             <img
-                                                [src]="
+                                                src="../../../../../assets/images/logo/pdf.png"
+                                                class="w-14 h-16"
+                                                alt="pdf"
+                                            />
+                                        </a>
+                                    </div>
+
+                                    <ng-template #otherFileTypes>
+                                        <div>
+                                            <a
+                                                [href]="
                                                     userDetails$?.upload_front
                                                 "
-                                                class="w-14 h-16 rounded-lg border-2 border-slate-800"
-                                                alt=""
-                                        /></a>
-                                    </div>
-                                </ng-template>
-                            </div>
-                            <div
-                                class="relative"
-                                *ngIf="userDetails$?.upload_back"
-                            >
-                                <div
-                                    *ngIf="
-                                        userDetails$?.upload_back_file_type ===
-                                            'application/pdf';
-                                        else otherFileTypes
-                                    "
-                                >
-                                    <a
-                                        [href]="userDetails$?.upload_back"
-                                        target="_blank"
-                                    >
-                                        <img
-                                            src="../../../../../assets/images/logo/pdf.png"
-                                            class="w-14 h-16"
-                                            alt="pdf"
-                                        />
-                                    </a>
+                                                target="_blank"
+                                            >
+                                                <img
+                                                    [src]="
+                                                        userDetails$?.upload_front
+                                                    "
+                                                    class="w-14 h-16 rounded-lg border-2 border-slate-800"
+                                                    alt=""
+                                            /></a>
+                                        </div>
+                                    </ng-template>
                                 </div>
 
-                                <ng-template #otherFileTypes>
-                                    <div>
+                                <div
+                                    class="flex flex-col relative"
+                                    *ngIf="userDetails$?.upload_back"
+                                >
+                                    <div
+                                        *ngIf="
+                                            userDetails$?.upload_back_file_type ===
+                                                'application/pdf';
+                                            else otherFileTypes
+                                        "
+                                    >
                                         <a
                                             [href]="userDetails$?.upload_back"
                                             target="_blank"
                                         >
                                             <img
-                                                [src]="
+                                                src="../../../../../assets/images/logo/pdf.png"
+                                                class="w-14 h-16"
+                                                alt="pdf"
+                                            />
+                                        </a>
+                                    </div>
+
+                                    <ng-template #otherFileTypes>
+                                        <div>
+                                            <a
+                                                [href]="
                                                     userDetails$?.upload_back
                                                 "
-                                                class="w-14 h-16 rounded-lg border-2 border-slate-800"
-                                                alt=""
-                                        /></a>
-                                    </div>
-                                </ng-template>
+                                                target="_blank"
+                                            >
+                                                <img
+                                                    [src]="
+                                                        userDetails$?.upload_back
+                                                    "
+                                                    class="w-14 h-16 rounded-lg border-2 border-slate-800"
+                                                    alt=""
+                                            /></a>
+                                        </div>
+                                    </ng-template>
+                                </div>
                             </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div class="w-full" *ngIf="userDetails$?.role === 'BUSINESS'">
-            <div class="flex space-x-4 w-10/12">
+        <div class="w-full gap-8" *ngIf="userDetails$?.role === 'BUSINESS'">
+            <div class="flex space-x-4 w-full">
                 <div class="w-1/2">
-                    <mat-label class="text-3xl">Trade Name - </mat-label>
-                    <span class="text-3xl">{{ userDetails$?.trade_name }}</span>
+                    <mat-label class="text-2xl">Trade Name - </mat-label>
+                    <span class="text-2xl">{{ userDetails$?.trade_name }}</span>
+                </div>
+                <div class="w-1/2">
+                    <mat-label class="text-2xl">Business Type - </mat-label>
+                    <span class="text-2xl">{{
+                        userDetails$?.business_type
+                    }}</span>
                 </div>
             </div>
             <div class="flex items-center justify-center space-x-4">
                 <div class="w-1/2">
-                    <mat-label class="text-3xl">
+                    <mat-label class="text-2xl">
                         Registration Document</mat-label
                     >
 
@@ -251,24 +271,17 @@
                             class=""
                             *ngIf="userDetails$?.upload_registration_document"
                         >
-                            <div class="w-1/3 pl-4">
-                                <img src="assets/images/logo/pdf.png" />
+                            <div class="pl-4">
+                                <img
+                                    src="assets/images/logo/pdf.png"
+                                    class="h-16 w-16"
+                                />
                             </div>
-                            <!-- <div class="w-1/3">pdf</div> -->
-                            <!-- <div
-                class="w-1/3 pl-4"
-                (click)="
-                  $event.preventDefault();
-                  removeUploadedDoc('registrationDoc')
-                "
-              >
-                <mat-icon>close</mat-icon>
-              </div> -->
                         </div>
                     </a>
                 </div>
                 <div class="w-1/2">
-                    <mat-label class="text-3xl"
+                    <mat-label class="text-2xl"
                         >Resolution of Director’s</mat-label
                     >
 
@@ -280,16 +293,19 @@
                             class=""
                             *ngIf="userDetails$?.resulation_of_director"
                         >
-                            <div class="w-1/3 pl-4">
-                                <img src="assets/images/logo/pdf.png" />
+                            <div class="pl-4">
+                                <img
+                                    src="assets/images/logo/pdf.png"
+                                    class="h-16 w-16"
+                                />
                             </div>
                         </div>
                     </a>
                 </div>
             </div>
             <div class="flex space-x-3">
-                <div class="w-1/2">
-                    <mat-label class="text-3xl"
+                <div class="w-full">
+                    <mat-label class="text-2xl"
                         >Registered Company Address Proof</mat-label
                     >
 
@@ -303,8 +319,11 @@
                                 userDetails$?.registered_company_address_proof
                             "
                         >
-                            <div class="w-1/3 pl-4">
-                                <img src="assets/images/logo/pdf.png" />
+                            <div class="pl-4">
+                                <img
+                                    src="assets/images/logo/pdf.png"
+                                    class="h-16 w-16"
+                                />
                             </div>
                         </div>
                     </a>
@@ -312,29 +331,35 @@
             </div>
             <div class="flex space-x-4">
                 <div class="w-1/2">
-                    <mat-label class="text-3xl">
+                    <mat-label class="text-2xl">
                         Director’s ID Document</mat-label
                     >
-
-                    <div
-                        *ngFor="
-                            let d of userDetails$?.upload_director_id_document;
-                            let i = index
-                        "
-                    >
-                        <a
-                            [href]="d"
-                            target="_blank"
-                            *ngIf="
-                                userDetails$?.upload_director_id_document.length
+                    <div class="flex gap-1">
+                        <div
+                            class=""
+                            *ngFor="
+                                let d of userDetails$?.upload_director_id_document;
+                                let i = index
                             "
                         >
-                            <div>
-                                <div class="w-1/3 pl-4">
-                                    <img src="assets/images/logo/pdf.png" />
+                            <a
+                                [href]="d"
+                                target="_blank"
+                                *ngIf="
+                                    userDetails$?.upload_director_id_document
+                                        .length
+                                "
+                            >
+                                <div>
+                                    <div class="">
+                                        <img
+                                            src="assets/images/logo/pdf.png"
+                                            class="h-16 w-16"
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

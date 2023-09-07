@@ -34,12 +34,12 @@ import { WebSocketService } from './web-socket.service';
 import { TranslocoModule } from '@ngneat/transloco';
 @NgModule({
     declarations: [
-        UploadFileComponent,
-        AppRoleDirective,
+        // UploadFileComponent,
+        // AppRoleDirective,
 
-        MappedFacilitiesComponent,
-        ,
-        AddValueToDropdownComponent,
+        // MappedFacilitiesComponent,
+        // ,
+        // AddValueToDropdownComponent,
     ],
     imports: [
         ReactiveFormsModule,
@@ -51,24 +51,24 @@ import { TranslocoModule } from '@ngneat/transloco';
         MatInputModule,
         MatRadioModule,
         MatSelectModule,
-        MatStepperModule,
+       
         MatDatepickerModule,
         MatNativeDateModule,
         MatExpansionModule,
         MatButtonToggleModule,
         MatDividerModule,
-        MatTableModule,
+      
         CommonModule,
         MatAutocompleteModule,
         MatTooltipModule,
         FuseConfirmationModule,
         MatProgressSpinnerModule,
         NgxMaterialTimepickerModule,
-        NgxPrintModule,
+       
 
         TranslocoModule,
     ],
     providers: [CommonService, SignalRService, WebSocketService],
-    exports: [UploadFileComponent, AppRoleDirective],
+    exports: [],
 })
 export class AdminCommonModule {}

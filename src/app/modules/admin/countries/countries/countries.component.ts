@@ -2,26 +2,52 @@ import {
   ChangeDetectorRef,
   Component,
   OnInit,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+  
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { fuseAnimations } from '@fuse/animations';
 import { CountriesService } from '../countries.service';
 
 @Component({
   selector: 'app-countries',
   templateUrl: './countries.component.html',
-  styleUrls: ['./countries.component.scss']
+  styleUrls: ['./countries.component.scss'],
+  styles: [
+    `
+        .country-grid {
+            grid-template-columns: auto auto auto;
+
+            @screen sm {
+                grid-template-columns: auto auto auto auto;
+            }
+
+            @screen md {
+                grid-template-columns: 50x 200px 200px 200px 200px 200px 200px;
+            }
+
+            @screen lg {
+                grid-template-columns: 50px 200px 200px 200px 200px 200px 200px;
+            }
+        }
+    `,
+],
+encapsulation: ViewEncapsulation.None,
+changeDetection: ChangeDetectionStrategy.OnPush,
+animations: fuseAnimations,
 })
 export class CountriesComponent implements OnInit {
   public loading: boolean = false;
-  users$: any = [];
+  countries$: any = [];
   isLoading1: boolean = false;
   isLoading: boolean = false;
 
 
   isBlocked: boolean = false;
   pagination: any = {
-      LimitRecords: 10,
-      SkipRecords: 0,
+      limit: 10,
+      pageNo: 0,
       TotalCount: 0,
       PageNo: 0,
   };
@@ -30,6 +56,7 @@ export class CountriesComponent implements OnInit {
   constructor(private _CountryService:CountriesService, private _changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    this.getCountries();
   }
 
     /**
@@ -38,14 +65,14 @@ export class CountriesComponent implements OnInit {
     getCountries() {
       let paginationParams = {
          
-          SkipRecords: this.pagination?.SkipRecords,
-          LimitRecords: this.pagination?.LimitRecords,
+          pageNo: this.pagination?.PageNo,
+          limit: this.pagination?.limit,
       };
      
       this.isLoading = true;
       this._CountryService.getCountriesList({ ...paginationParams }).subscribe(
           (response) => {
-              if (!response.success) {
+              if (!response) {
                   if (response.requestCode == 401) {
                       this.isLoading = false;
                       return;
@@ -59,10 +86,10 @@ export class CountriesComponent implements OnInit {
                   this.isLoading = false;
                  
   
-                  this.pagination.TotalCount = response?.total_Records;
+                  this.pagination.TotalCount = response?.totalCount ;
   
-                  this.users$ = response?.lstModel
-                      ? [...response?.lstModel]
+                  this.countries$ = response?.country
+                      ? [...response?.country]
                       : [];
                   this._changeDetectorRef.detectChanges();
               }
@@ -74,15 +101,15 @@ export class CountriesComponent implements OnInit {
   }
   
   pageChanged(e) {
-      if (e?.pageSize !== this.pagination?.LimitRecords) {
-          this.pagination.LimitRecords = e?.pageSize;
+      if (e?.pageSize !== this.pagination?.limit) {
+          this.pagination.limit = e?.pageSize;
           this.resetPagination();
           return;
       }
-      this.pagination.LimitRecords = e?.pageSize;
+      this.pagination.limit = e?.pageSize;
       this.pagination.PageNo = e?.pageIndex;
-      this.pagination.SkipRecords =
-          this.pagination?.LimitRecords * this.pagination?.PageNo;
+      this.pagination.pageNo =
+          this.pagination?.limit * this.pagination?.PageNo;
   
       this.getCountries();
   }
@@ -92,8 +119,8 @@ export class CountriesComponent implements OnInit {
   
   resetPagination() {
       this.pagination = {
-          LimitRecords: this.pagination.LimitRecords,
-          SkipRecords: 0,
+          limit: this.pagination.limit,
+          pageNo: 0,
           TotalCount: 0,
           PageNo: 0,
       };

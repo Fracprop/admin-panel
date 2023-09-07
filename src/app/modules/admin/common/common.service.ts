@@ -657,6 +657,7 @@ export class CommonService {
     }
 
     error(m) {
+        console.log(m);
         this.toastr.error(m);
     }
 }

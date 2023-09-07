@@ -98,7 +98,7 @@ export class DetailsComponent implements OnInit {
             (err) => {
                 console.log(err.error.message);
                 let msg = this._errorService.errorMessage(err.error.message);
-                this._commonService.error(msg);
+                this._commonService.error(err.error.message);
                 this._router.navigate(['/users/list']);
                 this.isLoading = false;
             }

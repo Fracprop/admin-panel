@@ -187,7 +187,7 @@ export class AuthService {
      */
     signOut(): Observable<any> {
         return this._httpClient
-            .get(environment.apiEndPoint + 'AdminProfile/Logout', {})
+            .get(environment.apiEndPoint + 'user/logout', {})
             .pipe(
                 switchMap((response: any) => {
                     localStorage.removeItem('accessToken');

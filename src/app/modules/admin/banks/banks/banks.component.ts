@@ -6,18 +6,37 @@ import { BanksService } from '../banks.service';
     selector: 'app-banks',
     templateUrl: './banks.component.html',
     styleUrls: ['./banks.component.scss'],
+    styles: [
+        `
+            .bank-grid {
+                grid-template-columns: auto auto auto;
+    
+                @screen sm {
+                    grid-template-columns: auto auto auto auto;
+                }
+    
+                @screen md {
+                    grid-template-columns: auto auto auto;
+                }
+    
+                @screen lg {
+                    grid-template-columns: auto auto auto;
+                }
+            }
+        `,
+    ],
 })
 export class BanksComponent implements OnInit {
     public loading: boolean = false;
-    users$: any = [];
+    banks$: any = [];
     isLoading1: boolean = false;
     isLoading: boolean = false;
     public form: FormGroup;
 
     isBlocked: boolean = false;
     pagination: any = {
-        LimitRecords: 10,
-        SkipRecords: 0,
+        limit: 10,
+        pageNo: 0,
         TotalCount: 0,
         PageNo: 0,
     };
@@ -27,20 +46,22 @@ export class BanksComponent implements OnInit {
         private _changeDetectorRef: ChangeDetectorRef
     ) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.getBanks();
+    }
     /**
-     * Fetching  user list
+     * Fetching  banks list
      */
     getBanks() {
         let paginationParams = {
-            SkipRecords: this.pagination?.SkipRecords,
-            LimitRecords: this.pagination?.LimitRecords,
+            pageNo: this.pagination?.pageNo,
+            limit: this.pagination?.limit,
         };
 
         this.isLoading = true;
         this._bankService.getBanksList({ ...paginationParams }).subscribe(
             (response) => {
-                if (!response.success) {
+                if (!response) {
                     if (response.requestCode == 401) {
                         this.isLoading = false;
                         return;
@@ -53,11 +74,13 @@ export class BanksComponent implements OnInit {
                 } else {
                     this.isLoading = false;
 
-                    this.pagination.TotalCount = response?.total_Records;
+                    this.pagination.TotalCount = response?.totalCount;
 
-                    this.users$ = response?.lstModel
-                        ? [...response?.lstModel]
+                    this.banks$ = response?.banks
+                        ? [...response?.banks]
                         : [];
+
+                      
                     this._changeDetectorRef.detectChanges();
                 }
             },
@@ -68,15 +91,15 @@ export class BanksComponent implements OnInit {
     }
 
     pageChanged(e) {
-        if (e?.pageSize !== this.pagination?.LimitRecords) {
-            this.pagination.LimitRecords = e?.pageSize;
+        if (e?.pageSize !== this.pagination?.limit) {
+            this.pagination.limit = e?.pageSize;
             this.resetPagination();
             return;
         }
-        this.pagination.LimitRecords = e?.pageSize;
+        this.pagination.limit = e?.pageSize;
         this.pagination.PageNo = e?.pageIndex;
-        this.pagination.SkipRecords =
-            this.pagination?.LimitRecords * this.pagination?.PageNo;
+        this.pagination.pageNo =
+            this.pagination?.limit * this.pagination?.PageNo;
 
         this.getBanks();
     }
@@ -86,8 +109,8 @@ export class BanksComponent implements OnInit {
 
     resetPagination() {
         this.pagination = {
-            LimitRecords: this.pagination.LimitRecords,
-            SkipRecords: 0,
+            limit: this.pagination.limit,
+            pageNo: 0,
             TotalCount: 0,
             PageNo: 0,
         };
@@ -100,8 +123,8 @@ export class BanksComponent implements OnInit {
         this.form.reset();
 
         this.pagination = {
-            LimitRecords: this.pagination.LimitRecords,
-            SkipRecords: 0,
+            limit: this.pagination.limit,
+            pageNo: 0,
             TotalCount: 0,
             PageNo: 0,
         };
