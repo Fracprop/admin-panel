@@ -105,13 +105,13 @@ export class DetailsComponent implements OnInit {
         );
     }
     updateStatus(status) {
-        console.log(status);
         this.isLoading = true;
         this._userService
             .updateUserStatus({ id: this.selectedUserId, status: status })
             .subscribe(
                 (response) => {
                     if (!response) {
+                       
                         if (response.requestCode == 401) {
                             this.isLoading = false;
                             return;
@@ -122,8 +122,15 @@ export class DetailsComponent implements OnInit {
                             this.isLoading = false;
                         }
                     } else {
-                        this._router.navigate(['/users/list']);
+                        if(status==='APPROVED' && this.userDetails$?.role === 'STANDARD_USER'){
 
+                            this.matchingGrps();
+                        }else{
+                            this._router.navigate(['/users/list']);
+
+                        }
+                      
+                       
                         this.isLoading = false;
                     }
                 },
@@ -131,5 +138,23 @@ export class DetailsComponent implements OnInit {
                     this.isLoading = false;
                 }
             );
+    }
+    matchingGrps() {
+        this.isLoading = true;
+        this._userService.matchingForGrps(this.selectedUserId).subscribe(
+            (response) => {
+                this.isLoading = false;
+                this._router.navigate(['/users/list']);
+                console.log('matching')
+                this._changeDetectorRef.detectChanges();
+            },
+            (err) => {
+                console.log('error')
+                // let msg = this._errorService.errorMessage(err.error.message);
+                // this._commonService.error(err.error.message);
+               // this._router.navigate(['/users/list']);
+                this.isLoading = false;
+            }
+        );
     }
 }
