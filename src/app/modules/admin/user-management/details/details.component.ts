@@ -111,7 +111,6 @@ export class DetailsComponent implements OnInit {
             .subscribe(
                 (response) => {
                     if (!response) {
-                       
                         if (response.requestCode == 401) {
                             this.isLoading = false;
                             return;
@@ -122,15 +121,15 @@ export class DetailsComponent implements OnInit {
                             this.isLoading = false;
                         }
                     } else {
-                        if(status==='APPROVED' && this.userDetails$?.role === 'STANDARD_USER'){
-
+                        if (
+                            status === 'APPROVED' &&
+                            this.userDetails$?.role === 'STANDARD_USER'
+                        ) {
                             this.matchingGrps();
-                        }else{
+                        } else {
                             this._router.navigate(['/users/list']);
-
                         }
-                      
-                       
+
                         this.isLoading = false;
                     }
                 },
@@ -145,14 +144,14 @@ export class DetailsComponent implements OnInit {
             (response) => {
                 this.isLoading = false;
                 this._router.navigate(['/users/list']);
-                console.log('matching')
+                console.log('matching');
                 this._changeDetectorRef.detectChanges();
             },
             (err) => {
-                console.log('error')
+                console.log('error');
                 // let msg = this._errorService.errorMessage(err.error.message);
                 // this._commonService.error(err.error.message);
-               // this._router.navigate(['/users/list']);
+                // this._router.navigate(['/users/list']);
                 this.isLoading = false;
             }
         );

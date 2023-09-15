@@ -1,0 +1,127 @@
+<div
+    *transloco="let t"
+    class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent"
+>
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-4 px-6 md:px-4"
+    >
+        <!-- Loader -->
+
+        <div class="absolute inset-x-0 top-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+        <div class="flex items-start justify-between w-full">
+            <div>
+                <h2
+                    class="text-3xl font-bold tracking-tight leading-8 text-theme"
+                >
+                    Banks
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="mr-4 flex justify-end">
+        <!-- Add product button -->
+        <button
+            routerLink="/banks/add-bank"
+            class="ml-4 bg-header rounded-lg"
+            mat-flat-button
+            type="button"
+            [matTooltip]="'Add Banks'"
+            [color]="'primary'"
+        >
+            <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+            <span class="ml-2 mr-1">Add Bank</span>
+        </button>
+    </div>
+    <!-- Main -->
+    <div class="flex flex-auto overflow-hidden">
+        <!-- Userslist -->
+        <div
+            class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto"
+        >
+            <ng-container *ngIf="banks$.length; else noAdmin">
+                <ng-container>
+                    <div class="grid table_tr_bg">
+                        <!-- Header -->
+                        <div
+                            class="properties-grid z-10  sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold"
+                            style="background-color: #ecf1f2"
+                        >
+                            <div class="hidden md:block">S No.</div>
+                            <div class="hidden md:block">Name</div>
+
+                            <div class="hidden md:block">Action</div>
+                        </div>
+                        <ng-container>
+                            <ng-container
+                                *ngFor="let item of banks$; let i = index"
+                            >
+                                <div
+                                    class="properties-grid font-medium grid items-center gap-4 py-3 px-6 md:px-8 border-b-2 border-gray-300"
+                                >
+                                    <div>
+                                        {{
+                                            pagination?.PageNo *
+                                                pagination?.limit +
+                                                i +
+                                                1
+                                        }}
+                                    </div>
+                                    <!-- Name -->
+                                    <div class="">
+                                        {{ item?.name || "-" }}
+                                    </div>
+
+                                    <div class="flex justify-start">
+                                        <!-- Block button -->
+                                        <!-- <mat-slide-toggle
+                                            class="min-w-10 min-h-7 h-7 px-2 leading-6 ml-1"
+                                            [color]="'warn'"
+                                            matTooltip="Block/Unblock User"
+                                            [checked]="user?.isActive"
+                                            (change)="blockUser(user?.id)"
+                                        ></mat-slide-toggle> -->
+
+                                        <!-- Edit button -->
+                                        <!-- <button
+                                            routerLink="/users/details/{{
+                                                user?.id
+                                            }}/{{ user?.userStatus }}"
+                                            class="min-w-10 min-h-7 h-7 px-2 ml-1 bg-green-600 rounded-2xl"
+                                            matTooltip="Details"
+                                        >
+                                            View Details
+                                        </button> -->
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+
+                    <mat-paginator
+                        *ngIf="banks$.length"
+                        class="sm:absolute sm:inset-x-0 sm:bottom-0 border-b sm:border-t sm:border-b-0 z-10 bg-gray-50 dark:bg-transparent justify-center text-header"
+                        [ngClass]="{ 'pointer-events-none': isLoading }"
+                        [length]="pagination.TotalCount"
+                        [pageIndex]="pagination.PageNo"
+                        [pageSize]="pagination.LimitRecords"
+                        [pageSizeOptions]="[5, 10, 25, 100]"
+                        (page)="pageChanged($event)"
+                        [showFirstLastButtons]="true"
+                    ></mat-paginator>
+                </ng-container>
+            </ng-container>
+
+            <ng-template #noAdmin>
+                <div
+                    class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center"
+                >
+                    {{ isLoading ? "Fetching Banks" : "There are no banks!" }}
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

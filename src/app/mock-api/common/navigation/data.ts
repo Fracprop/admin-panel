@@ -30,6 +30,13 @@ export const SuperAdminNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:office-building',
         link: '/countries/list',
     },
+    {
+        id: 'propterties',
+        title: 'Propterties',
+        type: 'basic',
+        icon: 'heroicons_outline:office-building',
+        link: '/properties/list',
+    },
     // {
     //     id: 'users',
     //     title: 'User Mangement',

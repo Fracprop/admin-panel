@@ -139,16 +139,16 @@ export const appRoutes: Route[] = [
                     ).then((m) => m.CountriesModule),
             },
 
-            // {
-            //     path: 'admins',
-            //     loadChildren: () =>
-            //         import(
-            //             'app/modules/admin/admin-management/admin-management.module'
-            //         ).then((m) => m.AdminManagementModule),
-            //     resolve: {
-            //         commanData: AdminMangementResolver,
-            //     },
-            // },
+            {
+                path: 'properties',
+                loadChildren: () =>
+                    import(
+                        'app/modules/admin/properties/properties.module'
+                    ).then((m) => m.PropertiesModule),
+                resolve: {
+                    // commanData: AdminMangementResolver,
+                },
+            },
             
             
 
