@@ -65,35 +65,20 @@ export class DetailsComponent implements OnInit {
         this.isLoading = true;
         this._userService.getUserDetails(this.selectedUserId).subscribe(
             (response) => {
-                if (!response) {
-                    if (response.requestCode == 401) {
-                        this.isLoading = false;
-                        return;
-                    } else {
-                        console.log(response);
-                        let msg = this._errorService.errorMessage(
-                            response.message
-                        );
-                        this._commonService.error(msg);
+                this.isLoading = false;
+                this.userDetails$ = {
+                    ...response?.kycDetails,
+                    ...response?.userDetails,
+                    upload_director_id_document: response?.kycDetails
+                        .upload_director_id_document
+                        ? response?.kycDetails.upload_director_id_document.split(
+                              ','
+                          )
+                        : '',
+                };
+                console.log(this.userDetails$);
 
-                        this.isLoading = false;
-                    }
-                } else {
-                    this.isLoading = false;
-                    this.userDetails$ = {
-                        ...response?.kycDetails,
-                        ...response?.userDetails,
-                        upload_director_id_document: response?.kycDetails
-                            .upload_director_id_document
-                            ? response?.kycDetails.upload_director_id_document.split(
-                                  ','
-                              )
-                            : '',
-                    };
-                    console.log(this.userDetails$);
-
-                    //this._changeDetectorRef.detectChanges();
-                }
+                //this._changeDetectorRef.detectChanges();
             },
             (err) => {
                 console.log(err.error.message);
@@ -110,28 +95,16 @@ export class DetailsComponent implements OnInit {
             .updateUserStatus({ id: this.selectedUserId, status: status })
             .subscribe(
                 (response) => {
-                    if (!response) {
-                        if (response.requestCode == 401) {
-                            this.isLoading = false;
-                            return;
-                        } else {
-                            let msg = this._errorService.errorMessage(response);
-                            this._commonService.error(msg);
-
-                            this.isLoading = false;
-                        }
+                    if (
+                        status === 'APPROVED' &&
+                        this.userDetails$?.role === 'STANDARD_USER'
+                    ) {
+                        this.matchingGrps();
                     } else {
-                        if (
-                            status === 'APPROVED' &&
-                            this.userDetails$?.role === 'STANDARD_USER'
-                        ) {
-                            this.matchingGrps();
-                        } else {
-                            this._router.navigate(['/users/list']);
-                        }
-
-                        this.isLoading = false;
+                        this._router.navigate(['/users/list']);
                     }
+
+                    this.isLoading = false;
                 },
                 (err) => {
                     this.isLoading = false;

@@ -10,15 +10,15 @@ import { BanksService } from '../banks.service';
         `
             .bank-grid {
                 grid-template-columns: auto auto auto;
-    
+
                 @screen sm {
                     grid-template-columns: auto auto auto auto;
                 }
-    
+
                 @screen md {
                     grid-template-columns: auto auto auto;
                 }
-    
+
                 @screen lg {
                     grid-template-columns: auto auto auto;
                 }
@@ -61,28 +61,13 @@ export class BanksComponent implements OnInit {
         this.isLoading = true;
         this._bankService.getBanksList({ ...paginationParams }).subscribe(
             (response) => {
-                if (!response) {
-                    if (response.requestCode == 401) {
-                        this.isLoading = false;
-                        return;
-                    } else {
-                        // let msg = this._errorService.errorMessage(response);
-                        // this._commonService.error(msg);
+                this.isLoading = false;
 
-                        this.isLoading = false;
-                    }
-                } else {
-                    this.isLoading = false;
+                this.pagination.TotalCount = response?.totalCount;
 
-                    this.pagination.TotalCount = response?.totalCount;
+                this.banks$ = response?.banks ? [...response?.banks] : [];
 
-                    this.banks$ = response?.banks
-                        ? [...response?.banks]
-                        : [];
-
-                      
-                    this._changeDetectorRef.detectChanges();
-                }
+                this._changeDetectorRef.detectChanges();
             },
             (err) => {
                 this.isLoading = false;

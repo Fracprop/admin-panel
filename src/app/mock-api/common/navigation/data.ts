@@ -37,30 +37,30 @@ export const SuperAdminNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:office-building',
         link: '/properties/list',
     },
-    // {
-    //     id: 'users',
-    //     title: 'User Mangement',
-    //     type: 'collapsable',
-    //     icon: 'heroicons_outline:user',
+    {
+        id: 'Content',
+        title: 'Content Mangement',
+        type: 'collapsable',
+        icon: 'heroicons_outline:user',
 
-    //     children: [
-    //         {
-    //             id: 'users',
-    //             title: 'Users',
-    //             type: 'basic',
+        children: [
+            {
+                id: 'users',
+                title: "What's new",
+                type: 'basic',
 
-    //             link: '/users/list',
-    //         },
+                link: '/whats-new/list',
+            },
 
-    //         // {
-    //         //     id: 'admins',
-    //         //     title: 'Admins',
-    //         //     type: 'basic',
-    //         //     icon: 'mat_outline:supervisor_account',
-    //         //     link: '/admins/list',
-    //         // },
-    //     ],
-    // },
+            {
+                id: 'admins',
+                title: 'Community note',
+                type: 'basic',
+               
+                link: '/community-notes/list',
+            },
+        ],
+    },
     // {
     //     id: 'patients',
     //     title: 'Patients',

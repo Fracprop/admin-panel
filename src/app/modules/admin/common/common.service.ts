@@ -206,18 +206,12 @@ export class CommonService {
         return roleFound;
     }
 
-    getDesignations(obj): Observable<any> {
-        return this._httpClient
-            .get(environment.apiEndPoint + 'designation_m/GetAll', {
-                params: { ...obj },
-            })
-            .pipe(switchMap((response: any) => of(response)));
-    }
+ 
 
-    getFacilities(obj): Observable<any> {
+    getCommunityList(obj): Observable<any> {
         return this._httpClient
             .get(
-                environment.apiEndPoint + `AdminInstitution/ddListInstitution`,
+                environment.apiEndPoint + `grouping-criteria`,
                 {
                     params: { ...obj },
                 }
@@ -225,159 +219,18 @@ export class CommonService {
             .pipe(switchMap((response: any) => of(response)));
     }
 
-    getParentFacilityTypeID(id) {
-        switch (id) {
-            case 1:
-                return [2, 3];
-                break;
-            case 2:
-                return [3];
-                break;
-            case 3:
-                return [10];
-                break;
-            case 4:
-                return [1];
-                break;
-            case 10:
-                return [];
-                break;
-        }
-    }
+   
+  
 
-    getRegions(obj): Observable<any> {
-        return this._httpClient
-            .get(environment.apiEndPoint + 'region_m/GetAll', obj)
-            .pipe(switchMap((response: any) => of(response)));
-    }
 
-    getStates(obj): Observable<any> {
-        return this._httpClient
-            .get(environment.apiEndPoint + 'state_m/GetAll', obj)
-            .pipe(switchMap((response: any) => of(response)));
-    }
 
-    getDistricts(obj): Observable<any> {
-        return this._httpClient
-            .get(
-                environment.apiEndPoint +
-                    `Masters/GetDistrictMaster/${SELECTED_STATE}`,
-                {
-                    params: { ...obj },
-                }
-            )
-            .pipe(switchMap((response: any) => of(response)));
-    }
 
-    getCities(obj): Observable<any> {
-        return this._httpClient
-            .get(environment.apiEndPoint + `Masters/GetCityMaster/${obj}`, {})
-            .pipe(switchMap((response: any) => of(response)));
-    }
-    getBlocks(obj): Observable<any> {
-        return this._httpClient
-            .get(environment.apiEndPoint + `Masters/GetBlockByDistrict`, {
-                params: { ...obj },
-            })
-            .pipe(switchMap((response: any) => of(response)));
-    }
 
-    getPrescription(obj): Observable<any> {
-        return this._httpClient
-            .get(environment.apiEndPoint + `Consultation/${obj}`, {})
-            .pipe(switchMap((response: any) => of(response)));
-    }
 
-    getMunicipality(obj): Observable<any> {
-        return this._httpClient
-            .get(
-                environment.apiEndPoint +
-                    `Masters/GetMunicipalityMasterByDistrictAndCity`,
-                { params: { ...obj } }
-            )
-            .pipe(switchMap((response: any) => of(response)));
-    }
-
-    getWards(obj): Observable<any> {
-        return this._httpClient
-            .get(
-                environment.apiEndPoint +
-                    `Masters/GetWardMasterByDistrictAndCityAndMunicipality`,
-                { params: { ...obj } }
-            )
-            .pipe(switchMap((response: any) => of(response)));
-    }
-
-    getGramPanchayat(obj): Observable<any> {
-        return this._httpClient
-            .get(
-                environment.apiEndPoint +
-                    `Masters/GetGrampanchayatByDistrictAndBlock`,
-                { params: { ...obj } }
-            )
-            .pipe(switchMap((response: any) => of(response)));
-    }
-
-    getFacilityTypes(obj): Observable<any> {
-        return this._httpClient
-            .get(environment.apiEndPoint + 'Masters/GetInstitutionTypeMaster', {
-                params: { ...obj },
-            })
-            .pipe(switchMap((response: any) => of(response)));
-    }
-    getSubFacilityTypes(obj): Observable<any> {
-        return this._httpClient
-            .get(environment.apiEndPoint + 'Masters/GetInstitutionTypeMaster', {
-                params: { ...obj },
-            })
-            .pipe(switchMap((response: any) => of(response)));
-    }
-
-    getUsers(obj) {
-        return this._httpClient
-            .get(environment.apiEndPoint + 'user_master_m/GetAll_NormalUser', {
-                params: { ...obj },
-            })
-            .pipe(switchMap((response: any) => of(response)));
-    }
-
-    getUserDetails(obj) {
-        return this._httpClient
-            .get(environment.apiEndPoint + 'user_master_m/GetByID', {
-                params: { ...obj },
-            })
-            .pipe(switchMap((response: any) => of(response)));
-    }
-    getQualification() {
-        return this._httpClient
-            .get(environment.apiEndPoint + 'Masters/GetQualificationMaster', {})
-            .pipe(switchMap((response: any) => of(response)));
-    }
-    getGender() {
-        return this._httpClient
-            .get(environment.apiEndPoint + 'Masters/GetGenderMaster', {})
-            .pipe(switchMap((response: any) => of(response)));
-    }
-    getSpeciality() {
-        return this._httpClient
-            .get(environment.apiEndPoint + 'Masters/GetSpeciality', {})
-            .pipe(switchMap((response: any) => of(response)));
-    }
-    updateAdmin(obj): Observable<any> {
-        return this._httpClient
-            .post(environment.apiEndPoint + 'user_master_m/Add_Admin', {
-                ...obj,
-            })
-            .pipe(switchMap((response: any) => of(response)));
-    }
-
-    updateUser(obj): Observable<any> {
-        return this._httpClient
-            .post(environment.apiEndPoint + 'user_master_m/Add_NormalUser', {
-                ...obj,
-            })
-            .pipe(switchMap((response: any) => of(response)));
-    }
+   
+  
+  
+ 
 
     /**
      * GET FINAL DIAGNOSIS

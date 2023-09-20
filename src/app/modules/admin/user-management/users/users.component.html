@@ -1,5 +1,4 @@
 <div
-    *transloco="let t"
     class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent"
 >
     <!-- Header -->
@@ -9,7 +8,7 @@
         <!-- Loader -->
 
         <div class="absolute inset-x-0 top-0" *ngIf="isLoading">
-            <mat-progress-bar   [mode]="'indeterminate'"></mat-progress-bar>
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
         </div>
         <div class="flex items-start justify-between w-full">
             <div>
@@ -147,7 +146,7 @@
                     <div class="grid table_tr_bg overflow-x-auto">
                         <!-- Header -->
                         <div
-                            class="admin-grid z-10  sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold"
+                            class="admin-grid z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold"
                             style="background-color: #e2bc72"
                         >
                             <div class="hidden md:block">S No.</div>
@@ -232,7 +231,7 @@
                                             routerLink="/users/details/{{
                                                 user?.id
                                             }}/{{ user?.userStatus }}"
-                                            class="min-w-10 min-h-7 h-7 px-2 ml-1 border-2  border-black rounded-2xl"
+                                            class="min-w-10 min-h-7 h-7 px-2 ml-1 border-2 border-black rounded-2xl"
                                             matTooltip="Details"
                                         >
                                             View Details

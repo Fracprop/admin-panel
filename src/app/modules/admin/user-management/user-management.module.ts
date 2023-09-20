@@ -18,9 +18,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { UsersComponent } from './users/users.component';
-import { AddUserComponent } from './add-user/add-user.component';
-import { EditUserComponent } from './edit-user/edit-user.component';
-
 import { AdminGuard } from '../../../core/auth/guards/admin.guard';
 import { UserManagementService } from './user-management.service';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
@@ -42,34 +39,16 @@ const facilityRoutes: Route[] = [
         path: 'list',
         component: UsersComponent,
     },
-    {
-        // canActivate: [AdminGuard],
-        path: 'add-user',
-        component: AddUserComponent,
-    },
-    {
-        canActivate: [AdminGuard],
-        path: 'edit-user/:id',
-        component: EditUserComponent,
-    },
+  
     {
         // canActivate: [AdminGuard],
         path: 'details/:id/:status',
         component: DetailsComponent,
     },
-   
-  
 ];
 
 @NgModule({
-    declarations: [
-        UsersComponent,
-        AddUserComponent,
-        EditUserComponent,
-        DetailsComponent,
-       
-      
-    ],
+    declarations: [UsersComponent, DetailsComponent],
     imports: [
         RouterModule.forChild(facilityRoutes),
         MatButtonModule,
@@ -96,6 +75,7 @@ const facilityRoutes: Route[] = [
         NgxMaterialTimepickerModule,
         MatButtonToggleModule,
         TranslocoModule,
+        MatSlideToggleModule,
     ],
     providers: [
         UserManagementService,

@@ -48,12 +48,12 @@ export class FiltersComponent implements OnInit {
         private _changeDetectorRef: ChangeDetectorRef,
         private _dashboardService: DashboardService
     ) {
-        this.getDashboardData();
-        this.getDistrictsList();
-        this.getGenderData();
-        this.getFacilityTypeData();
-        this.getConsultationsData();
-        this.getConsultationsPerData();
+        // this.getDashboardData();
+        // this.getDistrictsList();
+        // this.getGenderData();
+        // this.getFacilityTypeData();
+        // this.getConsultationsData();
+        // this.getConsultationsPerData();
     }
 
     ngOnInit(): void {
@@ -87,34 +87,15 @@ export class FiltersComponent implements OnInit {
     submit(): void {
         this.districtId.emit(this.form?.value.District_Id);
         this.resetData.emit(null);
-        this.getDashboardData();
-        this.getDistrictsList();
-        this.getGenderData();
-        this.getFacilityTypeData();
-        this.getConsultationsData();
-        this.getConsultationsPerData();
-        this.getDistrictLineChart();
+        // this.getDashboardData();
+        // this.getDistrictsList();
+        // this.getGenderData();
+        // this.getFacilityTypeData();
+        // this.getConsultationsData();
+        // this.getConsultationsPerData();
+        // this.getDistrictLineChart();
     }
 
-    /**
-     * get Facility Types List
-     */
-
-    getFacilityTypesList(): void {
-        this._commonService.getFacilityTypes({}).subscribe((response) => {
-            this.facilityTypes$ = [...response];
-        });
-    }
-
-    /**
-     * get District
-     */
-
-    getDistrictsList(): void {
-        this._commonService.getDistricts({}).subscribe((response) => {
-            this.districts$ = [...response.lstModel];
-        });
-    }
     /**
      * Reset Filters
      */
@@ -123,8 +104,7 @@ export class FiltersComponent implements OnInit {
 
         this.getDashboardData();
         this.resetDashboard();
-        this.getGenderData();
-        this.getFacilityTypeData();
+
         this.getConsultationsData();
         this.getConsultationsPerData();
     }
@@ -150,34 +130,7 @@ export class FiltersComponent implements OnInit {
     /**
      * Get Pie chart data
      */
-    getGenderData() {
-        this._dashboardService
-            .getGenderCounters({ ...this.createParams() })
-            .subscribe(
-                (res) => {
-                    let data = res.lstModel.map(({ value }) => {
-                        return value;
-                    });
-                    let label = res.lstModel.map(({ label }) => {
-                        return label;
-                    });
-                    this.genderData.emit({ value: data, label: label });
-                    this._changeDetectorRef.detectChanges();
-                },
-                (err) => {}
-            );
-    }
-    getFacilityTypeData() {
-        this._dashboardService
-            .GetBacthActiveMembersCount({ ...this.createParams() })
-            .subscribe(
-                (res) => {
-                    this.facilityData.emit({ ...res.model, isFacility: true });
-                    this._changeDetectorRef.detectChanges();
-                },
-                (err) => {}
-            );
-    }
+
     /**
      * Get graph data
      */

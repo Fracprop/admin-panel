@@ -312,13 +312,13 @@ export class DashboardComponent implements OnInit {
             },
         };
     }
-    getDistrictsList(): void {
-        this._commonService.getDistricts({}).subscribe((response) => {
-            this.districtListInner$ = response.lstModel
-                ? [...response.lstModel]
-                : [];
-        });
-    }
+    // getDistrictsList(): void {
+    //     this._commonService.getDistricts({}).subscribe((response) => {
+    //         this.districtListInner$ = response.lstModel
+    //             ? [...response.lstModel]
+    //             : [];
+    //     });
+    // }
 
     getDashboardData() {
         this.isDashboardCounters = true;
@@ -601,7 +601,7 @@ export class DashboardComponent implements OnInit {
     }
     submit(): void {
         this.getDashboardData();
-        this.getDistrictsList();
+      
         this.getGenderData();
         this.getFacilityTypeData();
         this.getActiveFacilityTypeData();

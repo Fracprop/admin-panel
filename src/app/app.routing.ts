@@ -3,8 +3,7 @@ import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { InitialDataResolver } from 'app/app.resolvers';
-import { AdminMangementResolver } from './modules/admin/admin-management/admin-mangement.resolver';
-import { UserMangementResolver } from './modules/admin/user-management/user-mangement.resolver';
+
 
 // @formatter:off
 // tslint:disable:max-line-length
@@ -148,6 +147,22 @@ export const appRoutes: Route[] = [
                 resolve: {
                     // commanData: AdminMangementResolver,
                 },
+            },
+            {
+                path: "whats-new",
+                loadChildren: () =>
+                    import(
+                        'app/modules/admin/content-management/whats-new/whats-new.module'
+                    ).then((m) => m.WhatsNewModule),
+              
+            },
+            {
+                path: "community-notes",
+                loadChildren: () =>
+                    import(
+                        'app/modules/admin/content-management/community-notes/community-notes.module'
+                    ).then((m) => m.CommunityNotesModule),
+              
             },
             
             

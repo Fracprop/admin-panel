@@ -146,38 +146,24 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
             paginationParams['DistrictID'] = this.form?.value.DistrictID;
         } */
         this.isLoading = true;
-       
+
         this._userService
             .getUsers({ ...paginationParams, currentTab: this.currentTab })
             .subscribe(
                 (response) => {
-                    if (!response) {
-                        if (response.requestCode == 401) {
-                            this.isLoading = false;
-                            return;
-                        } else {
-                            let msg = this._errorService.errorMessage(response);
-                            this._commonService.error(msg);
+                    this.isLoading = false;
+                    localStorage.setItem(
+                        'userPayload',
+                        JSON.stringify({
+                            ...this.pagination,
+                            currentTab: this.currentTab,
+                        })
+                    );
 
-                            this.isLoading = false;
-                        }
-                    } else {
-                        this.isLoading = false;
-                        localStorage.setItem(
-                            'userPayload',
-                            JSON.stringify({
-                                ...this.pagination,
-                                currentTab: this.currentTab,
-                            })
-                        );
+                    this.pagination.TotalCount = response?.totalCount;
 
-                        this.pagination.TotalCount = response?.totalCount;
-
-                        this.users$ = response?.users
-                            ? [...response?.users]
-                            : [];
-                        this._changeDetectorRef.detectChanges();
-                    }
+                    this.users$ = response?.users ? [...response?.users] : [];
+                    this._changeDetectorRef.detectChanges();
                 },
                 (err) => {
                     this.isLoading = false;
@@ -186,7 +172,7 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
             );
     }
 
-    pageChanged(e:any) {
+    pageChanged(e: any) {
         console.log(this.pagination?.limit, this.pagination?.PageNo);
         console.log(e?.pageSize, this.pagination?.limit);
         if (e?.pageSize !== this.pagination?.limit) {
@@ -220,7 +206,7 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
      */
     resetFilter() {
         this.form.reset();
-      
+
         this.pagination = {
             limit: this.pagination.limit,
             pageNo: 0,
@@ -327,6 +313,4 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
             }
         );
     }
-
-  
 }
