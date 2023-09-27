@@ -14,12 +14,19 @@ export class WhatsNewService {
     constructor(private _httpClient: HttpClient) {}
     getList(obj: any) {
         return this._httpClient
-            .get(environment.apiEndPoint + 'what-new')
-            .pipe(switchMap((response: any) => of(response)));
+        .get(
+            environment.apiEndPoint +
+                'what-new/getAll/' +
+                obj.pageNo +
+                '/' +
+                obj.limit,
+            {}
+        )
+        .pipe(switchMap((response: any) => of(response)));
     }
     getDetails(id: string) {
         return this._httpClient
-            .get(environment.apiEndPoint + 'what-new/' + id)
+            .get(environment.apiEndPoint + 'what-new/getWhatNewId/' + id)
             .pipe(switchMap((response: any) => of(response)));
     }
     addWhatsNewContent(obj: any): Observable<any> {

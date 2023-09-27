@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
-import { fuseAnimations } from '@fuse/animations';
+import { CommonService } from 'app/modules/admin/common/common.service';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { WhatsNewService } from '../whats-new.service';
 
@@ -49,7 +49,8 @@ export class WhatsNewListingComponent implements OnInit {
         private _whatsNewService: WhatsNewService,
         private _changeDetectorRef: ChangeDetectorRef,
         private _fuseConfirmationService: FuseConfirmationService,
-        private _formBuilder: FormBuilder
+        private _formBuilder: FormBuilder,
+        private _commonService: CommonService
     ) {
         this.confirmationForm();
     }
@@ -73,11 +74,11 @@ export class WhatsNewListingComponent implements OnInit {
                 this.pagination.TotalCount = response?.totalCount || 10;
 
                 this.contentList$ = response ? [...response] : [];
-                console.log(this.contentList$);
 
                 this._changeDetectorRef.detectChanges();
             },
             (err) => {
+                this._commonService.error(err.message);
                 this.isLoading = false;
             }
         );
@@ -154,7 +155,7 @@ export class WhatsNewListingComponent implements OnInit {
                         this.getListing();
                     },
                     (err) => {
-                        // this.getUsers();
+                      this._commonService.error(err.error.message);
                     }
                 );
             }

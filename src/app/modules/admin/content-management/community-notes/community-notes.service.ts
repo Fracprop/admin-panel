@@ -14,12 +14,15 @@ export class CommunityNotesService {
     constructor(private _httpClient: HttpClient) {}
     getList(obj) {
         return this._httpClient
-            .get(environment.apiEndPoint + 'community-notes')
+            .get(environment.apiEndPoint + 'community-notes/getAll/' +
+            obj.pageNo +
+            '/' +
+            obj.limit,)
             .pipe(switchMap((response: any) => of(response)));
     }
     getDetails(id: string) {
         return this._httpClient
-            .get(environment.apiEndPoint + 'what-new/' + id)
+            .get(environment.apiEndPoint + 'community-notes/findeOne/' + id)
             .pipe(switchMap((response: any) => of(response)));
     }
     addCommunityNotes(obj): Observable<any> {
@@ -32,14 +35,14 @@ export class CommunityNotesService {
 
     editCommunityNotesContent(obj: any, id: string): Observable<any> {
         return this._httpClient
-            .patch(environment.apiEndPoint + 'what-new/' + id, {
+            .patch(environment.apiEndPoint + 'community-notes/' + id, {
                 ...obj,
             })
             .pipe(switchMap((response: any) => of(response)));
     }
     deleteCommunityNotesContent(id:string): Observable<any> {
       return this._httpClient
-          .delete(environment.apiEndPoint + 'what-new/'+id)
+          .delete(environment.apiEndPoint + 'community-notes/'+id)
           .pipe(switchMap((response: any) => of(response)));
   }
 }

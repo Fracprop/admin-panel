@@ -16,6 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { SharedModule } from 'app/shared/shared.module';
 import { AdminGuard } from 'app/core/auth/guards/admin.guard';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { WhatsNewListingComponent } from './whats-new-listing/whats-new-listing.component';
 import { AddWhatsNewComponent } from './add-whats-new/add-whats-new.component';
 import { EditWhatsNewComponent } from './edit-whats-new/edit-whats-new.component';
@@ -59,7 +60,8 @@ const whatsNewRoutes: Route[] = [
         MatSlideToggleModule,
         MatSortModule,
         MatDividerModule,
-        MatSelectModule
+        MatSelectModule,
+        MatProgressSpinnerModule
     ],
 })
 export class WhatsNewModule {}

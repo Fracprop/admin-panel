@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { CommunityNotesService } from '../community-notes.service';
+import { CommonService } from 'app/modules/admin/common/common.service';
 
 @Component({
     selector: 'app-community-notes-list',
@@ -14,15 +15,15 @@ import { CommunityNotesService } from '../community-notes.service';
                 grid-template-columns: auto auto auto auto;
 
                 @screen sm {
-                    grid-template-columns: auto auto auto auto auto;
+                    grid-template-columns: auto auto auto auto ;
                 }
 
                 @screen md {
-                    grid-template-columns: auto auto auto auto auto;
+                    grid-template-columns: 300px 300px 300px 300px;
                 }
 
                 @screen lg {
-                    grid-template-columns: auto auto auto auto auto;
+                    grid-template-columns: 300px 300px 300px 300px;
                 }
             }
         `,
@@ -48,7 +49,8 @@ export class CommunityNotesListComponent implements OnInit {
         private _communityNotesService: CommunityNotesService,
         private _changeDetectorRef: ChangeDetectorRef,
         private _fuseConfirmationService: FuseConfirmationService,
-        private _formBuilder: FormBuilder
+        private _formBuilder: FormBuilder,
+        private _commonService: CommonService
     ) {
         this.confirmationForm();
     }
@@ -76,6 +78,8 @@ export class CommunityNotesListComponent implements OnInit {
                 this._changeDetectorRef.detectChanges();
             },
             (err) => {
+                console.log(err);
+                this._commonService.error(err.error.message);
                 this.isLoading = false;
             }
         );
@@ -154,7 +158,7 @@ export class CommunityNotesListComponent implements OnInit {
                             this.getListing();
                         },
                         (err) => {
-                            // this.getUsers();
+                          this._commonService.error(err.error.message);
                         }
                     );
             }

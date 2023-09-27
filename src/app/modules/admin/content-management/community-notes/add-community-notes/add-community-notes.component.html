@@ -5,36 +5,36 @@
             <!-- Sectioned form with dividers -->
             <div class="prose prose-sm max-w-3xl">
                 <h2 class="text-4xl font-semibold tracking-tight leading-8">
-                    Add Content for Community Notes </h2>
+                    Add Content for Community Notes
+                </h2>
             </div>
 
             <form
                 class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden justify-center items-center"
                 [formGroup]="form"
-                (submit)="addContent"
+                (submit)="(addContent)"
             >
                 <div class="w-120 flex">
                     <mat-form-field
-                    [floatLabel]="'always'"
-                    class="flex-auto gt-xs:pr-3"
-                >
-                    <mat-label class="text-header font-bold">
-                        Community<span class="text-warn"></span
-                    ></mat-label>
-                    <mat-select
-                        placeholder="Select community"
-                        [formControlName]="'GroupCriteriaId'"
-                      
+                        [floatLabel]="'always'"
+                        class="flex-auto gt-xs:pr-3"
                     >
-                        <mat-option
-                            *ngFor="let d of communityList$"
-                            [value]="d?.id"
-                            >{{ d?.name || "" }}</mat-option
+                        <mat-label class="text-header font-bold">
+                            Community<span class="text-warn"></span
+                        ></mat-label>
+                        <mat-select
+                            placeholder="Select community"
+                            [formControlName]="'GroupCriteriaId'"
                         >
-                    </mat-select>
+                            <mat-option
+                                *ngFor="let d of communityList$"
+                                [value]="d?.id"
+                                >{{ d?.name || "" }}</mat-option
+                            >
+                        </mat-select>
                     </mat-form-field>
                 </div>
-              
+
                 <div class="w-120 flex">
                     <mat-form-field class="w-full" appearance="outline">
                         <mat-label>Add Notes</mat-label>
@@ -50,8 +50,6 @@
                     </mat-form-field>
                 </div>
 
-               
-
                 <div
                     class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700"
                 >
@@ -62,7 +60,7 @@
                         [color]="'primary'"
                         (click)="addContent()"
                     >
-                        <span> Save</span>
+                        <span *ngIf="!loading"> Save</span>
                         <mat-progress-spinner
                             *ngIf="loading"
                             [diameter]="24"
@@ -74,4 +72,3 @@
         </div>
     </div>
 </div>
-

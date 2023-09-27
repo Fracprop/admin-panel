@@ -58,21 +58,27 @@ export class EditCommunityNotesComponent implements OnInit {
                 this.getCommunities();
             },
             (err) => {
+                this._commonService.error(err.error.message);
                 // this.isLoading = false;
             }
         );
     }
     editContent() {
+        this.loading = true;
         if (this.form.invalid) {
+            this.loading = false;
             return;
         }
         this._communityNotesService
             .editCommunityNotesContent(this.form.value, this.contentId)
             .subscribe(
                 (response) => {
-                    this._router.navigate(['/whats-new/list']);
+                    this.loading = false;
+                    this._router.navigate(['/community-notes/list']);
                 },
                 (err) => {
+                    this.loading = false;
+                    this._commonService.error(err.error.message);
                     // this.isLoading = false;
                 }
             );

@@ -15,7 +15,7 @@
                 <h2
                     class="text-3xl font-bold tracking-tight leading-8 text-theme"
                 >
-                   Community Notes
+                    Community Notes
                 </h2>
             </div>
         </div>
@@ -51,8 +51,7 @@
                         >
                             <div class="hidden md:block">S No.</div>
                             <div class="hidden md:block">Community</div>
-                            <div class="hidden md:block">Heading</div>
-                            <div class="hidden md:block">Description</div>
+                            <div class="hidden md:block">Notes</div>
 
                             <div class="hidden md:block">Action</div>
                         </div>
@@ -71,21 +70,16 @@
                                                 1
                                         }}
                                     </div>
-                                       <!-- Community -->
-                                       <div class="">
-                                        {{ item?.community || "-" }}
-                                    </div>
-                                    <!-- Heading -->
+                                    <!-- Community -->
                                     <div class="">
-                                        {{ item?.heading || "-" }}
+                                        {{ item?.groupName || "-" }}
                                     </div>
-                                    <!-- desciption -->
+                                    <!-- Notes -->
                                     <div class="">
-                                        {{ item?.description || "-" }}
+                                        {{ item?.Notes || "-" }}
                                     </div>
 
                                     <div class="flex justify-start">
-                                     
                                         <button
                                             routerLink="/community-notes/edit-content/{{
                                                 item?.id
@@ -96,13 +90,12 @@
                                             Edit
                                         </button>
                                         <button
-                                      
-                                        class="min-w-20 min-h-7 h-7 px-2 ml-1 bg-red-600 text-white rounded-2xl"
-                                        matTooltip="Delete"
-                                        (click)="deleteContent(item?.id)"
-                                    >
-                                        Delete
-                                    </button>
+                                            class="min-w-20 min-h-7 h-7 px-2 ml-1 bg-red-600 text-white rounded-2xl"
+                                            matTooltip="Delete"
+                                            (click)="deleteContent(item?.id)"
+                                        >
+                                            Delete
+                                        </button>
                                     </div>
                                 </div>
                             </ng-container>
@@ -133,4 +126,3 @@
         </div>
     </div>
 </div>
-
