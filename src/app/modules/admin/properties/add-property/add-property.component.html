@@ -1,1 +1,612 @@
-<p>add-property works!</p>
+<div class="p-8 w-full">
+    <h2 class="text-6xl mb-5">Add a property</h2>
+    <mat-tab-group class="w-full">
+         <!--TAB 1-->
+        <mat-tab class="p-0" label="1. Property"> 
+                <!-- Main -->
+                <div class="w-full">
+                    <form
+                        class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden"
+                        
+                    >
+                    <div class="prose prose-sm max-w-3xl">
+                        <h2 class="text-3xl font-semibold tracking-tight leading-8 mb-5">
+                            Property Details
+                        </h2>
+                    </div>
+                 <div
+                    class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0"
+                >
+                    <div class="flex flex-col gt-xs:flex-row">
+                       
+                            <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                        >
+                            <mat-label class="text-header font-normal text-black">
+                                Community<span class="text-warn"></span
+                            ></mat-label>
+                            <mat-select
+                                placeholder="Select community"
+                               
+                              
+                            >
+                                <mat-option
+                                    
+                                    >One</mat-option
+                                >
+                                <mat-option
+                                    
+                                >Two</mat-option
+                            >
+                            <mat-option
+                                    
+                            >Three</mat-option
+                        >
+                            </mat-select>
+                            </mat-form-field>
+                        
+                       
+                    </div>
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                        >
+                            <mat-label class="text-header font-normal text-black"
+                                >Property Cost ($)<span class="text-warn"></span
+                            ></mat-label>
+                            <input
+                                matInput
+                                
+                                placeholder="Property Cost"
+                            />
+                        </mat-form-field>
+                    </div>  
+                </div>
+                <div>
+                    <h3 class="-mb-1">Property Images</h3>
+                    <div>
+                        <img style="height: 110px;" src="../../../../../assets/images/upload.svg"/>
+                    </div>
+                    <!--preview-->
+                    <div class="grid grid-cols-5 gap-4 my-5">
+                      <div class="_mg relative">
+                        <img src="../../../../../assets/images/preview.jpg"/>
+                        <button class="_icon absolute right-2 top-2">
+                            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="15" cy="15" r="15" fill="black" fill-opacity="0.3"/>
+                            <path d="M10.5 20.25C10.5 20.6478 10.658 21.0294 10.9393 21.3107C11.2206 21.592 11.6022 21.75 12 21.75H18C18.3978 21.75 18.7794 21.592 19.0607 21.3107C19.342 21.0294 19.5 20.6478 19.5 20.25V11.25H10.5V20.25ZM12 12.75H18V20.25H12V12.75ZM17.625 9L16.875 8.25H13.125L12.375 9H9.75V10.5H20.25V9H17.625Z" fill="white"/>
+                            </svg>
+                        </button>
+                      </div>
+                      <div class="_mg">
+2
+                    </div>
+                    <div class="_mg">
+3
+                    </div>
+                    <div class="_mg">
+4
+                    </div>
+                    </div>
+                    <!--preview-->
+                    <div
+                    class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0"
+                >
+                   
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <mat-form-field
+                                [floatLabel]="'always'"
+                                class="flex-auto gt-xs:pr-3"
+                            >
+                                <mat-label class="text-header font-normal text-black"
+                                    >Property Name<span class="text-warn"></span
+                                ></mat-label>
+                                <input
+                                    matInput
+                                    
+                                    placeholder="Property name"
+                                />
+                            </mat-form-field>
+                        </div> 
+                        <div class="flex flex-col gt-xs:flex-row">
+                        <h3 style="margin-bottom: 6px;
+                        margin-top: -1px;">Property Type</h3>
+                        <div class="flex">
+                            <button class="_btn_select active mr-3">Residential</button>
+                            <button class="_btn_select">Commercial</button>
+                        </div> 
+                        </div> 
+                    </div>
+                    <div>
+                        <h3 class="-mb-1">Property Description</h3>
+                        <textarea placeholder="Type here..." style="border: 1px solid #cbd5e2;
+                        border-radius: 7px;
+                        margin-top: 9px;" class="w-full border-1" name="" id="" cols="20" rows="8">
+
+                        </textarea>
+                    </div>
+
+                </div>
+                <!-- <mat-divider class="mt-5 mb-5"></mat-divider> -->
+        
+               
+
+                <div class="prose prose-sm max-w-3xl mt-8">
+                    <h2 class="text-3xl font-semibold tracking-tight leading-8 mb-5">
+                        Property Address
+                    </h2>
+                </div>
+                <div
+                class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0"
+            >
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field
+                        [floatLabel]="'always'"
+                        class="flex-auto gt-xs:pr-3"
+                    >
+                        <mat-label class="text-header font-normal text-black"
+                            >Unit Number and Complex<span class="text-warn"></span
+                        ></mat-label>
+                        <input
+                            matInput
+                            
+                            placeholder="Unit number and complex"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field
+                        [floatLabel]="'always'"
+                        class="flex-auto gt-xs:pr-3"
+                    >
+                        <mat-label class="text-header font-normal text-black"
+                            >Street Number and Name<span class="text-warn"></span
+                        ></mat-label>
+                        <input
+                            matInput
+                            
+                            placeholder="Street number and name"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field
+                        [floatLabel]="'always'"
+                        class="flex-auto gt-xs:pr-3"
+                    >
+                        <mat-label class="text-header font-normal text-black"
+                            >Suburb or District<span class="text-warn"></span
+                        ></mat-label>
+                        <input
+                            matInput
+                            
+                            placeholder="Suburb/District"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field
+                        [floatLabel]="'always'"
+                        class="flex-auto gt-xs:pr-3"
+                    >
+                        <mat-label class="text-header font-normal text-black"
+                            >City or Town<span class="text-warn"></span
+                        ></mat-label>
+                        <input
+                            matInput
+                            
+                            placeholder="City/Town"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="flex flex-col gt-xs:flex-row">
+                       
+                    <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black">
+                        Country<span class="text-warn"></span
+                    ></mat-label>
+                    <mat-select
+                        placeholder="Select country"
+                       
+                      
+                    >
+                        <mat-option
+                            
+                            >One</mat-option
+                        >
+                        <mat-option
+                            
+                        >Two</mat-option
+                    >
+                    <mat-option
+                            
+                    >Three</mat-option
+                >
+                    </mat-select>
+                    </mat-form-field>
+                
+               
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Postal Code<span class="text-warn"></span
+                    ></mat-label>
+                    <input
+                        matInput
+                        
+                        placeholder="Enter postal code"
+                    />
+                </mat-form-field>
+            </div> 
+                </div>
+                <div
+                class="flex items-center justify-between mb-8 mt-5"
+            >
+                <button mat-button>
+                    Back
+                </button>
+                <button
+                    class="px-6 ml-3 bg-theme"
+                    mat-flat-button
+                    [color]="'primary'"
+                >
+                    <span> Next</span>
+                    
+                </button>
+            </div>
+                       
+                    </form>
+                </div>
+ 
+         </mat-tab>
+          <!--TAB 1-->
+          <!--TAB 2-->
+        <mat-tab label="2. Funding & Ownership"> 
+            <div class="w-full">
+                <form
+                    class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden"
+                    
+                >
+                <div class="prose prose-sm max-w-3xl">
+                    <h2 class="text-3xl font-semibold tracking-tight leading-8 mb-5">
+                        Funding
+                    </h2>
+                </div>
+             <div
+                class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0"
+            >
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Funding Target ($)<span class="text-warn"></span
+                    ></mat-label>
+                    <input
+                        matInput
+                        
+                        placeholder="Funding target"
+                    />
+                </mat-form-field>
+            </div>  
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field
+                        [floatLabel]="'always'"
+                        class="flex-auto gt-xs:pr-3"
+                    >
+                        <mat-label class="text-header font-normal text-black"
+                            >Internal Rate of Return<span class="text-warn"></span
+                        ></mat-label>
+                        <input
+                            matInput
+                            
+                            placeholder="Rate of Return"
+                        />
+                    </mat-form-field>
+                </div>  
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field
+                        [floatLabel]="'always'"
+                        class="flex-auto gt-xs:pr-3"
+                    >
+                        <mat-label class="text-header font-normal text-black"
+                            >EstImated Net Rental Yield<span class="text-warn"></span
+                        ></mat-label>
+                        <input
+                            matInput
+                            
+                            placeholder="Net Rental Yield"
+                        />
+                    </mat-form-field>
+                </div>  
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field
+                        [floatLabel]="'always'"
+                        class="flex-auto gt-xs:pr-3"
+                    >
+                        <mat-label class="text-header font-normal text-black"
+                            >Market Valuation<span class="text-warn"></span
+                        ></mat-label>
+                        <input
+                            matInput
+                            
+                            placeholder="Market valuation"
+                        />
+                    </mat-form-field>
+                </div>  
+            </div>
+          
+            <!-- <mat-divider class="mt-5 mb-5"></mat-divider> -->
+    
+           
+
+            <div class="prose prose-sm max-w-3xl mt-8">
+                <h2 class="text-3xl font-semibold tracking-tight leading-8 mb-5">
+                    Fractional Ownership
+                </h2>
+            </div>
+            <div
+            class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0"
+        >
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field
+                        [floatLabel]="'always'"
+                        class="flex-auto gt-xs:pr-3"
+                    >
+                        <mat-label class="text-header font-normal text-black"
+                            >Percentage ownership per share<span class="text-warn"></span
+                        ></mat-label>
+                        <input
+                            matInput
+                            
+                            placeholder="Ownership per share"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field
+                        [floatLabel]="'always'"
+                        class="flex-auto gt-xs:pr-3"
+                    >
+                        <mat-label class="text-header font-normal text-black"
+                            >Total number of shares available<span class="text-warn"></span
+                        ></mat-label>
+                        <input
+                            matInput
+                            
+                            placeholder="No. of shares"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field
+                        [floatLabel]="'always'"
+                        class="flex-auto gt-xs:pr-3"
+                    >
+                        <mat-label class="text-header font-normal text-black"
+                            >Minimum Investment Amount<span class="text-warn"></span
+                        ></mat-label>
+                        <input
+                            matInput
+                            
+                            placeholder="Investment amount"
+                        />
+                    </mat-form-field>
+                </div>
+           </div>
+
+
+            <div
+            class="flex items-center justify-between mb-8 mt-5"
+        >
+            <button mat-button>
+                Back
+            </button>
+            <button
+                class="px-6 ml-3 bg-theme"
+                mat-flat-button
+                [color]="'primary'"
+            >
+                <span> Next</span>
+                
+            </button>
+        </div>
+                   
+                </form>
+            </div> 
+        </mat-tab>
+ <!--TAB 2-->
+            <!--TAB 3-->
+        <mat-tab label="3. Financials">
+            <div class="w-full">
+                <form
+                    class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden"
+                    
+                >
+                <div class="prose prose-sm max-w-3xl">
+                    <h2 class="text-3xl font-semibold tracking-tight leading-8 mb-5">
+                        Financials
+                    </h2>
+                </div>
+             <div
+                class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0"
+            >
+             
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field
+                        [floatLabel]="'always'"
+                        class="flex-auto gt-xs:pr-3"
+                    >
+                        <mat-label class="text-header font-normal text-black"
+                            >Projected Returns<span class="text-warn"></span
+                        ></mat-label>
+                        <input
+                            matInput
+                            
+                            placeholder="Projected returns"
+                        />
+                    </mat-form-field>
+                </div>  
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field
+                        [floatLabel]="'always'"
+                        class="flex-auto gt-xs:pr-3"
+                    >
+                        <mat-label class="text-header font-normal text-black"
+                            >Potential Rental Income<span class="text-warn"></span
+                        ></mat-label>
+                        <input
+                            matInput
+                            
+                            placeholder="Potential rental inome"
+                        />
+                    </mat-form-field>
+                </div>  
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field
+                        [floatLabel]="'always'"
+                        class="flex-auto gt-xs:pr-3"
+                    >
+                        <mat-label class="text-header font-normal text-black"
+                            >Estimated Expenses<span class="text-warn"></span
+                        ></mat-label>
+                        <input
+                            matInput
+                            
+                            placeholder="Expenses"
+                        />
+                    </mat-form-field>
+                </div>  
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field
+                        [floatLabel]="'always'"
+                        class="flex-auto gt-xs:pr-3"
+                    >
+                        <mat-label class="text-header font-normal text-black"
+                            >Estimated Reserve Fund<span class="text-warn"></span
+                        ></mat-label>
+                        <input
+                            matInput
+                            
+                            placeholder="Reserve fund"
+                        />
+                    </mat-form-field>
+                </div>  
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field
+                        [floatLabel]="'always'"
+                        class="flex-auto gt-xs:pr-3"
+                    >
+                        <mat-label class="text-header font-normal text-black"
+                            >Taxes and other fees ($)<span class="text-warn"></span
+                        ></mat-label>
+                        <input
+                            matInput
+                            
+                            placeholder="Taxes and other fees"
+                        />
+                    </mat-form-field>
+                </div>  
+            </div>
+            <div class="mt-5">
+                <h3 class="-mb-1 text-black">Floor Plan</h3>
+                <div>
+                    <img style="height: 110px;" src="../../../../../assets/images/upload.svg"/>
+                </div>
+                <!--preview-->
+                <div class="grid grid-cols-5 gap-4 my-5 mb-8">
+                  <div class="_mg relative">
+                    <img src="../../../../../assets/images/preview.jpg"/>
+                    <button class="_icon absolute right-2 top-2">
+                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="15" cy="15" r="15" fill="black" fill-opacity="0.3"/>
+                        <path d="M10.5 20.25C10.5 20.6478 10.658 21.0294 10.9393 21.3107C11.2206 21.592 11.6022 21.75 12 21.75H18C18.3978 21.75 18.7794 21.592 19.0607 21.3107C19.342 21.0294 19.5 20.6478 19.5 20.25V11.25H10.5V20.25ZM12 12.75H18V20.25H12V12.75ZM17.625 9L16.875 8.25H13.125L12.375 9H9.75V10.5H20.25V9H17.625Z" fill="white"/>
+                        </svg>
+                    </button>
+                  </div>
+                        <div class="_mg">
+        2
+                        </div>
+                        <div class="_mg">
+        3
+                        </div>
+                        <div class="_mg">
+        4
+                        </div>
+                </div>
+                <!--preview-->
+                <div
+                class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0 mb-5"
+            >
+               
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                        >
+                            <mat-label class="text-header font-normal text-black"
+                                >Opening Date<span class="text-warn"></span
+                            ></mat-label>
+                            <input
+                                matInput
+                                
+                                placeholder="Select date"
+                            />
+                        </mat-form-field>
+                    </div> 
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                        >
+                            <mat-label class="text-header font-normal text-black"
+                                >Closing Date<span class="text-warn"></span
+                            ></mat-label>
+                            <input
+                                matInput
+                                
+                                placeholder="Select date"
+                            />
+                        </mat-form-field>
+                    </div> 
+                    
+                </div>
+            
+
+            </div>
+            <!-- <mat-divider class="mt-5 mb-5"></mat-divider> -->
+
+            <div
+            class="flex items-center justify-between mb-8 mt-5"
+        >
+                <button mat-button>
+                    Back
+                </button>
+                <button
+                    class="px-6 ml-3 bg-theme"
+                    mat-flat-button
+                    [color]="'primary'"
+                >
+                    <span> Done</span>
+                    
+                </button>
+            </div>
+                   
+                </form>
+            </div> 
+             </mat-tab>
+              <!--TAB 3-->
+      </mat-tab-group>
+    
+    
+</div>

@@ -21,6 +21,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import {MatTabsModule} from '@angular/material/tabs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 const propertiesRoutes: Route[] = [
     {
         path: 'list',
@@ -50,6 +53,7 @@ const propertiesRoutes: Route[] = [
         MatButtonModule,
         MatCheckboxModule,
         MatFormFieldModule,
+        MatProgressSpinnerModule,
         MatIconModule,
         MatInputModule,
         MatMenuModule,
@@ -58,7 +62,14 @@ const propertiesRoutes: Route[] = [
         MatRippleModule,
         MatSortModule,
         MatSelectModule,
-        SharedModule
+        MatSlideToggleModule,
+        MatExpansionModule,
+        MatTooltipModule,
+        SharedModule,
+        MatDividerModule,
+        MatRadioModule,
+        MatTabsModule,
+
     ],
 })
 export class PropertiesModule {}
