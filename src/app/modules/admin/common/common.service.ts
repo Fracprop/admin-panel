@@ -316,17 +316,26 @@ export class CommonService {
         return false;
     }
 
-    checkFileSizeAndType(file) {
+    checkFileSizeAndType(file,type) {
         if (file) {
             if (file.size < 5000000) {
                 if (
-                    file.type === 'image/jpeg' ||
-                    file.type === 'image/jpg' ||
-                    file.type === 'image/png' ||
-                    file.type === 'application/pdf'
-                ) {
+                    type === 1 &&
+                    (file.type === 'image/jpeg' ||
+                      file.type === 'image/jpg' ||
+                      file.type === 'image/png')
+                  ) {
                     return true;
-                } else {
+                  }
+                  if (
+                    type === 2 &&
+                    (file.type === 'image/jpeg' ||
+                      file.type === 'image/jpg' ||
+                      file.type === 'image/png' ||
+                      file.type === 'application/pdf')
+                  ) {
+                    return true;
+                  } else {
                     return false;
                 }
             } else {

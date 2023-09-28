@@ -71,9 +71,9 @@
                                                 1
                                         }}
                                     </div>
-                                       <!-- Community -->
-                                       <div class="">
-                                        {{ item?.community || "-" }}
+                                    <!-- Community -->
+                                    <div class="">
+                                        {{ item?.groupName || "-" }}
                                     </div>
                                     <!-- Heading -->
                                     <div class="">
@@ -105,13 +105,12 @@
                                             Edit
                                         </button>
                                         <button
-                                      
-                                        class="min-w-20 min-h-7 h-7 px-2 ml-1 bg-red-600 text-white rounded-2xl"
-                                        matTooltip="Delete"
-                                        (click)="deleteContent(item?.id)"
-                                    >
-                                        Delete
-                                    </button>
+                                            class="min-w-20 min-h-7 h-7 px-2 ml-1 bg-red-600 text-white rounded-2xl"
+                                            matTooltip="Delete"
+                                            (click)="deleteContent(item?.id)"
+                                        >
+                                            Delete
+                                        </button>
                                     </div>
                                 </div>
                             </ng-container>

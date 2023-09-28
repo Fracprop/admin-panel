@@ -7,8 +7,6 @@ import {
     FormControl,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-
-
 import { CommonService } from 'app/modules/admin/common/common.service';
 import { WhatsNewService } from '../whats-new.service';
 
@@ -22,14 +20,12 @@ export class AddWhatsNewComponent implements OnInit {
     confirmationDialog: FormGroup;
     public loading = false;
     public communityList$: any;
-    
 
     constructor(
         private _formBuilder: FormBuilder,
         private _router: Router,
         private _commonService: CommonService,
-        private _whatsNewService: WhatsNewService,
-      
+        private _whatsNewService: WhatsNewService
     ) {}
 
     ngOnInit(): void {
@@ -57,17 +53,21 @@ export class AddWhatsNewComponent implements OnInit {
         );
     }
     addContent() {
+      this.loading=true;
         if (this.form.invalid) {
+          this.loading=false;
             return;
         }
         this._whatsNewService.addWhatsNewContent(this.form.value).subscribe(
             (response) => {
+              this.loading=false;
                 this._router.navigate(['/whats-new/list']);
             },
             (err) => {
+              this.loading=false;
+              this._commonService.error(err.error.message);
                 // this.isLoading = false;
             }
         );
     }
-    
 }

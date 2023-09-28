@@ -1,6 +1,8 @@
 import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import { PropertiesService } from '../properties.service';
-import { FormGroup } from '@angular/forms';
+import { FuseConfirmationService } from '@fuse/services/confirmation';
+import { CommonService } from '../../common/common.service';
+import { FormGroup,FormBuilder, Form } from '@angular/forms';
 
 @Component({
   selector: 'app-properties',
@@ -31,6 +33,7 @@ export class PropertiesComponent implements OnInit {
     isLoading1: boolean = false;
     isLoading: boolean = false;
     public form: FormGroup;
+    confirmationDialog: FormGroup;
 
     isBlocked: boolean = false;
     pagination: any = {
@@ -42,7 +45,10 @@ export class PropertiesComponent implements OnInit {
 
     constructor(
         private _propertiesService: PropertiesService,
-        private _changeDetectorRef: ChangeDetectorRef
+        private _changeDetectorRef: ChangeDetectorRef,
+        private _fuseConfirmationService: FuseConfirmationService,
+        private _formBuilder:FormBuilder,
+        private _commonService:CommonService,
     ) {}
 
     ngOnInit(): void {
@@ -128,6 +134,56 @@ export class PropertiesComponent implements OnInit {
             PageNo: 0,
         };
         /* this.getBanks(); */
+    }
+    confirmationForm() {
+        /**
+         * CALL CONFIG FORM
+         */
+        this.confirmationDialog = this._formBuilder.group({
+            title: '',
+            message: '',
+            icon: this._formBuilder.group({
+                show: true,
+                name: 'mat_outline:delete',
+                color: 'warn',
+            }),
+            actions: this._formBuilder.group({
+                confirm: this._formBuilder.group({
+                    show: true,
+                    label: 'Yes',
+                    color: 'warn',
+                }),
+                cancel: this._formBuilder.group({
+                    show: true,
+                    label: 'No',
+                }),
+            }),
+            dismissible: true,
+        });
+    }
+    deleteContent(userId: string) {
+        this.confirmationDialog.controls['title']?.setValue('Delete ');
+        this.confirmationDialog.controls['message']?.setValue(
+            'Are you sure you want to delete ?'
+        );
+        // Opening popup
+        const dialogRef = this._fuseConfirmationService.open(
+            this.confirmationDialog.value
+        );
+
+        // Subscribe to afterClosed from the dialog reference
+        dialogRef.afterClosed().subscribe((result) => {
+            if (result === 'confirmed') {
+                this._propertiesService.deleteProperty(userId).subscribe(
+                    (response) => {
+                      //  this.getListing();
+                    },
+                    (err) => {
+                      this._commonService.error(err.error.message);
+                    }
+                );
+            }
+        });
     }
 
 }

@@ -36,7 +36,7 @@ export class EditWhatsNewComponent implements OnInit {
             description: [null, [Validators.required]],
             GroupCriteriaId: [null, [Validators.required]],
         });
-        this.fetchContent();
+        this.getCommunities();
     }
     /**
      * Fetching  communities list
@@ -45,6 +45,7 @@ export class EditWhatsNewComponent implements OnInit {
         this._commonService.getCommunityList({ searcString: 'test' }).subscribe(
             (response) => {
                 this.communityList$ = response ? [...response] : [];
+                this.fetchContent();
             },
             (err) => {
                 // this.isLoading = false;
@@ -54,27 +55,33 @@ export class EditWhatsNewComponent implements OnInit {
     fetchContent() {
         this._whatsNewService.getDetails(this.contentId).subscribe(
             (response) => {
-                console.log(response);
-                this.patchValuestOfForm(response)
-                this.getCommunities();
+                this.patchValuestOfForm(response);
             },
             (err) => {
+              this._commonService.error(err.error.message);
                 // this.isLoading = false;
             }
         );
     }
     editContent() {
+      this.loading=true;
         if (this.form.invalid) {
+          this.loading=false;
             return;
         }
-        this._whatsNewService.editWhatsNewContent(this.form.value,this.contentId).subscribe(
-            (response) => {
-                this._router.navigate(['/whats-new/list']);
-            },
-            (err) => {
-                // this.isLoading = false;
-            }
-        );
+        this._whatsNewService
+            .editWhatsNewContent(this.form.value, this.contentId)
+            .subscribe(
+                (response) => {
+                  this.loading=false;
+                    this._router.navigate(['/whats-new/list']);
+                },
+                (err) => {
+                  this.loading=false;
+                  this._commonService.error(err.error.message);
+                    // this.isLoading = false;
+                }
+            );
     }
     patchValuestOfForm(res: any) {
         Object.keys(this.form['controls']).forEach((key) => {
