@@ -1,0 +1,214 @@
+<div class="w-full">
+    <form
+        class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden"
+    >
+        <div class="prose prose-sm max-w-3xl">
+            <h2 class="text-3xl font-semibold tracking-tight leading-8 mb-5">
+                Property Details
+            </h2>
+        </div>
+        <div class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0">
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                [floatLabel]="'always'"
+                class="flex-auto gt-xs:pr-3"
+            >
+                <mat-label class="text-header font-bold">
+                    Community<span class="text-warn"></span
+                ></mat-label>
+                <mat-select
+                    placeholder="Select community"
+                    [formControlName]="'GroupCriteriaId'"
+                  
+                >
+                    <mat-option
+                        *ngFor="let d of communityList$"
+                        [value]="d?.id"
+                        >{{ d?.name || "" }}</mat-option
+                    >
+                </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Property Cost ($)<span class="text-warn"></span
+                    ></mat-label>
+                    <input matInput placeholder="Property Cost" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div>
+            <h3 class="-mb-1">Property Images</h3>
+            <div>
+                <img
+                    style="height: 110px"
+                    src="../../../../../assets/images/upload.svg"
+                    (click)="fileImages.click()"
+                />
+            </div>
+            <input
+                type="file"
+                #fileImages
+                style="display: none"
+                (change)="onFileChange($event)"
+                multiple
+            />
+   
+            <!--preview-->
+            <div class="grid grid-cols-5 gap-4 my-5">
+                <div class="_mg relative" *ngFor="let image of propertyImages">
+                    <img [src]="image" />
+                    <button class="_icon absolute right-2 top-2" (click)=" $event.preventDefault(); removeUploadedFile(i)">
+                        <svg
+                            width="30"
+                            height="30"
+                            viewBox="0 0 30 30"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <circle
+                                cx="15"
+                                cy="15"
+                                r="15"
+                                fill="black"
+                                fill-opacity="0.3"
+                            />
+                            <path
+                                d="M10.5 20.25C10.5 20.6478 10.658 21.0294 10.9393 21.3107C11.2206 21.592 11.6022 21.75 12 21.75H18C18.3978 21.75 18.7794 21.592 19.0607 21.3107C19.342 21.0294 19.5 20.6478 19.5 20.25V11.25H10.5V20.25ZM12 12.75H18V20.25H12V12.75ZM17.625 9L16.875 8.25H13.125L12.375 9H9.75V10.5H20.25V9H17.625Z"
+                                fill="white"
+                            />
+                        </svg>
+                    </button>
+                </div>
+               
+            </div>
+            <!--preview-->
+            <div
+                class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0"
+            >
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field
+                        [floatLabel]="'always'"
+                        class="flex-auto gt-xs:pr-3"
+                    >
+                        <mat-label class="text-header font-normal text-black"
+                            >Property Name<span class="text-warn"></span
+                        ></mat-label>
+                        <input matInput placeholder="Property name" />
+                    </mat-form-field>
+                </div>
+                <div class="flex flex-col gt-xs:flex-row">
+                    <h3 style="margin-bottom: 6px; margin-top: -1px  ">
+                        Property Type
+                    </h3>
+                    <div class="flex">
+                        <button class="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-yellow-900">
+                            Residential
+                        </button>
+                        <button class="_btn_select">Commercial</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3 class="-mb-1">Property Description</h3>
+                <textarea
+                    placeholder="Type here..."
+                    style="
+                        border: 1px solid #cbd5e2;
+                        border-radius: 7px;
+                        margin-top: 9px;
+                    "
+                    class="w-full border-1"
+                    name=""
+                    id=""
+                    cols="20"
+                    rows="8"
+                >
+                </textarea>
+            </div>
+        </div>
+        <!-- <mat-divider class="mt-5 mb-5"></mat-divider> -->
+
+        <div class="prose prose-sm max-w-3xl mt-8">
+            <h2 class="text-3xl font-semibold tracking-tight leading-8 mb-5">
+                Property Address
+            </h2>
+        </div>
+        <div class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0">
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Unit Number and Complex<span class="text-warn"></span
+                    ></mat-label>
+                    <input matInput placeholder="Unit number and complex" />
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Street Number and Name<span class="text-warn"></span
+                    ></mat-label>
+                    <input matInput placeholder="Street number and name" />
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Suburb or District<span class="text-warn"></span
+                    ></mat-label>
+                    <input matInput placeholder="Suburb/District" />
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >City or Town<span class="text-warn"></span
+                    ></mat-label>
+                    <input matInput placeholder="City/Town" />
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black">
+                        Country<span class="text-warn"></span
+                    ></mat-label>
+                    <mat-select placeholder="Select country">
+                        <mat-option>One</mat-option>
+                        <mat-option>Two</mat-option>
+                        <mat-option>Three</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Postal Code<span class="text-warn"></span
+                    ></mat-label>
+                    <input matInput placeholder="Enter postal code" />
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</div>

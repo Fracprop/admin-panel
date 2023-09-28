@@ -21,8 +21,14 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { PropertyComponent } from './common/property/property.component';
+import { FundingOwnershipComponent } from './common/funding-ownership/funding-ownership.component';
+import { FinancialsComponent } from './common/financials/financials.component';
+
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const propertiesRoutes: Route[] = [
     {
@@ -31,12 +37,12 @@ const propertiesRoutes: Route[] = [
     },
     {
         // canActivate: [AdminGuard],
-        path: 'add-bank',
+        path: 'add-property',
         component: AddPropertyComponent,
     },
     {
         // canActivate: [AdminGuard],
-        path: 'edit-bank/:id',
+        path: 'edit-property',
         component: EditPropertyComponent,
     },
 ];
@@ -46,6 +52,9 @@ const propertiesRoutes: Route[] = [
         PropertiesComponent,
         AddPropertyComponent,
         EditPropertyComponent,
+        PropertyComponent,
+        FundingOwnershipComponent,
+        FinancialsComponent,
     ],
     imports: [
         CommonModule,
@@ -69,7 +78,8 @@ const propertiesRoutes: Route[] = [
         MatDividerModule,
         MatRadioModule,
         MatTabsModule,
-
+        MatDatepickerModule,
+        MatNativeDateModule,
     ],
 })
 export class PropertiesModule {}

@@ -1,0 +1,108 @@
+<div class="w-full">
+    <form
+        class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden"
+    >
+        <div class="prose prose-sm max-w-3xl">
+            <h2 class="text-3xl font-semibold tracking-tight leading-8 mb-5">
+                Funding
+            </h2>
+        </div>
+        <div class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0">
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Funding Target ($)<span class="text-warn"></span
+                    ></mat-label>
+                    <input matInput placeholder="Funding target" />
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Internal Rate of Return<span class="text-warn"></span
+                    ></mat-label>
+                    <input matInput placeholder="Rate of Return" />
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >EstImated Net Rental Yield<span
+                            class="text-warn"
+                        ></span
+                    ></mat-label>
+                    <input matInput placeholder="Net Rental Yield" />
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Market Valuation<span class="text-warn"></span
+                    ></mat-label>
+                    <input matInput placeholder="Market valuation" />
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- <mat-divider class="mt-5 mb-5"></mat-divider> -->
+
+        <div class="prose prose-sm max-w-3xl mt-8">
+            <h2 class="text-3xl font-semibold tracking-tight leading-8 mb-5">
+                Fractional Ownership
+            </h2>
+        </div>
+        <div class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0">
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Percentage ownership per share<span
+                            class="text-warn"
+                        ></span
+                    ></mat-label>
+                    <input matInput placeholder="Ownership per share" />
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Total number of shares available<span
+                            class="text-warn"
+                        ></span
+                    ></mat-label>
+                    <input matInput placeholder="No. of shares" />
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Minimum Investment Amount<span class="text-warn"></span
+                    ></mat-label>
+                    <input matInput placeholder="Investment amount" />
+                </mat-form-field>
+            </div>
+        </div>
+
+      
+    </form>
+</div>
