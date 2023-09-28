@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PropertiesService } from '../properties.service';
+import { CommonService } from '../../common/common.service';
 
 @Component({
     selector: 'app-edit-property',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditPropertyComponent implements OnInit {
     public selectedIndex = 0;
-    constructor() {}
+    public loading = false;
+    constructor(
+        private _propertiesService: PropertiesService,
+        private _commonService: CommonService
+    ) {}
 
     ngOnInit(): void {}
 
@@ -24,5 +30,30 @@ export class EditPropertyComponent implements OnInit {
         if (this.selectedIndex != 0) {
             this.selectedIndex = this.selectedIndex - 1;
         }
+    }
+    fetchContent() {
+        this._propertiesService.getDetails('').subscribe(
+            (response) => {
+              
+            },
+            (err) => {
+                this._commonService.error(err.error.message);
+                // this.isLoading = false;
+            }
+        );
+    }
+    editContent() {
+        this.loading = true;
+        this._propertiesService.editProperty({}, '').subscribe(
+            (response) => {
+                this.loading = false;
+                //this._router.navigate(['/whats-new/list']);
+            },
+            (err) => {
+                this.loading = false;
+                this._commonService.error(err.error.message);
+                // this.isLoading = false;
+            }
+        );
     }
 }

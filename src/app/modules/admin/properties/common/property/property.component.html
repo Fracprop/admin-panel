@@ -1,6 +1,7 @@
 <div class="w-full">
     <form
         class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden"
+        [formGroup]="form"
     >
         <div class="prose prose-sm max-w-3xl">
             <h2 class="text-3xl font-semibold tracking-tight leading-8 mb-5">
@@ -10,23 +11,22 @@
         <div class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0">
             <div class="flex flex-col gt-xs:flex-row">
                 <mat-form-field
-                [floatLabel]="'always'"
-                class="flex-auto gt-xs:pr-3"
-            >
-                <mat-label class="text-header font-bold">
-                    Community<span class="text-warn"></span
-                ></mat-label>
-                <mat-select
-                    placeholder="Select community"
-                    [formControlName]="'GroupCriteriaId'"
-                  
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
                 >
-                    <mat-option
-                        *ngFor="let d of communityList$"
-                        [value]="d?.id"
-                        >{{ d?.name || "" }}</mat-option
+                    <mat-label class="text-header font-bold">
+                        Community<span class="text-warn"></span
+                    ></mat-label>
+                    <mat-select
+                        placeholder="Select community"
+                        [formControlName]="'groupcriteriaId'"
                     >
-                </mat-select>
+                        <mat-option
+                            *ngFor="let d of communityList$"
+                            [value]="d?.id"
+                            >{{ d?.name || "" }}</mat-option
+                        >
+                    </mat-select>
                 </mat-form-field>
             </div>
             <div class="flex flex-col gt-xs:flex-row">
@@ -37,7 +37,11 @@
                     <mat-label class="text-header font-normal text-black"
                         >Property Cost ($)<span class="text-warn"></span
                     ></mat-label>
-                    <input matInput placeholder="Property Cost" />
+                    <input
+                        matInput
+                        placeholder="Property Cost"
+                        [formControlName]="'propertyCost'"
+                    />
                 </mat-form-field>
             </div>
         </div>
@@ -57,12 +61,14 @@
                 (change)="onFileChange($event)"
                 multiple
             />
-   
-            <!--preview-->
+
             <div class="grid grid-cols-5 gap-4 my-5">
-                <div class="_mg relative" *ngFor="let image of propertyImages">
+                <div class="_mg relative" *ngFor="let image of property_image">
                     <img [src]="image" />
-                    <button class="_icon absolute right-2 top-2" (click)=" $event.preventDefault(); removeUploadedFile(i)">
+                    <button
+                        class="_icon absolute right-2 top-2"
+                        (click)="$event.preventDefault(); removeUploadedFile(i)"
+                    >
                         <svg
                             width="30"
                             height="30"
@@ -84,9 +90,8 @@
                         </svg>
                     </button>
                 </div>
-               
             </div>
-            <!--preview-->
+
             <div
                 class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0"
             >
@@ -98,40 +103,51 @@
                         <mat-label class="text-header font-normal text-black"
                             >Property Name<span class="text-warn"></span
                         ></mat-label>
-                        <input matInput placeholder="Property name" />
+                        <input
+                            matInput
+                            placeholder="Property name"
+                            [formControlName]="'property_name'"
+                        />
                     </mat-form-field>
                 </div>
                 <div class="flex flex-col gt-xs:flex-row">
-                    <h3 style="margin-bottom: 6px; margin-top: -1px  ">
+                    <h3 style="margin-bottom: 6px; margin-top: -1px">
                         Property Type
                     </h3>
-                    <div class="flex">
-                        <button class="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-yellow-900">
-                            Residential
-                        </button>
-                        <button class="_btn_select">Commercial</button>
-                    </div>
+                    <mat-tab-group
+                        (selectedTabChange)="selectedPropertyType($event)"
+                    >
+                        <mat-tab
+                            label="Residential"
+                            value="Residential"
+                        ></mat-tab>
+                        <mat-tab
+                            label="Commerical"
+                            value="Commerical"
+                        ></mat-tab>
+                    </mat-tab-group>
                 </div>
             </div>
             <div>
                 <h3 class="-mb-1">Property Description</h3>
-                <textarea
-                    placeholder="Type here..."
-                    style="
-                        border: 1px solid #cbd5e2;
-                        border-radius: 7px;
-                        margin-top: 9px;
-                    "
-                    class="w-full border-1"
-                    name=""
-                    id=""
-                    cols="20"
-                    rows="8"
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
                 >
-                </textarea>
+                    <textarea
+                        matInput
+                        placeholder="Type here..."
+                        class="w-full border-1"
+                        name=""
+                        id=""
+                        cols="20"
+                        rows="8"
+                        [formControlName]="'property_description'"
+                    >
+                    </textarea>
+                </mat-form-field>
             </div>
         </div>
-        <!-- <mat-divider class="mt-5 mb-5"></mat-divider> -->
 
         <div class="prose prose-sm max-w-3xl mt-8">
             <h2 class="text-3xl font-semibold tracking-tight leading-8 mb-5">
@@ -147,7 +163,11 @@
                     <mat-label class="text-header font-normal text-black"
                         >Unit Number and Complex<span class="text-warn"></span
                     ></mat-label>
-                    <input matInput placeholder="Unit number and complex" />
+                    <input
+                        matInput
+                        placeholder="Unit number and complex"
+                        [formControlName]="'unitNumberandComplex'"
+                    />
                 </mat-form-field>
             </div>
             <div class="flex flex-col gt-xs:flex-row">
@@ -158,29 +178,11 @@
                     <mat-label class="text-header font-normal text-black"
                         >Street Number and Name<span class="text-warn"></span
                     ></mat-label>
-                    <input matInput placeholder="Street number and name" />
-                </mat-form-field>
-            </div>
-            <div class="flex flex-col gt-xs:flex-row">
-                <mat-form-field
-                    [floatLabel]="'always'"
-                    class="flex-auto gt-xs:pr-3"
-                >
-                    <mat-label class="text-header font-normal text-black"
-                        >Suburb or District<span class="text-warn"></span
-                    ></mat-label>
-                    <input matInput placeholder="Suburb/District" />
-                </mat-form-field>
-            </div>
-            <div class="flex flex-col gt-xs:flex-row">
-                <mat-form-field
-                    [floatLabel]="'always'"
-                    class="flex-auto gt-xs:pr-3"
-                >
-                    <mat-label class="text-header font-normal text-black"
-                        >City or Town<span class="text-warn"></span
-                    ></mat-label>
-                    <input matInput placeholder="City/Town" />
+                    <input
+                        matInput
+                        placeholder="Street number and name"
+                        [formControlName]="'streatNumberandName'"
+                    />
                 </mat-form-field>
             </div>
             <div class="flex flex-col gt-xs:flex-row">
@@ -191,10 +193,36 @@
                     <mat-label class="text-header font-normal text-black">
                         Country<span class="text-warn"></span
                     ></mat-label>
-                    <mat-select placeholder="Select country">
-                        <mat-option>One</mat-option>
-                        <mat-option>Two</mat-option>
-                        <mat-option>Three</mat-option>
+                    <mat-select
+                        placeholder="Select country"
+                        [formControlName]="'country'"
+                        (selectionChange)="getProvinces()"
+                        
+                    >
+                    <mat-option *ngFor="let type of countries$" [value]="type.id">{{
+                        type.name
+                      }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row" *ngIf="form.value.country === '3080b9fa-e67b-46e9-b03b-9ed196bc37aa'">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                    (selectionChange)="getCites()"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Suburb or District<span class="text-warn"></span
+                    ></mat-label>
+                    <mat-select
+                        placeholder="Select country"
+                        [formControlName]="'suburborDistrict'"
+                        (selectionChange)="getCities()"
+                        
+                    >
+                    <mat-option *ngFor="let type of provines$" [value]="type.id">{{
+                        type.name
+                      }}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -204,11 +232,48 @@
                     class="flex-auto gt-xs:pr-3"
                 >
                     <mat-label class="text-header font-normal text-black"
-                        >Postal Code<span class="text-warn"></span
+                        >City or Town<span class="text-warn"></span
                     ></mat-label>
-                    <input matInput placeholder="Enter postal code" />
+                    <mat-select
+                    placeholder="Select country"
+                    [formControlName]="'cityorTown'"
+                  
+                    
+                >
+                <mat-option *ngFor="let type of cities$" [value]="type.id">{{
+                    type.name
+                  }}</mat-option>
+                  </mat-select>
                 </mat-form-field>
             </div>
+           
+            <div class="flex flex-col gt-xs:flex-row" *ngIf="form.value.country === '3080b9fa-e67b-46e9-b03b-9ed196bc37aa'">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Postal Code<span class="text-warn"></span
+                    ></mat-label>
+                    <input
+                        matInput
+                        placeholder="Enter postal code"
+                        [formControlName]="'postalCode'"
+                    />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="flex items-center justify-between mb-8 mt-5">
+            <button mat-button >Back</button>
+            <button
+                class="px-6 ml-3 bg-theme"
+                mat-flat-button
+                [color]="'primary'"
+                (click)="add()"
+              
+            >
+                <span> Next</span>
+            </button>
         </div>
     </form>
 </div>

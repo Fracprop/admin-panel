@@ -52,19 +52,20 @@ export class PropertiesComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.getPropertiesList();
        
     }
     /**
      * Fetching  properties list
      */
-    /* getPropertiesList() {
+    getPropertiesList() {
         let paginationParams = {
             pageNo: this.pagination?.pageNo,
             limit: this.pagination?.limit,
         };
 
         this.isLoading = true;
-        this._bankService.getBanksList({ ...paginationParams }).subscribe(
+        this._propertiesService.getPropertiesList({ ...paginationParams }).subscribe(
             (response) => {
                 if (!response) {
                     if (response.requestCode == 401) {
@@ -81,7 +82,7 @@ export class PropertiesComponent implements OnInit {
 
                     this.pagination.TotalCount = response?.totalCount;
 
-                    this.banks$ = response?.banks
+                    this.properties$ = response?.banks
                         ? [...response?.banks]
                         : [];
 
@@ -93,7 +94,7 @@ export class PropertiesComponent implements OnInit {
                 this.isLoading = false;
             }
         );
-    } */
+    }
 
     pageChanged(e) {
         if (e?.pageSize !== this.pagination?.limit) {
