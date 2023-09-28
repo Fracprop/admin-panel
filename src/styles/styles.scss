@@ -496,3 +496,12 @@ body.light .mat-progress-bar-fill::after, body .light .mat-progress-bar-fill::af
 .mat-tab-body-content {
     padding: 0 !important;
 }
+.mat-tab-labels {
+    display: flex;
+    background: #fff !important;
+    padding: 6px;
+    justify-content: space-between;
+}
+.mat-tab-label {
+    width: 100%;
+}
