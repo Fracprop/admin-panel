@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Input,
+    Output,
+    EventEmitter,
+    SimpleChange,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -8,6 +15,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class FundingOwnershipComponent implements OnInit {
     @Input() SelectedTab = 0;
+
     @Input() isEditForm = false;
     @Output() tabChange = new EventEmitter();
     form: FormGroup;
@@ -28,18 +36,25 @@ export class FundingOwnershipComponent implements OnInit {
             totalnumberShareavailable: [null, [Validators.required]],
             minimumInvestmentAmount: [null, [Validators.required]],
         });
-        
+        let savedInfo = this.isEditForm
+            ? localStorage.getItem('propertyData')
+            : localStorage.getItem('fundingDetails');
+
+        savedInfo ? this.patchValuestOfForm(JSON.parse(savedInfo)) : '';
     }
 
     patchValuestOfForm(res: any) {
         Object.keys(this.form['controls']).forEach((key) => {
-            this.form['controls'][key].setValue(res[key] ? res[key] : '');
+            this.form['controls'][key].setValue(
+                res[key] ? res[key].toString() : ''
+            );
         });
     }
     add() {
         if (this.form.invalid) {
             return;
         } else {
+            this.patchValuestOfForm(this.form.value);
             localStorage.setItem(
                 'fundingDetails',
                 JSON.stringify(this.form.value)

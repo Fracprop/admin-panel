@@ -47,7 +47,7 @@
         </div>
         <div>
             <h3 class="-mb-1">Property Images</h3>
-            <div>
+            <div *ngIf="property_image.length<10">
                 <img
                     style="height: 110px"
                     src="../../../../../assets/images/upload.svg"
@@ -64,7 +64,7 @@
 
             <div class="grid grid-cols-5 gap-4 my-5">
                 <div class="_mg relative" *ngFor="let image of property_image">
-                    <img [src]="image" />
+                    <a [href]="image.image" target="_blank"> <img [src]="image" /></a>
                     <button
                         class="_icon absolute right-2 top-2"
                         (click)="$event.preventDefault(); removeUploadedFile(i)"
@@ -114,8 +114,25 @@
                     <h3 style="margin-bottom: 6px; margin-top: -1px">
                         Property Type
                     </h3>
-                    <mat-tab-group
+              
+                    <mat-radio-group
+                    aria-label="Property type"
+                    formControlName="property_type"
+                    color="primary"
+                  >
+                    <mat-radio-button value="RESIDENTIAL">Residential</mat-radio-button>
+                    <mat-radio-button value="COMMERCIAL"
+                      >Commerical</mat-radio-button
+                    >
+                    
+                    <mat-error
+                      *ngIf=" isSubmitted &&form.get('property_type')?.invalid"
+                      >Please select the field.</mat-error
+                    >
+                  </mat-radio-group>
+                    <!-- <mat-tab-group
                         (selectedTabChange)="selectedPropertyType($event)"
+                       
                     >
                         <mat-tab
                             label="Residential"
@@ -125,14 +142,14 @@
                             label="Commerical"
                             value="Commerical"
                         ></mat-tab>
-                    </mat-tab-group>
+                    </mat-tab-group> -->
                 </div>
             </div>
             <div>
-                <h3 class="-mb-1">Property Description</h3>
+                <h3 class="mb-1">Property Description</h3>
                 <mat-form-field
                     [floatLabel]="'always'"
-                    class="flex-auto gt-xs:pr-3"
+                    class="flex-auto gt-xs:pr-3 w-full" 
                 >
                     <textarea
                         matInput

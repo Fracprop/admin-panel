@@ -18,7 +18,8 @@
                     <mat-label class="text-header font-normal text-black"
                         >Funding Target ($)<span class="text-warn"></span
                     ></mat-label>
-                    <input matInput placeholder="Funding target" [formControlName]="'fundingTarget'"/>
+                    <input matInput placeholder="Funding target" [formControlName]="'fundingTarget'" type="number"
+                    min="0"/>
                 </mat-form-field>
             </div>
             <div class="flex flex-col gt-xs:flex-row">
@@ -29,7 +30,8 @@
                     <mat-label class="text-header font-normal text-black"
                         >Internal Rate of Return<span class="text-warn"></span
                     ></mat-label>
-                    <input matInput placeholder="Rate of Return" [formControlName]="'internalRateofReturn'" />
+                    <input matInput placeholder="Rate of Return" [formControlName]="'internalRateofReturn'"  type="number"
+                    min="0" />
                 </mat-form-field>
             </div>
             <div class="flex flex-col gt-xs:flex-row">
@@ -42,7 +44,8 @@
                             class="text-warn"
                         ></span
                     ></mat-label>
-                    <input matInput placeholder="Net Rental Yield" [formControlName]="'estimatedNetRental'" />
+                    <input matInput placeholder="Net Rental Yield" [formControlName]="'estimatedNetRental'"  type="number"
+                    min="0"/>
                 </mat-form-field>
             </div>
             <div class="flex flex-col gt-xs:flex-row">
@@ -53,7 +56,8 @@
                     <mat-label class="text-header font-normal text-black"
                         >Market Valuation<span class="text-warn"></span
                     ></mat-label>
-                    <input matInput placeholder="Market valuation" [formControlName]="'marketValuation'" />
+                    <input matInput placeholder="Market valuation" [formControlName]="'marketValuation'"  type="number"
+                    min="0"/>
                 </mat-form-field>
             </div>
         </div>
@@ -76,7 +80,8 @@
                             class="text-warn"
                         ></span
                     ></mat-label>
-                    <input matInput placeholder="Ownership per share" [formControlName]="'percentageOwnewshipshare'" />
+                    <input matInput placeholder="Ownership per share" [formControlName]="'percentageOwnewshipshare'"  type="number"
+                    min="0" />
                 </mat-form-field>
             </div>
             <div class="flex flex-col gt-xs:flex-row">
@@ -89,7 +94,8 @@
                             class="text-warn"
                         ></span
                     ></mat-label>
-                    <input matInput placeholder="No. of shares" [formControlName]="'totalnumberShareavailable'" />
+                    <input matInput placeholder="No. of shares" [formControlName]="'totalnumberShareavailable'"  type="number"
+                    min="0" />
                 </mat-form-field>
             </div>
             <div class="flex flex-col gt-xs:flex-row">
@@ -100,7 +106,8 @@
                     <mat-label class="text-header font-normal text-black"
                         >Minimum Investment Amount<span class="text-warn"></span
                     ></mat-label>
-                    <input matInput placeholder="Investment amount" [formControlName]="'minimumInvestmentAmount'" />
+                    <input matInput placeholder="Investment amount" [formControlName]="'minimumInvestmentAmount'"  type="number"
+                    min="0" />
                 </mat-form-field>
             </div>
         </div>

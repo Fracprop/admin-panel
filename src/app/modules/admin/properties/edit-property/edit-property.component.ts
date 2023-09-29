@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PropertiesService } from '../properties.service';
 import { CommonService } from '../../common/common.service';
+import { ActivatedRoute } from '@angular/router';
+import { ConditionalExpr } from '@angular/compiler';
 
 @Component({
     selector: 'app-edit-property',
@@ -10,16 +12,34 @@ import { CommonService } from '../../common/common.service';
 export class EditPropertyComponent implements OnInit {
     public selectedIndex = 0;
     public loading = false;
+    public id=''
+    public data=false;
+    public formData:any
+  public formStatus='invalid';
     constructor(
         private _propertiesService: PropertiesService,
-        private _commonService: CommonService
-    ) {}
+        private _commonService: CommonService,
+        private __activatedRoute:ActivatedRoute
+    ) {
+        this.__activatedRoute.params.subscribe((params) => {
+            this.id = params['id'];
+          });
+          this.fetchContent();
+    }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+       
+    }
+    invalidForm(e){
+        console.log(e)
+        this.formStatus=e;
+    
+      }
 
     tabChange(e: any) {
-        this.selectedIndex = e;
-        localStorage.setItem('tabStatus', this.selectedIndex.toString());
+        console.log(e)
+        this.selectedIndex = e.index;
+     //   localStorage.setItem('tabStatus', this.selectedIndex.toString());
     }
     nextStep() {
         if (this.selectedIndex != 2) {
@@ -32,8 +52,11 @@ export class EditPropertyComponent implements OnInit {
         }
     }
     fetchContent() {
-        this._propertiesService.getDetails('').subscribe(
+        this._propertiesService.getDetails(this.id).subscribe(
             (response) => {
+                console.log(response);
+                this.data=true;
+                localStorage.setItem('propertyData',JSON.stringify(response))
               
             },
             (err) => {

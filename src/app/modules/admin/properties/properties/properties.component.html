@@ -46,22 +46,23 @@
                     <div class="grid table_tr_bg">
                         <!-- Header -->
                         <div
-                            class="content-grid z-10 text-lg sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow font-semibold"
+                            class="properties-grid z-10 text-lg sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow font-semibold"
                             style="background-color: #ecf1f2"
                         >
                             <div class="hidden md:block">S No.</div>
-                            <div class="hidden md:block">Community</div>
-                            <div class="hidden md:block">Heading</div>
+                            <div class="hidden md:block">Community Name</div>
+                            <div class="hidden md:block">Property Name</div>
+                            <div class="hidden md:block">Address</div>
                             <div class="hidden md:block">Description</div>
 
                             <div class="hidden md:block">Action</div>
                         </div>
                         <ng-container>
                             <ng-container
-                                *ngFor="let item of contentList$; let i = index"
+                                *ngFor="let item of properties$; let i = index"
                             >
                                 <div
-                                    class="content-grid font-medium grid items-center gap-4 py-3 px-6 md:px-8 border-b-2 border-gray-300"
+                                    class="properties-grid font-medium grid items-center gap-4 py-3 px-6 md:px-8 border-b-2 border-gray-300"
                                 >
                                     <div>
                                         {{
@@ -71,17 +72,21 @@
                                                 1
                                         }}
                                     </div>
-                                    <!-- Community -->
+                                     <!-- Community -->
                                     <div class="">
-                                        {{ item?.groupName || "-" }}
+                                        {{ item?.communityName || "-" }}
+                                    </div>
+                                    <!-- Property name -->
+                                    <div class="">
+                                        {{ item?.property_name || "-" }}
                                     </div>
                                     <!-- Heading -->
                                     <div class="">
-                                        {{ item?.heading || "-" }}
+                                        {{ item?.unitNumberandComplex  || "-" }}
                                     </div>
                                     <!-- desciption -->
                                     <div class="">
-                                        {{ item?.description || "-" }}
+                                        {{ item?.property_description || "-" }}
                                     </div>
 
                                     <div class="flex justify-start">
@@ -96,7 +101,7 @@
 
                                         <!-- Edit button -->
                                         <button
-                                            routerLink="/properties/edit-property{{
+                                            routerLink="/properties/edit-property/{{
                                                 item?.id
                                             }}"
                                             class="min-w-20 min-h-7 h-7 px-2 ml-1 bg-green-600 text-white rounded-2xl"
@@ -118,7 +123,7 @@
                     </div>
 
                     <mat-paginator
-                        *ngIf="contentList$.length"
+                        *ngIf="properties$.length"
                         class="sm:absolute sm:inset-x-0 sm:bottom-0 border-b sm:border-t sm:border-b-0 z-10 bg-gray-50 dark:bg-transparent justify-center text-header"
                         [ngClass]="{ 'pointer-events-none': isLoading }"
                         [length]="pagination.TotalCount"

@@ -3,6 +3,7 @@ import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { InitialDataResolver } from 'app/app.resolvers';
+import { PropertiesResolver } from './modules/admin/properties/properties.resolver';
 
 
 // @formatter:off
@@ -145,7 +146,7 @@ export const appRoutes: Route[] = [
                         'app/modules/admin/properties/properties.module'
                     ).then((m) => m.PropertiesModule),
                 resolve: {
-                    // commanData: AdminMangementResolver,
+                   //  commanData: PropertiesResolver,
                 },
             },
             {

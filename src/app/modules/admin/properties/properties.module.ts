@@ -44,7 +44,7 @@ const propertiesRoutes: Route[] = [
     },
     {
         // canActivate: [AdminGuard],
-        path: 'edit-property',
+        path: 'edit-property/:id',
         component: EditPropertyComponent,
     },
 ];

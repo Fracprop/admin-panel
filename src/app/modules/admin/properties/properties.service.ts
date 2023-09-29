@@ -8,6 +8,11 @@ import { switchMap } from 'rxjs/operators';
     providedIn: 'root',
 })
 export class PropertiesService {
+    formData: any = {
+        step1Data: {},
+        step2Data: {},
+        step3Data: {},
+      };
     constructor(private _httpClient: HttpClient) {}
     getCountries(obj) {
         return this._httpClient
@@ -46,8 +51,9 @@ export class PropertiesService {
             .get(
                 environment.apiEndPoint +
                     'property/' +
-                    obj.limit+'/' +
-                    obj.pageNo ,
+                    obj.pageNo+'/'+
+                    obj.limit
+                    ,
                    
                 {}
             )
@@ -55,26 +61,26 @@ export class PropertiesService {
     }
     getDetails(id: string) {
         return this._httpClient
-            .get(environment.apiEndPoint + 'property' + id)
+            .get(environment.apiEndPoint + 'property/'+id)
             .pipe(switchMap((response: any) => of(response)));
     }
     addProperty(obj): Observable<any> {
         return this._httpClient
-            .post(environment.apiEndPoint + 'bank', {
+            .post(environment.apiEndPoint + 'property', {
                 ...obj,
             })
             .pipe(switchMap((response: any) => of(response)));
     }
     editProperty(obj: any, id: string): Observable<any> {
         return this._httpClient
-            .patch(environment.apiEndPoint + 'what-new/' + id, {
+            .patch(environment.apiEndPoint + 'property/' + id, {
                 ...obj,
             })
             .pipe(switchMap((response: any) => of(response)));
     }
     deleteProperty(id: string): Observable<any> {
         return this._httpClient
-            .delete(environment.apiEndPoint + 'what-new/' + id)
+            .delete(environment.apiEndPoint + 'property/' + id)
             .pipe(switchMap((response: any) => of(response)));
     }
 

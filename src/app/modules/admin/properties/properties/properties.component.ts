@@ -11,18 +11,18 @@ import { FormGroup,FormBuilder, Form } from '@angular/forms';
   styles: [
     `
         .properties-grid {
-            grid-template-columns: auto auto auto;
+            grid-template-columns: auto auto auto auto auto;
 
             @screen sm {
-                grid-template-columns: auto auto auto auto;
+                grid-template-columns: auto auto auto auto auto;
             }
 
             @screen md {
-                grid-template-columns: auto auto auto;
+                grid-template-columns: 150px 150px 150px 150px 150px 150px;
             }
 
             @screen lg {
-                grid-template-columns: auto auto auto;
+                grid-template-columns: 150px 150px 150px 150px 150px 150px;
             }
         }
     `,
@@ -49,7 +49,9 @@ export class PropertiesComponent implements OnInit {
         private _fuseConfirmationService: FuseConfirmationService,
         private _formBuilder:FormBuilder,
         private _commonService:CommonService,
-    ) {}
+    ) {
+        this.confirmationForm();
+    }
 
     ngOnInit(): void {
         this.getPropertiesList();
@@ -74,16 +76,16 @@ export class PropertiesComponent implements OnInit {
                     } else {
                         // let msg = this._errorService.errorMessage(response);
                         // this._commonService.error(msg);
-
+                       
                         this.isLoading = false;
                     }
                 } else {
                     this.isLoading = false;
 
-                    this.pagination.TotalCount = response?.totalCount;
+                    this.pagination.TotalCount = response?.TotalCount ||10;
 
-                    this.properties$ = response?.banks
-                        ? [...response?.banks]
+                    this.properties$ = response?.PropertyRecords
+                        ? [...response?.PropertyRecords]
                         : [];
 
                       
@@ -177,7 +179,7 @@ export class PropertiesComponent implements OnInit {
             if (result === 'confirmed') {
                 this._propertiesService.deleteProperty(userId).subscribe(
                     (response) => {
-                      //  this.getListing();
+                      this.getPropertiesList();
                     },
                     (err) => {
                       this._commonService.error(err.error.message);

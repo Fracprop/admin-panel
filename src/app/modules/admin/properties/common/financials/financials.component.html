@@ -4,6 +4,7 @@
         [formGroup]="form"
        
     >
+    
         <div class="prose prose-sm max-w-3xl">
             <h2
                 class="text-3xl font-semibold tracking-tight leading-8 mb-5"
@@ -29,6 +30,8 @@
                         matInput
                         placeholder="Projected returns"
                         [formControlName]="'projectedReturns'"
+                        type="number"
+                        min="0"
                     />
                 </mat-form-field>
             </div>
@@ -47,6 +50,8 @@
                         matInput
                         placeholder="Potential rental inome"
                         [formControlName]="'potentialRentalincome'"
+                        type="number"
+                        min="0"
                     />
                 </mat-form-field>
             </div>
@@ -61,7 +66,8 @@
                             class="text-warn"
                         ></span
                     ></mat-label>
-                    <input matInput placeholder="Expenses" [formControlName]="'estimatedExpenses'"/>
+                    <input matInput placeholder="Expenses" [formControlName]="'estimatedExpenses'"   type="number"
+                    min="0"/>
                 </mat-form-field>
             </div>
             <div class="flex flex-col gt-xs:flex-row">
@@ -75,7 +81,8 @@
                             class="text-warn"
                         ></span
                     ></mat-label>
-                    <input matInput placeholder="Reserve fund" [formControlName]="'estimatedReserveFund'" />
+                    <input matInput placeholder="Reserve fund" [formControlName]="'estimatedReserveFund'"   type="number"
+                    min="0"/>
                 </mat-form-field>
             </div>
             <div class="flex flex-col gt-xs:flex-row">
@@ -93,12 +100,14 @@
                         matInput
                         placeholder="Taxes and other fees"
                         [formControlName]="'TaxesandOtherfees'"
+                        type="number"
+                        min="0"
                     />
                 </mat-form-field>
             </div>
         </div>
         <div class="mt-5">
-             <div>
+             <div *ngIf="floorplanImages.length<10">
                 <img
                     style="height: 110px"
                     src="../../../../../assets/images/upload.svg"
@@ -117,8 +126,8 @@
             <div class="grid grid-cols-5 gap-4 my-5">
                 <div class="_mg relative" *ngFor="let image of floorplanImages">
                     
-                    <img *ngIf="image.type==='application/pdf'" width="10" height="10"  src="../../../../../../assets/images/logo/pdf.svg" />
-                    <img *ngIf="image.type!=='application/pdf'" [src]="image.image" />
+                    <a [href]="image.image" *ngIf="image.type=='application/pdf'" target="_blank">  <img width="10" height="10"  src="../../../../../../assets/images/logo/pdf.svg" /></a>
+                    <a [href]="image.image"*ngIf="image.type!=='application/pdf'" target="_blank">    <img  [src]="image.image" /></a>
                     <button class="_icon absolute right-2 top-2" (click)=" $event.preventDefault(); removeUploadedFile(i)" *ngIf="image.image">
                         <svg
                             width="30"
@@ -150,25 +159,26 @@
             <div class="flex flex-col gt-xs:flex-row">
                 <mat-form-field class="w-full">
                     <mat-label>Opening date</mat-label>
-                    <input matInput [matDatepicker]="picker"  />
-                    <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                    <input matInput [matDatepicker]="picker2" formControlName="openingDate" />
+                    <mat-hint>MM/DD/YYYY</mat-hint>
                     <mat-datepicker-toggle
                       matIconSuffix
-                      [for]="picker"
+                      [for]="picker2"
                     ></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-datepicker #picker2></mat-datepicker>
                   </mat-form-field>
             </div>
             <div class="flex flex-col gt-xs:flex-row">
                 <mat-form-field class="w-full">
                     <mat-label>Close date</mat-label>
-                    <input matInput [matDatepicker]="picker"/>
-                    <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                    
+                    <input matInput [matDatepicker]="picker1" formControlName="closingDate"/>
+                    <mat-hint>MM/DD/YYYY</mat-hint>
                     <mat-datepicker-toggle
                       matIconSuffix
-                      [for]="picker"
+                      [for]="picker1"
                     ></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-datepicker #picker1></mat-datepicker>
                   </mat-form-field>
             </div>
             </div>
@@ -180,6 +190,7 @@
                 class="px-6 ml-3 bg-theme"
                 mat-flat-button
                 [color]="'primary'"
+                (click)="add()"
               
             >
                 <span> Next</span>

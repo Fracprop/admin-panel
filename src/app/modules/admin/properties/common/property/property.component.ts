@@ -15,6 +15,9 @@ export class PropertyComponent implements OnInit {
     @Input() isEditForm = false;
     @Output() tabChange = new EventEmitter();
     @Output() propertyDetails = new EventEmitter();
+    @Output() invalidForm = new EventEmitter();
+    @Input() formStatus = 'invalid';
+    public isSubmitted = false;
     public fileType = '';
     public property_image = [];
     public property_type = '';
@@ -30,6 +33,7 @@ export class PropertyComponent implements OnInit {
         private _formBuilder: FormBuilder
     ) {
         this.getCommunities();
+        this.getCountries();
     }
 
     //   tabChange(e: any) {
@@ -39,26 +43,31 @@ export class PropertyComponent implements OnInit {
     //   }
 
     ngOnInit(): void {
-        this.getCountries();
         this.form = this._formBuilder.group({
             groupcriteriaId: [null, [Validators.required]],
             propertyCost: [null, [Validators.required]],
-
             property_name: [null, [Validators.required]],
-            property_type: [null, []],
+            property_type: [null, [Validators.required]],
+            property_image: [null, []],
             property_description: [null, [Validators.required]],
             unitNumberandComplex: [null, [Validators.required]],
             streatNumberandName: [null, [Validators.required]],
+            country: [null, [Validators.required]],
             suburborDistrict: [null, [Validators.required]],
             cityorTown: [null, [Validators.required]],
-            country: [null, [Validators.required]],
+
             postalCode: [null, [Validators.required]],
         });
+        let savedInfo = this.isEditForm
+            ? localStorage.getItem('propertyData')
+            : localStorage.getItem('propertyDetails');
+        console.log(this.isEditForm);
+
+        savedInfo ? this.patchValuestOfForm(JSON.parse(savedInfo)) : '';
     }
     ngOnChanges(changes: SimpleChange) {
         // Extract changes to the input property by its name
-        console.log(changes?.currentValue);
-
+        //   console.log(changes);
         // Whenever the data in the parent changes, this method gets triggered
         // You can act on the changes here. You will have both the previous
         // value and the  current value here.
@@ -156,8 +165,18 @@ export class PropertyComponent implements OnInit {
     }
     patchValuestOfForm(res: any) {
         Object.keys(this.form['controls']).forEach((key) => {
-            this.form['controls'][key].setValue(res[key] ? res[key] : '');
+            if (key === 'property_image') {
+                this.property_image = res[key].split(',');
+                console.log(this.property_image);
+                return;
+            } else if (key === 'country') {
+                this.form['controls'][key].setValue(res[key] ? res[key] : '');
+                this.getProvinces();
+            } else {
+                this.form['controls'][key].setValue(res[key] ? res[key] : '');
+            }
         });
+        this._propertyService.formData.step1Data = this.form.value;
     }
     /**
      * Fetching  communities list
@@ -173,23 +192,28 @@ export class PropertyComponent implements OnInit {
         );
     }
     add() {
+        this.isSubmitted = true;
         console.log(this.form);
         if (this.form.invalid) {
+            //this.invalidForm.emit('invalid');
             return;
         } else {
+            //  this.invalidForm.emit('valid');
+            if (!this.property_image.length) {
+                this._commonService.error('Please add property images!');
+                return;
+            }
+
             let data = {
                 ...this.form.value,
-                property_type: this.property_type,
-                property_images: this.property_image.toString(),
-                property_image_type: '',
+
+                property_image: this.property_image.toString(),
             };
-            localStorage.setItem(
-                'propertyDetails',
-                JSON.stringify(this.form.value)
-            );
+            this._propertyService.formData.step1Data = data;
+            localStorage.setItem('propertyDetails', JSON.stringify(data));
             this.tabChange.emit({
                 index: 1,
-                formDetails: { ...this.form.value },
+                formDetails: 'valid',
             });
             window.scroll(0, 0);
         }
