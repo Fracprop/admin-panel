@@ -496,3 +496,47 @@ body.light .mat-progress-bar-fill::after, body .light .mat-progress-bar-fill::af
 .mat-tab-body-content {
     padding: 0 !important;
 }
+.mat-tab-labels {
+    display: flex;
+    background: #fff !important;
+    padding: 6px;
+    justify-content: space-between;
+}
+._custom .mat-tab-label {
+   width: 100%;
+}
+
+div#mat-tab-label-0-0 {
+    border-radius: 4px !important;
+    border: 1px solid #E2BC72;
+    &.mat-tab-label-active {
+        background-color: #FEFBF0 !important;
+        font-weight: 600;
+    }
+    .mat-tab-label-content {
+        color: #E2BC72 !important;
+    }
+}
+div#mat-tab-label-0-1{
+    border-radius: 4px !important;
+    border: 1px solid #E2BC72;
+    &.mat-tab-label-active {
+        background-color: #FEFBF0 !important;
+        font-weight: 600;
+      
+    }
+    .mat-tab-label-content {
+        color: #E2BC72 !important;
+    }
+}
+div#mat-tab-label-0-2 {
+    border-radius: 4px !important;
+    border: 1px solid #E2BC72;
+    &.mat-tab-label-active {
+        background-color: #FEFBF0 !important;
+        font-weight: 600;
+    }
+    .mat-tab-label-content {
+        color: #E2BC72 !important;
+    }
+}
