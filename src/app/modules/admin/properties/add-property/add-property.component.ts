@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PropertiesService } from '../properties.service';
+import { CommonService } from '../../common/common.service';
 
 @Component({
   selector: 'app-add-property',
@@ -7,18 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddPropertyComponent implements OnInit {
   public selectedIndex=0;
+  public loading=false;
+  public formData:any
+  
 
-  constructor() { }
+  constructor(private _propertiesService:PropertiesService, private _commonService:CommonService) { }
 
   ngOnInit(): void {
   }
 
   tabChange(e: any) {
-   
-    this.selectedIndex = e;
-    localStorage.setItem('tabStatus', this.selectedIndex.toString());
+   console.log(e);
+    this.selectedIndex = e.index;
+  
+    
+    this.formData={...e.formDetails};
+    console.log(this.formData)
+  //  localStorage.setItem('tabStatus', this.selectedIndex.toString());
   }
   nextStep() {
+
     if (this.selectedIndex != 2) {
       this.selectedIndex = this.selectedIndex + 1;
     }
@@ -28,4 +38,20 @@ export class AddPropertyComponent implements OnInit {
       this.selectedIndex = this.selectedIndex - 1;
     }
   }
+  addContent() {
+    this.loading=true;
+   
+      this._propertiesService.addProperty({}).subscribe(
+          (response) => {
+            this.loading=false;
+              //this._router.navigate(['/whats-new/list']);
+          },
+          (err) => {
+            this.loading=false;
+            this._commonService.error(err.error.message);
+              // this.isLoading = false;
+          }
+      );
+  }
+  
 }

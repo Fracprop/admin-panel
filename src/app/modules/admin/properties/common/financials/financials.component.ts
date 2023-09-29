@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PropertiesService } from '../../properties.service';
 import { CommonService } from 'app/modules/admin/common/common.service';
-import { FormBuilder,FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-financials',
@@ -15,18 +15,28 @@ export class FinancialsComponent implements OnInit {
     form: FormGroup;
     public loading = false;
     public fileType = '';
-    public floorImages = [];
+    public floorplanImages = [];
     constructor(
         private _propertyService: PropertiesService,
         private _commonService: CommonService,
-        private _formBuilder:FormBuilder
+        private _formBuilder: FormBuilder
     ) {}
+    previousTab() {
+        this.tabChange.emit({index:1,formDetails:{}});
+        window.scroll(0, 0);
+      }
 
     ngOnInit(): void {
         this.form = this._formBuilder.group({
-            name: [null],
-           
-          
+            projectedReturns: [null, [Validators.required]],
+            potentialRentalincome: [null, [Validators.required]],
+            estimatedExpenses: [null, [Validators.required]],
+            estimatedReserveFund: [null, [Validators.required]],
+            TaxesandOtherfees: [null, [Validators.required]],
+            // floorplanImages: [null, [Validators.required]],
+
+            openingDate: [null, [Validators.required]],
+            closingDate: [null, [Validators.required]],
         });
     }
     onFileChange(event: any) {
@@ -56,7 +66,7 @@ export class FinancialsComponent implements OnInit {
             this._propertyService.upload(formData).subscribe({
                 next: (response: any) => {
                     console.log(response);
-                    this.floorImages.push({
+                    this.floorplanImages.push({
                         image: response?.Location,
                         type: this.fileType,
                     });
@@ -70,11 +80,14 @@ export class FinancialsComponent implements OnInit {
         }
     }
     removeUploadedFile(key: any) {
-        this.floorImages.splice(key, 1);
+        this.floorplanImages.splice(key, 1);
     }
     patchValuestOfForm(res: any) {
         Object.keys(this.form['controls']).forEach((key) => {
             this.form['controls'][key].setValue(res[key] ? res[key] : '');
         });
+    }
+    add(){
+        
     }
 }

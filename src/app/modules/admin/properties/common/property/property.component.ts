@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PropertiesService } from '../../properties.service';
 import { CommonService } from 'app/modules/admin/common/common.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SimpleChange } from '@angular/core';
+import { ConditionalExpr } from '@angular/compiler';
 
 @Component({
     selector: 'app-property',
@@ -12,9 +14,14 @@ export class PropertyComponent implements OnInit {
     @Input() SelectedTab = 0;
     @Input() isEditForm = false;
     @Output() tabChange = new EventEmitter();
+    @Output() propertyDetails = new EventEmitter();
     public fileType = '';
-    public propertyImages = [];
+    public property_image = [];
+    public property_type = '';
     public communityList$ = [];
+    public countries$ = [];
+    public cities$ = [];
+    public provines$ = [];
     form: FormGroup;
     public loading = false;
     constructor(
@@ -25,41 +32,87 @@ export class PropertyComponent implements OnInit {
         this.getCommunities();
     }
 
+    //   tabChange(e: any) {
+
+    //     this.selectedIndex = e;
+    //     localStorage.setItem('tabStatus', this.selectedIndex.toString());
+    //   }
+
     ngOnInit(): void {
         this.getCountries();
         this.form = this._formBuilder.group({
-            name: [null],
+            groupcriteriaId: [null, [Validators.required]],
+            propertyCost: [null, [Validators.required]],
+
+            property_name: [null, [Validators.required]],
+            property_type: [null, []],
+            property_description: [null, [Validators.required]],
+            unitNumberandComplex: [null, [Validators.required]],
+            streatNumberandName: [null, [Validators.required]],
+            suburborDistrict: [null, [Validators.required]],
+            cityorTown: [null, [Validators.required]],
+            country: [null, [Validators.required]],
+            postalCode: [null, [Validators.required]],
         });
+    }
+    ngOnChanges(changes: SimpleChange) {
+        // Extract changes to the input property by its name
+        console.log(changes?.currentValue);
+
+        // Whenever the data in the parent changes, this method gets triggered
+        // You can act on the changes here. You will have both the previous
+        // value and the  current value here.
+    }
+    selectedPropertyType(e: any) {
+        console.log(e);
     }
     getCountries() {
         this._propertyService.getCountries({}).subscribe(
             (response) => {
-                if (!response) {
-                } else {
-                }
+                this.countries$ = [...response];
             },
             (err) => {}
         );
     }
     getProvinces() {
-        this._propertyService.getCountries({}).subscribe(
+        console.log(this.form.value.country);
+        this.form.value.suburborDistrict
+            ? this.form.controls['suburborDistrict'].setValue(null)
+            : '';
+        this.form.value.cityorTown
+            ? this.form.controls['cityorTown'].setValue(null)
+            : '';
+        this.form.value.postalCode
+            ? this.form.controls['postalCode'].setValue(null)
+            : '';
+
+        if (
+            this.form.value.country === 'bc6e6753-9839-4d68-adbc-b36d3c2e3bb5'
+        ) {
+            this.getCities();
+            return;
+        } else {
+            this.getCities();
+        }
+        this._propertyService.getProvines(this.form.value.country).subscribe(
             (response) => {
-                if (!response) {
-                } else {
-                }
+                this.provines$ = [...response];
             },
             (err) => {}
         );
     }
     getCities() {
-        this._propertyService.getCountries({}).subscribe(
-            (response) => {
-                if (!response) {
-                } else {
-                }
-            },
-            (err) => {}
-        );
+        this._propertyService
+            .getCities(
+                this.form.value.country,
+                this.form.value.suburborDistrict
+            )
+            .subscribe(
+                (response) => {
+                    this.cities$ = [...response];
+                },
+                (err) => {}
+            );
     }
     onFileChange(event: any) {
         let files = event.target.files
@@ -88,7 +141,7 @@ export class PropertyComponent implements OnInit {
             this._propertyService.upload(formData).subscribe({
                 next: (response: any) => {
                     console.log(response);
-                    this.propertyImages.push(response?.Location);
+                    this.property_image.push(response?.Location);
                 },
                 error: (error) => {},
             });
@@ -99,7 +152,7 @@ export class PropertyComponent implements OnInit {
         }
     }
     removeUploadedFile(key: any) {
-        this.propertyImages.splice(key, 1);
+        this.property_image.splice(key, 1);
     }
     patchValuestOfForm(res: any) {
         Object.keys(this.form['controls']).forEach((key) => {
@@ -119,5 +172,26 @@ export class PropertyComponent implements OnInit {
             }
         );
     }
-   
+    add() {
+        console.log(this.form);
+        if (this.form.invalid) {
+            return;
+        } else {
+            let data = {
+                ...this.form.value,
+                property_type: this.property_type,
+                property_images: this.property_image.toString(),
+                property_image_type: '',
+            };
+            localStorage.setItem(
+                'propertyDetails',
+                JSON.stringify(this.form.value)
+            );
+            this.tabChange.emit({
+                index: 1,
+                formDetails: { ...this.form.value },
+            });
+            window.scroll(0, 0);
+        }
+    }
 }

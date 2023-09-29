@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-funding-ownership',
@@ -13,15 +13,42 @@ export class FundingOwnershipComponent implements OnInit {
     form: FormGroup;
     public loading = false;
     constructor(private _formBuilder: FormBuilder) {}
+    previousTab() {
+        this.tabChange.emit(0);
+        window.scroll(0, 0);
+    }
 
     ngOnInit(): void {
         this.form = this._formBuilder.group({
-            name: [null],
+            fundingTarget: [null, [Validators.required]],
+            internalRateofReturn: [null, [Validators.required]],
+            estimatedNetRental: [null, [Validators.required]],
+            marketValuation: [null, [Validators.required]],
+            percentageOwnewshipshare: [null, [Validators.required]],
+            totalnumberShareavailable: [null, [Validators.required]],
+            minimumInvestmentAmount: [null, [Validators.required]],
         });
+        
     }
+
     patchValuestOfForm(res: any) {
         Object.keys(this.form['controls']).forEach((key) => {
             this.form['controls'][key].setValue(res[key] ? res[key] : '');
         });
+    }
+    add() {
+        if (this.form.invalid) {
+            return;
+        } else {
+            localStorage.setItem(
+                'fundingDetails',
+                JSON.stringify(this.form.value)
+            );
+            this.tabChange.emit({
+                index: 2,
+                formDetails: { ...this.form.value },
+            });
+            window.scroll(0, 0);
+        }
     }
 }

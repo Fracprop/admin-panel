@@ -1,11 +1,11 @@
 <div class="p-8 w-full">
     <h2 class="text-6xl mb-5">Add a property</h2>
-
+{{selectedIndex}}
     <mat-tab-group
         class="w-full"
         [selectedIndex]="selectedIndex"
        
-        (selectedTabChange)="tabChange($event.index)"
+        (selectedTabChange)="tabChange($event)"
     >
         <!--TAB 1-->
         <mat-tab class="p-0" label="1. Property">
@@ -36,15 +36,5 @@
         </mat-tab>
         <!--TAB 3-->
     </mat-tab-group>
-    <div class="flex items-center justify-between mb-8 mt-5">
-        <button mat-button (click)="previousStep()">Back</button>
-        <button
-            class="px-6 ml-3 bg-theme"
-            mat-flat-button
-            [color]="'primary'"
-            (click)="nextStep()"
-        >
-            <span> Next</span>
-        </button>
-    </div>
+ 
 </div>

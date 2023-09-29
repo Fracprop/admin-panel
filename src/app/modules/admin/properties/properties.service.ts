@@ -18,20 +18,21 @@ export class PropertiesService {
             )
             .pipe(switchMap((response: any) => of(response)));
     }
-    getProvines(obj) {
+    getProvines( countryId) {
         return this._httpClient
             .get(
-                environment.apiEndPoint + 'province/',
+                environment.apiEndPoint + 'province/'+countryId,
 
                 {}
             )
             .pipe(switchMap((response: any) => of(response)));
     }
-    getCities(countryId: String, provinceId: String) {
+    getCities(countryId: string, provinceId: string) {
+        console.log(provinceId,countryId)
         return this._httpClient
-            .get(
+            .post(
                 environment.apiEndPoint +
-                    'city/getCity' +
+                    'city/getCity' ,
                     {
                         p_id: provinceId,
                         c_id: countryId,
@@ -44,22 +45,29 @@ export class PropertiesService {
         return this._httpClient
             .get(
                 environment.apiEndPoint +
-                    'bank/getallBanks/' +
-                    obj.pageNo +
-                    '/' +
-                    obj.limit,
+                    'property/' +
+                    obj.limit+'/' +
+                    obj.pageNo ,
+                   
                 {}
             )
             .pipe(switchMap((response: any) => of(response)));
     }
     getDetails(id: string) {
         return this._httpClient
-            .get(environment.apiEndPoint + 'what-new/getWhatNewId/' + id)
+            .get(environment.apiEndPoint + 'property' + id)
             .pipe(switchMap((response: any) => of(response)));
     }
     addProperty(obj): Observable<any> {
         return this._httpClient
             .post(environment.apiEndPoint + 'bank', {
+                ...obj,
+            })
+            .pipe(switchMap((response: any) => of(response)));
+    }
+    editProperty(obj: any, id: string): Observable<any> {
+        return this._httpClient
+            .patch(environment.apiEndPoint + 'what-new/' + id, {
                 ...obj,
             })
             .pipe(switchMap((response: any) => of(response)));

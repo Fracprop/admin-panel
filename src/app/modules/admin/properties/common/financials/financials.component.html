@@ -1,6 +1,8 @@
 <div class="w-full">
     <form
         class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden"
+        [formGroup]="form"
+       
     >
         <div class="prose prose-sm max-w-3xl">
             <h2
@@ -26,6 +28,7 @@
                     <input
                         matInput
                         placeholder="Projected returns"
+                        [formControlName]="'projectedReturns'"
                     />
                 </mat-form-field>
             </div>
@@ -43,6 +46,7 @@
                     <input
                         matInput
                         placeholder="Potential rental inome"
+                        [formControlName]="'potentialRentalincome'"
                     />
                 </mat-form-field>
             </div>
@@ -57,7 +61,7 @@
                             class="text-warn"
                         ></span
                     ></mat-label>
-                    <input matInput placeholder="Expenses" />
+                    <input matInput placeholder="Expenses" [formControlName]="'estimatedExpenses'"/>
                 </mat-form-field>
             </div>
             <div class="flex flex-col gt-xs:flex-row">
@@ -71,7 +75,7 @@
                             class="text-warn"
                         ></span
                     ></mat-label>
-                    <input matInput placeholder="Reserve fund" />
+                    <input matInput placeholder="Reserve fund" [formControlName]="'estimatedReserveFund'" />
                 </mat-form-field>
             </div>
             <div class="flex flex-col gt-xs:flex-row">
@@ -88,6 +92,7 @@
                     <input
                         matInput
                         placeholder="Taxes and other fees"
+                        [formControlName]="'TaxesandOtherfees'"
                     />
                 </mat-form-field>
             </div>
@@ -110,7 +115,7 @@
    
             <!--preview-->
             <div class="grid grid-cols-5 gap-4 my-5">
-                <div class="_mg relative" *ngFor="let image of floorImages">
+                <div class="_mg relative" *ngFor="let image of floorplanImages">
                     
                     <img *ngIf="image.type==='application/pdf'" width="10" height="10"  src="../../../../../../assets/images/logo/pdf.svg" />
                     <img *ngIf="image.type!=='application/pdf'" [src]="image.image" />
@@ -145,7 +150,7 @@
             <div class="flex flex-col gt-xs:flex-row">
                 <mat-form-field class="w-full">
                     <mat-label>Opening date</mat-label>
-                    <input matInput [matDatepicker]="picker" />
+                    <input matInput [matDatepicker]="picker"  />
                     <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
                     <mat-datepicker-toggle
                       matIconSuffix
@@ -157,7 +162,7 @@
             <div class="flex flex-col gt-xs:flex-row">
                 <mat-form-field class="w-full">
                     <mat-label>Close date</mat-label>
-                    <input matInput [matDatepicker]="picker" />
+                    <input matInput [matDatepicker]="picker"/>
                     <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
                     <mat-datepicker-toggle
                       matIconSuffix
@@ -169,7 +174,17 @@
             </div>
         </div>
         <!-- <mat-divider class="mt-5 mb-5"></mat-divider> -->
-
+        <div class="flex items-center justify-between mb-8 mt-5">
+            <button mat-button (click)="previousTab()">Back</button>
+            <button
+                class="px-6 ml-3 bg-theme"
+                mat-flat-button
+                [color]="'primary'"
+              
+            >
+                <span> Next</span>
+            </button>
+        </div>
        
     </form>
 </div>
