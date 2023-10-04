@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk_fracprop_panel=self.webpackChunk_fracprop_panel||[]).push([[613],{2613:(x,k,s)=>{s.d(k,{Fk:()=>q});var t=s(7716),d=s(2458);s(9490),s(3679),s(6237),s(4564),s(8345);let q=(()=>{class a{}return a.\u0275fac=function(e){return new(e||a)},a.\u0275mod=t.oAB({type:a}),a.\u0275inj=t.cJS({imports:[[d.si,d.BQ],d.BQ]}),a})()}}]);
