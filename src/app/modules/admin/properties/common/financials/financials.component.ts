@@ -14,8 +14,10 @@ import moment from 'moment';
 })
 export class FinancialsComponent implements OnInit {
     @Input() SelectedTab = 0;
+    @Input() formStatus :any;
     @Input() isEditForm = false;
     @Output() tabChange = new EventEmitter();
+
     form: FormGroup;
     public loading = false;
     public fileType = '';
@@ -31,6 +33,12 @@ export class FinancialsComponent implements OnInit {
         this._activatedRoute.params.subscribe((params) => {
             this.id = params['id'];
           });
+          this._propertyService._form.subscribe(
+            (response) => {
+                console.log(response, 'observer');
+            },
+            (err) => {}
+        );
     }
     previousTab() {
         this.tabChange.emit({ index: 1, formDetails: {} });
@@ -75,7 +83,7 @@ export class FinancialsComponent implements OnInit {
      */
     async saveFiles(event: any) {
         let files = event;
-        if (this._commonService.checkFileSizeAndType(files, 2)) {
+        if (this._commonService.checkFileSizeAndType(files, 1)) {
             //   let imagePath: any = await this._commonService.getBase64(files);
             this.fileType = files.type;
             let formData = new FormData();
@@ -93,7 +101,7 @@ export class FinancialsComponent implements OnInit {
             });
         } else {
             this._commonService.error(
-                'Please upload image of file type png, jpg,pdf or jpeg and with size less than 5MB !'
+                'Please upload image of file type png, jpg or jpeg and with size less than 5MB !'
             );
         }
     }
@@ -148,7 +156,7 @@ export class FinancialsComponent implements OnInit {
             return;
         } else {
             if (!this.floorplanImages.length) {
-                this._commonService.error('Please add property images!');
+                this._commonService.error('Please add floor plan images!');
                 return;
             }
             if (
@@ -160,6 +168,14 @@ export class FinancialsComponent implements OnInit {
                 );
                 return;
             }
+            if(this.formStatus?.tab0==='invalid' || this.formStatus?.tab1==='invalid'){
+                this._commonService.error(
+                    'Some details are not field, kindly fill the details'
+                );
+                return;
+
+            }
+            
 
             let propertyDetails = localStorage.getItem('propertyDetails');
             let fundingDetails = localStorage.getItem('fundingDetails');

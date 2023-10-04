@@ -3,16 +3,26 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { ReplaySubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
 })
 export class PropertiesService {
+    public _form: ReplaySubject<any> = new ReplaySubject<any>(1);
     formData: any = {
-        step1Data: {},
-        step2Data: {},
-        step3Data: {},
+        step1Data: 'invalid',
+        step2Data: 'invalid',
+        step3Data:'invalid',
       };
+      set formStatus(value: any) {
+        // Store the value
+        this._form.next(value);
+      }
+      get formStatus$(): Observable<any> {
+        return this._form.asObservable();
+      }
+    
     constructor(private _httpClient: HttpClient) {}
     getCountries(obj) {
         return this._httpClient

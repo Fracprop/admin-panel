@@ -4,9 +4,10 @@ import {
     Input,
     Output,
     EventEmitter,
-    SimpleChange,
+    SimpleChanges,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PropertiesService } from '../../properties.service';
 
 @Component({
     selector: 'app-funding-ownership',
@@ -15,12 +16,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class FundingOwnershipComponent implements OnInit {
     @Input() SelectedTab = 0;
-
     @Input() isEditForm = false;
     @Output() tabChange = new EventEmitter();
+    @Output() invalidForm = new EventEmitter();
     form: FormGroup;
     public loading = false;
-    constructor(private _formBuilder: FormBuilder) {}
+    constructor(private _formBuilder: FormBuilder,   private _propertyService: PropertiesService,) {}
     previousTab() {
         this.tabChange.emit(0);
         window.scroll(0, 0);
@@ -41,6 +42,7 @@ export class FundingOwnershipComponent implements OnInit {
             : localStorage.getItem('fundingDetails');
 
         savedInfo ? this.patchValuestOfForm(JSON.parse(savedInfo)) : '';
+       
     }
 
     patchValuestOfForm(res: any) {
@@ -50,8 +52,20 @@ export class FundingOwnershipComponent implements OnInit {
             );
         });
     }
+    ngOnChanges(changes: SimpleChanges) {
+     
+        if (changes.SelectedTab.currentValue === 2 ) {
+            if (this.form.invalid) {
+                this.add();
+               // alert('form-invalid');
+            } else {
+                this.add();
+            }
+        }
+    }
     add() {
         if (this.form.invalid) {
+            this.invalidForm.emit({tab1:'invalid'});
             return;
         } else {
             this.patchValuestOfForm(this.form.value);
@@ -61,8 +75,9 @@ export class FundingOwnershipComponent implements OnInit {
             );
             this.tabChange.emit({
                 index: 2,
-                formDetails: { ...this.form.value },
+                formDetails: 'valid',
             });
+            this.invalidForm.emit({tab1:'valid'});
             window.scroll(0, 0);
         }
     }

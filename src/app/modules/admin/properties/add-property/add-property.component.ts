@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { PropertiesService } from '../properties.service';
 import { CommonService } from '../../common/common.service';
 import { MatTabGroup } from '@angular/material/tabs';
+import { PropertiesService } from '../properties.service';
 
 @Component({
     selector: 'app-add-property',
@@ -12,7 +12,8 @@ export class AddPropertyComponent implements OnInit {
     public selectedIndex = 0;
     public loading = false;
     public formData: any;
-    public formStatus = 'invalid';
+    public formStatus: any;
+    public formStatus1: any;
     public step1Form = true;
     @ViewChild(MatTabGroup) tabGroup!: MatTabGroup;
 
@@ -21,45 +22,25 @@ export class AddPropertyComponent implements OnInit {
         private _commonService: CommonService
     ) {}
 
-    ngOnInit(): void {}
-
-    invalidForm(e) {
-        console.log(e);
-        this.formStatus = e;
+    ngOnInit(): void {
+     
     }
-    activeTabChange(e: any) {
-        console.log(this._propertiesService.formData[`step${e.index + 1}Data`]);
-        let currentTab =
-            this._propertiesService.formData[`step${e.index + 1}Data`];
-        if (!Object.keys(currentTab).length) {
-            this.step1Form = false;
-            console.log(e.index, this.selectedIndex, '---');
-            if (e.index === 1) {
-                this.selectedIndex -=1;
-                console.log(this.selectedIndex);
-            }
-            if (e.index === 2) {
-              this.selectedIndex -=1;
-              console.log(this.selectedIndex);
-          }else{
-            this.selectedIndex = e.index;
 
-          }
+    formStatusChange(e: any) {
+        let tab0 = e?.tab0 ? e?.tab0 : this.formStatus?.tab0;
+        let tab1 = e?.tab1 ? e?.tab1 : this.formStatus?.tab1;
 
-            // this.selectedIndex=e-1;
-        }
+        //  this.formStatus=e?.index?this.formStatus:e;
+        this.formStatus = { tab0: tab0, tab1: tab1 };
+        console.log(this.formStatus);
     }
     tabChange(e: any) {
-        this.formStatus = e?.formDetails || 'invalid';
-        //  if(e.formDetails==='valid' ){
-        //   console.log(e.formDetails,'----')
-        //   this.selectedIndex = e.index;
+        //    this.formStatus = e?.formDetails || 'invalid';
 
-        //  }else{
-
-        //  }
         this.selectedIndex = e.index;
-        localStorage.setItem('tabStatus', this.selectedIndex.toString());
+        // console.log(this.formStatus, this.selectedIndex);
+
+        //  localStorage.setItem('tabStatus', this.selectedIndex.toString());
     }
     nextStep() {
         if (this.selectedIndex != 2) {

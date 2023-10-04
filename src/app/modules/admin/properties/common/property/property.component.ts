@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PropertiesService } from '../../properties.service';
 import { CommonService } from 'app/modules/admin/common/common.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { SimpleChange } from '@angular/core';
+import { SimpleChanges } from '@angular/core';
 import { ConditionalExpr } from '@angular/compiler';
 
 @Component({
@@ -34,6 +34,7 @@ export class PropertyComponent implements OnInit {
     ) {
         this.getCommunities();
         this.getCountries();
+       
     }
 
     //   tabChange(e: any) {
@@ -65,7 +66,13 @@ export class PropertyComponent implements OnInit {
 
         savedInfo ? this.patchValuestOfForm(JSON.parse(savedInfo)) : '';
     }
-    ngOnChanges(changes: SimpleChange) {
+    ngOnChanges(changes: SimpleChanges) {
+        const { SelectedTab } = changes;
+        console.log(changes);
+
+        if (changes?.SelectedTab?.currentValue === 1   ) {
+            this.add();
+        }
         // Extract changes to the input property by its name
         //   console.log(changes);
         // Whenever the data in the parent changes, this method gets triggered
@@ -195,12 +202,12 @@ export class PropertyComponent implements OnInit {
         this.isSubmitted = true;
         console.log(this.form);
         if (this.form.invalid) {
-            //this.invalidForm.emit('invalid');
+            this.invalidForm.emit({ tab0: 'invalid' });
             return;
         } else {
-            //  this.invalidForm.emit('valid');
-            if (!this.property_image.length) {
-                this._commonService.error('Please add property images!');
+            if (this.property_image.length<10) {
+                this.invalidForm.emit({ tab0: 'invalid', tab1: 'invalid' });
+                this._commonService.error('Please add minimum 10 property images!');
                 return;
             }
 
@@ -215,6 +222,7 @@ export class PropertyComponent implements OnInit {
                 index: 1,
                 formDetails: 'valid',
             });
+            this.invalidForm.emit({ tab0: 'valid' });
             window.scroll(0, 0);
         }
     }

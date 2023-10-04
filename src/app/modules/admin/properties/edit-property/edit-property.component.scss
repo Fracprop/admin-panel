@@ -1,0 +1,24 @@
+._mg {
+    min-width: 120px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 120px;
+   img 
+    {
+        object-fit: cover;
+        object-position: top center;
+    }
+}
+._btn_select {
+    border-radius: 100px;
+    border: 1px solid rgba(0, 0, 0, 0.10);
+    background: #FFFAF0;
+    width: 170px;
+    height: 48px;
+    line-height: 48px;
+    &.active {
+        background-color: #E2BC72;
+        border-color: #E2BC72;
+    }
+}
