@@ -73,7 +73,7 @@ export class CommunityNotesListComponent implements OnInit {
 
                 this.pagination.TotalCount = response?.totalCount || 10;
 
-                this.contentList$ = response ? [...response] : [];
+                this.contentList$ = response.getRecords ? [...response.getRecords] : [];
 
                 this._changeDetectorRef.detectChanges();
             },
