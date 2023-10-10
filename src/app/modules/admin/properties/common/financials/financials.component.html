@@ -127,7 +127,7 @@
                 <div class="_mg relative" *ngFor="let image of floorplanImages">
                     
                     <a [href]="image.image" *ngIf="image.type=='application/pdf'" target="_blank">  <img width="10" height="10"  src="../../../../../../assets/images/logo/pdf.svg" /></a>
-                    <a [href]="image.image"*ngIf="image.type!=='application/pdf'" target="_blank">    <img  [src]="image.image" /></a>
+                    <a [href]="image.image"*ngIf="image.type!=='application/pdf'" target="_blank">    <img class="w-52 h-52" [src]="image.image" /></a>
                     <button class="_icon absolute right-2 top-2" (click)=" $event.preventDefault(); removeUploadedFile(i)" *ngIf="image.image">
                         <svg
                             width="30"

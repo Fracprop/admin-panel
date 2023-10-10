@@ -64,7 +64,7 @@
 
             <div class="grid grid-cols-5 gap-4 my-5">
                 <div class="_mg relative" *ngFor="let image of property_image">
-                    <a [href]="image.image" target="_blank"> <img  [src]="image" /></a>
+                    <a [href]="image.image" target="_blank"> <img class="w-52 h-52" [src]="image" /></a>
                     <button
                         class="_icon absolute right-2 top-2"
                         (click)="$event.preventDefault(); removeUploadedFile(i)"
