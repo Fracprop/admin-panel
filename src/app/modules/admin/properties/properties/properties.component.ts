@@ -81,6 +81,9 @@ export class PropertiesComponent implements OnInit {
                     }
                 } else {
                     this.isLoading = false;
+                    localStorage.removeItem('propertyDetails');
+                        localStorage.removeItem('fundingDetails');
+                        localStorage.removeItem('financialDetails');
 
                     this.pagination.TotalCount = response?.TotalCount ||10;
 

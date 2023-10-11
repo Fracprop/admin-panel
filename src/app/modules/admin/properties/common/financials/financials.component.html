@@ -124,7 +124,7 @@
    
             <!--preview-->
             <div class="grid grid-cols-5 gap-4 my-5">
-                <div class="_mg relative" *ngFor="let image of floorplanImages">
+                <div class="_mg relative" *ngFor="let image of floorplanImages  let i = index">
                     
                     <a [href]="image.image" *ngIf="image.type=='application/pdf'" target="_blank">  <img width="10" height="10"  src="../../../../../../assets/images/logo/pdf.svg" /></a>
                     <a [href]="image.image"*ngIf="image.type!=='application/pdf'" target="_blank">    <img class="w-52 h-52" [src]="image.image" /></a>

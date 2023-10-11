@@ -63,7 +63,7 @@
             />
 
             <div class="grid grid-cols-5 gap-4 my-5">
-                <div class="_mg relative" *ngFor="let image of property_image">
+                <div class="_mg relative" *ngFor="let image of property_image  let i = index">
                     <a [href]="image.image" target="_blank"> <img class="w-52 h-52" [src]="image" /></a>
                     <button
                         class="_icon absolute right-2 top-2"

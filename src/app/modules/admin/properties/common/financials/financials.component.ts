@@ -14,7 +14,7 @@ import moment from 'moment';
 })
 export class FinancialsComponent implements OnInit {
     @Input() SelectedTab = 0;
-    @Input() formStatus :any;
+    @Input() formStatus: any;
     @Input() isEditForm = false;
     @Output() tabChange = new EventEmitter();
 
@@ -22,21 +22,19 @@ export class FinancialsComponent implements OnInit {
     public loading = false;
     public fileType = '';
     public floorplanImages = [];
-    public id=null;
+    public id = null;
     constructor(
         private _propertyService: PropertiesService,
         private _commonService: CommonService,
         private _formBuilder: FormBuilder,
         private _router: Router,
-        private _activatedRoute:ActivatedRoute
+        private _activatedRoute: ActivatedRoute
     ) {
         this._activatedRoute.params.subscribe((params) => {
             this.id = params['id'];
-          });
-          this._propertyService._form.subscribe(
-            (response) => {
-                console.log(response, 'observer');
-            },
+        });
+        this._propertyService._form.subscribe(
+            (response) => {},
             (err) => {}
         );
     }
@@ -83,15 +81,13 @@ export class FinancialsComponent implements OnInit {
      */
     async saveFiles(event: any) {
         let files = event;
-        if (this._commonService.checkFileSizeAndType(files, 1)) {
+        if (this._commonService.checkFileSizeAndType(files, 2)) {
             //   let imagePath: any = await this._commonService.getBase64(files);
             this.fileType = files.type;
             let formData = new FormData();
             formData.append('file', files);
-            console.log(formData);
             this._propertyService.upload(formData).subscribe({
                 next: (response: any) => {
-                    console.log(response);
                     this.floorplanImages.push({
                         image: response?.Location,
                         type: response?.fileType,
@@ -101,7 +97,7 @@ export class FinancialsComponent implements OnInit {
             });
         } else {
             this._commonService.error(
-                'Please upload image of file type png, jpg or jpeg and with size less than 5MB !'
+                'Please upload image of file type png, pdf, jpg or jpeg and with size less than 5MB !'
             );
         }
     }
@@ -135,7 +131,6 @@ export class FinancialsComponent implements OnInit {
         if (type === 'edit') {
             let floorplanImages = res.floorplanImages.split(',');
             let floorplanImages_type = res.floorplanImages_type.split(',');
-            console.log(floorplanImages, floorplanImages_type);
 
             for (
                 let i = 0;
@@ -150,7 +145,7 @@ export class FinancialsComponent implements OnInit {
             }
         }
     }
-    
+
     add() {
         if (this.form.invalid) {
             return;
@@ -168,14 +163,15 @@ export class FinancialsComponent implements OnInit {
                 );
                 return;
             }
-            if(this.formStatus?.tab0==='invalid' || this.formStatus?.tab1==='invalid'){
+            if (
+                this.formStatus?.tab0 === 'invalid' ||
+                this.formStatus?.tab1 === 'invalid'
+            ) {
                 this._commonService.error(
                     'Some details are not field, kindly fill the details'
                 );
                 return;
-
             }
-            
 
             let propertyDetails = localStorage.getItem('propertyDetails');
             let fundingDetails = localStorage.getItem('fundingDetails');
@@ -187,7 +183,6 @@ export class FinancialsComponent implements OnInit {
             let floorImagesType = this.floorplanImages.map((a) => {
                 return a.type;
             });
-            console.log(floorImages, floorImagesType);
 
             let data = {
                 ...this.form.value,
@@ -196,14 +191,13 @@ export class FinancialsComponent implements OnInit {
                 ...JSON.parse(fundingDetails),
                 floorplanImages_type: floorImagesType.toString(),
             };
-            console.log(data);
 
             localStorage.setItem(
                 'financialDetails',
                 JSON.stringify(this.form.value)
             );
-            if(this.isEditForm){
-                this._propertyService.editProperty(data,this.id).subscribe(
+            if (this.isEditForm) {
+                this._propertyService.editProperty(data, this.id).subscribe(
                     (response) => {
                         this.loading = false;
                         this._router.navigate(['/properties/list']);
@@ -217,8 +211,7 @@ export class FinancialsComponent implements OnInit {
                         // this.isLoading = false;
                     }
                 );
-
-            }else{
+            } else {
                 this._propertyService.addProperty(data).subscribe(
                     (response) => {
                         this.loading = false;
@@ -234,7 +227,6 @@ export class FinancialsComponent implements OnInit {
                     }
                 );
             }
-           
         }
     }
 }

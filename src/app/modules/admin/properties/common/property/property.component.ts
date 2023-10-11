@@ -34,7 +34,6 @@ export class PropertyComponent implements OnInit {
     ) {
         this.getCommunities();
         this.getCountries();
-       
     }
 
     //   tabChange(e: any) {
@@ -62,15 +61,13 @@ export class PropertyComponent implements OnInit {
         let savedInfo = this.isEditForm
             ? localStorage.getItem('propertyData')
             : localStorage.getItem('propertyDetails');
-        console.log(this.isEditForm);
 
         savedInfo ? this.patchValuestOfForm(JSON.parse(savedInfo)) : '';
     }
     ngOnChanges(changes: SimpleChanges) {
         const { SelectedTab } = changes;
-        console.log(changes);
 
-        if (changes?.SelectedTab?.currentValue === 1   ) {
+        if (changes?.SelectedTab?.currentValue === 1) {
             this.add();
         }
         // Extract changes to the input property by its name
@@ -79,9 +76,7 @@ export class PropertyComponent implements OnInit {
         // You can act on the changes here. You will have both the previous
         // value and the  current value here.
     }
-    selectedPropertyType(e: any) {
-        console.log(e);
-    }
+    selectedPropertyType(e: any) {}
     getCountries() {
         this._propertyService.getCountries({}).subscribe(
             (response) => {
@@ -91,7 +86,6 @@ export class PropertyComponent implements OnInit {
         );
     }
     getProvinces() {
-        console.log(this.form.value.country);
         this.form.value.suburborDistrict
             ? this.form.controls['suburborDistrict'].setValue(null)
             : '';
@@ -153,10 +147,9 @@ export class PropertyComponent implements OnInit {
             this.fileType = files.type;
             let formData = new FormData();
             formData.append('file', files);
-            console.log(formData);
+
             this._propertyService.upload(formData).subscribe({
                 next: (response: any) => {
-                    console.log(response);
                     this.property_image.push(response?.Location);
                 },
                 error: (error) => {},
@@ -174,7 +167,7 @@ export class PropertyComponent implements OnInit {
         Object.keys(this.form['controls']).forEach((key) => {
             if (key === 'property_image') {
                 this.property_image = res[key].split(',');
-                console.log(this.property_image);
+
                 return;
             } else if (key === 'country') {
                 this.form['controls'][key].setValue(res[key] ? res[key] : '');
@@ -200,14 +193,16 @@ export class PropertyComponent implements OnInit {
     }
     add() {
         this.isSubmitted = true;
-        console.log(this.form);
+
         if (this.form.invalid) {
             this.invalidForm.emit({ tab0: 'invalid' });
             return;
         } else {
-            if (this.property_image.length<10) {
+            if (this.property_image.length < 10) {
                 this.invalidForm.emit({ tab0: 'invalid', tab1: 'invalid' });
-                this._commonService.error('Please add minimum 10 property images!');
+                this._commonService.error(
+                    'Please add minimum 10 property images!'
+                );
                 return;
             }
 
