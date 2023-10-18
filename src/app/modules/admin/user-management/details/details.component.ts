@@ -102,6 +102,7 @@ export class DetailsComponent implements OnInit {
                         this.matchingGrps();
                     } else {
                         this._router.navigate(['/users/list']);
+                        window.scroll(0,0);
                     }
 
                     this.isLoading = false;
@@ -117,7 +118,7 @@ export class DetailsComponent implements OnInit {
             (response) => {
                 this.isLoading = false;
                 this._router.navigate(['/users/list']);
-                console.log('matching');
+                window.scroll(0,0);
                 this._changeDetectorRef.detectChanges();
             },
             (err) => {

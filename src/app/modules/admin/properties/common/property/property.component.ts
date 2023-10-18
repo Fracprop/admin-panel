@@ -53,10 +53,10 @@ export class PropertyComponent implements OnInit {
             unitNumberandComplex: [null, [Validators.required]],
             streatNumberandName: [null, [Validators.required]],
             country: [null, [Validators.required]],
-            suburborDistrict: [null, [Validators.required]],
-            cityorTown: [null, [Validators.required]],
+            suburborDistrict: [null, []],
+            cityorTown: [null, []],
 
-            postalCode: [null, [Validators.required]],
+            postalCode: [null, []],
         });
         let savedInfo = this.isEditForm
             ? localStorage.getItem('propertyData')

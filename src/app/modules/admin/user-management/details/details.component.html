@@ -1,4 +1,4 @@
-<div class="w-full min-h-full flex items-center justify-center ">
+<div class="w-full min-h-full flex items-center justify-center">
     <!-- Loader -->
     <div class="absolute inset-x-0 top-0" *ngIf="isLoading">
         <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
@@ -11,7 +11,6 @@
         <div>
             <button
                 class="text-3xl bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-               
             >
                 {{
                     userDetails$?.role === "BUSINESS"
@@ -169,7 +168,10 @@
                                             else otherFileTypes
                                         "
                                     >
-                                        <a [href]="userDetails$?.upload_front" target="_blank">
+                                        <a
+                                            [href]="userDetails$?.upload_front"
+                                            target="_blank"
+                                        >
                                             <img
                                                 src="../../../../../assets/images/logo/pdf.svg"
                                                 class="w-14 h-16"
@@ -364,7 +366,7 @@
                 </div>
             </div>
         </div>
-        <div class="space-x-4" >
+        <div class="space-x-4" *ngIf="userDetails$?.userStatus != 'APPROVED'">
             <button
                 class="bg-green-600 h-12 w-40 text-white font-bold py-2 px-4 rounded"
                 (click)="updateStatus('APPROVED')"
