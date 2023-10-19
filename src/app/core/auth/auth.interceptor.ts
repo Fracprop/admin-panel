@@ -92,6 +92,7 @@ export class AuthInterceptor implements HttpInterceptor {
                     //Sign out
                     console.log('----signout---')
                     this._authService.signOut();
+                    localStorage.clear();
                     //Reload the app
                     location.reload();
                 }
@@ -102,6 +103,7 @@ export class AuthInterceptor implements HttpInterceptor {
                     //Sign out
                     console.log('----signout---')
                     this._authService.signOut();
+                    localStorage.clear();
                     //Reload the app
                     location.reload();
                 }
