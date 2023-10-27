@@ -36,6 +36,7 @@ export class FundingOwnershipComponent implements OnInit {
             percentageOwnewshipshare: [null, [Validators.required]],
             totalnumberShareavailable: [null, [Validators.required]],
             minimumInvestmentAmount: [null, [Validators.required]],
+            pricePerShare:[null ,[Validators.required]]
         });
         let savedInfo = this.isEditForm
             ? localStorage.getItem('propertyData')

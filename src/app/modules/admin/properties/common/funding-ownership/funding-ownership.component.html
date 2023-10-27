@@ -16,7 +16,7 @@
                     class="flex-auto gt-xs:pr-3"
                 >
                     <mat-label class="text-header font-normal text-black"
-                        >Funding Target ($)<span class="text-warn"></span
+                        >Funding Target <span class="text-warn"></span
                     ></mat-label>
                     <input matInput placeholder="Funding target" [formControlName]="'fundingTarget'" type="number"
                     min="0"/>
@@ -107,6 +107,18 @@
                         >Minimum Investment Amount<span class="text-warn"></span
                     ></mat-label>
                     <input matInput placeholder="Investment amount" [formControlName]="'minimumInvestmentAmount'"  type="number"
+                    min="0" />
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Price per share(R)<span class="text-warn"></span
+                    ></mat-label>
+                    <input matInput placeholder="Price per share" [formControlName]="'pricePerShare'"  type="number"
                     min="0" />
                 </mat-form-field>
             </div>

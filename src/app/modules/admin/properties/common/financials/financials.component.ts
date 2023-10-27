@@ -22,6 +22,7 @@ export class FinancialsComponent implements OnInit {
     public loading = false;
     public fileType = '';
     public floorplanImages = [];
+    public agreementImages = [];
     public id = null;
     constructor(
         private _propertyService: PropertiesService,
@@ -51,7 +52,7 @@ export class FinancialsComponent implements OnInit {
             estimatedReserveFund: [null, [Validators.required]],
             TaxesandOtherfees: [null, [Validators.required]],
             floorplanImages: [null, []],
-
+            termsAndCondition: [null, []],
             openingDate: [null, [Validators.required]],
             closingDate: [null, [Validators.required]],
         });
@@ -63,7 +64,7 @@ export class FinancialsComponent implements OnInit {
             ? this.patchValuestOfForm(JSON.parse(savedInfo), 'edit')
             : this.patchValuestOfForm(JSON.parse(savedInfo), 'fetch');
     }
-    onFileChange(event: any) {
+    onFileChange(event: any, type: string) {
         let files = event.target.files
             ? Object.values(event.target.files)
             : event.dataTransfer.files;
@@ -73,15 +74,18 @@ export class FinancialsComponent implements OnInit {
         if (!files?.length) return;
 
         Array.from(x).forEach((y, i) => {
-            this.saveFiles(files[i]);
+            this.saveFiles(files[i], type);
         });
     }
     /**
      * Save Uploaded Files
      */
-    async saveFiles(event: any) {
+    async saveFiles(event: any, type: string) {
         let files = event;
-        if (this._commonService.checkFileSizeAndType(files, 2)) {
+        if (
+            type === 'images' &&
+            this._commonService.checkFileSizeAndType(files, 2)
+        ) {
             //   let imagePath: any = await this._commonService.getBase64(files);
             this.fileType = files.type;
             let formData = new FormData();
@@ -95,19 +99,49 @@ export class FinancialsComponent implements OnInit {
                 },
                 error: (error) => {},
             });
+        } else if (
+            type === 'pdf' &&
+            this._commonService.checkFileSizeAndType(files, 3)
+        ) {
+            //   let imagePath: any = await this._commonService.getBase64(files);
+            this.fileType = files.type;
+            let formData = new FormData();
+            formData.append('file', files);
+            this._propertyService.upload(formData).subscribe({
+                next: (response: any) => {
+                    this.agreementImages.push(response?.Location);
+                },
+                error: (error) => {},
+            });
         } else {
-            this._commonService.error(
-                'Please upload image of file type png, pdf, jpg or jpeg and with size less than 5MB !'
-            );
+            type === 'images'
+                ? this._commonService.error(
+                      'Please upload image of file type png, pdf, jpg or jpeg and with size less than 5MB !'
+                  )
+                : this._commonService.error(
+                      'Please upload image of file type pdf and with size less than 5MB !'
+                  );
         }
     }
-    removeUploadedFile(key: any) {
-        this.floorplanImages.splice(key, 1);
+    removeUploadedFile(key: any, type: string) {
+        type === 'floorPlan'
+            ? this.floorplanImages.splice(key, 1)
+            : this.agreementImages.splice(key, 1);
     }
     patchValuestOfForm(res: any, type: string) {
+        console.log(type, '------');
         Object.keys(this.form['controls']).forEach((key) => {
-            if (key === 'floorplanImages ' && type === 'fetch') {
+            if (key === 'floorplanImages' && type === 'fetch') {
                 this.floorplanImages = res[key].split(',');
+
+                return;
+            }
+            if (key === 'termsAndCondition') {
+                console.log(res[key]);
+                res[key] && res[key].length
+                    ? (this.agreementImages = res[key].split(','))
+                    : undefined;
+                // console.log(this.agreementImages)
 
                 return;
             } else if (key === 'openingDate') {
@@ -154,6 +188,10 @@ export class FinancialsComponent implements OnInit {
                 this._commonService.error('Please add floor plan images!');
                 return;
             }
+            if (!this.agreementImages.length) {
+                this._commonService.error('Please add agreement pdf!');
+                return;
+            }
             if (
                 Date.parse(this.form.value.closingDate) <=
                 Date.parse(this.form.value.openingDate)
@@ -190,6 +228,7 @@ export class FinancialsComponent implements OnInit {
                 ...JSON.parse(propertyDetails),
                 ...JSON.parse(fundingDetails),
                 floorplanImages_type: floorImagesType.toString(),
+                termsAndCondition: this.agreementImages.toString(),
             };
 
             localStorage.setItem(

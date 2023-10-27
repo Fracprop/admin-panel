@@ -165,6 +165,14 @@ export const appRoutes: Route[] = [
                     ).then((m) => m.CommunityNotesModule),
               
             },
+            {
+                path: "tax-management",
+                loadChildren: () =>
+                    import(
+                        'app/modules/admin/finance/finance.module'
+                    ).then((m) => m.FinanceModule),
+              
+            },
             
             
 

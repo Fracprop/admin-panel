@@ -1,0 +1,126 @@
+<div
+    class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent"
+>
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-4 px-6 md:px-4"
+    >
+        <!-- Loader -->
+
+        <div class="absolute inset-x-0 top-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+        <div class="flex items-start justify-between w-full">
+            <div>
+                <h2
+                    class="text-3xl font-bold tracking-tight leading-8 text-theme"
+                >
+                    Tax Management
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="mr-4 flex justify-end">
+        <!-- Add product button -->
+        <button
+            class="ml-4 bg-header rounded-lg"
+            mat-flat-button
+            type="button"
+            [matTooltip]="'Add Tax'"
+            [color]="'primary'"
+            (click)="openForm=!openForm"
+
+        >
+            <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+            <span class="ml-2 mr-1">Add tax values</span>
+        </button>
+    </div>
+    <!-- Main -->
+
+    <div
+        class="flex flex-col mt-4 px-8 pt-10   overflow-hidden"
+    >
+    <div class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0">
+        <div class="w-full flex">
+          
+    
+                <mat-label class=" font-bold text-2xl">
+                    Transaction Fee(%) - 1<span class="text-warn"></span
+                ></mat-label>
+              
+          
+        </div>
+        <div class="flex flex-col gt-xs:flex-row">
+          
+                <mat-label class=" font-bold text-2xl"
+                    >Listing Fee(%) - 2.5<span class="text-warn"></span
+                ></mat-label>
+               
+        </div>
+    </div>
+
+</div>
+
+    <form
+        class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden"
+        [formGroup]="form"
+        *ngIf="openForm"
+    >
+        <div class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0">
+            <div class="w-full flex">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-bold">
+                        Transaction Fee(%) <span class="text-warn"></span
+                    ></mat-label>
+                    <input
+                        matInput
+                        [formControlName]="'transaction fee'"
+                        placeholder="Enter transaction fee"
+                        type="number"
+                        min="0"
+                    />
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-bold"
+                        >Listing Fee(%)<span class="text-warn"></span
+                    ></mat-label>
+                    <input
+                        matInput
+                        [formControlName]="'listingFee'"
+                        placeholder="Enter listing fee"
+                        type="number"
+                        min="0"
+                    />
+                </mat-form-field>
+            </div>
+        </div>
+        <mat-divider class="mt-5 mb-5"></mat-divider>
+
+        <div
+            class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700"
+        >
+            <button (click)="openForm=!openForm" mat-button>Cancel</button>
+            <button
+                class="px-6 ml-3 bg-theme"
+                mat-flat-button
+                [color]="'primary'"
+            >
+                <span> Save</span>
+                <mat-progress-spinner
+                    *ngIf="isLoading"
+                    [diameter]="24"
+                    [mode]="'indeterminate'"
+                ></mat-progress-spinner>
+            </button>
+        </div>
+    </form>
+</div>

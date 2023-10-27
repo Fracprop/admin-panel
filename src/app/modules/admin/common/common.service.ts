@@ -206,31 +206,13 @@ export class CommonService {
         return roleFound;
     }
 
- 
-
     getCommunityList(obj): Observable<any> {
         return this._httpClient
-            .get(
-                environment.apiEndPoint + `grouping-criteria`,
-                {
-                    params: { ...obj },
-                }
-            )
+            .get(environment.apiEndPoint + `grouping-criteria`, {
+                params: { ...obj },
+            })
             .pipe(switchMap((response: any) => of(response)));
     }
-
-   
-  
-
-
-
-
-
-
-   
-  
-  
- 
 
     /**
      * GET FINAL DIAGNOSIS
@@ -316,26 +298,28 @@ export class CommonService {
         return false;
     }
 
-    checkFileSizeAndType(file,type) {
+    checkFileSizeAndType(file, type) {
         if (file) {
             if (file.size < 5000000) {
                 if (
                     type === 1 &&
                     (file.type === 'image/jpeg' ||
-                      file.type === 'image/jpg' ||
-                      file.type === 'image/png')
-                  ) {
+                        file.type === 'image/jpg' ||
+                        file.type === 'image/png')
+                ) {
                     return true;
-                  }
-                  if (
+                } else if (
                     type === 2 &&
                     (file.type === 'image/jpeg' ||
-                      file.type === 'image/jpg' ||
-                      file.type === 'image/png' ||
-                      file.type === 'application/pdf')
-                  ) {
+                        file.type === 'image/jpg' ||
+                        file.type === 'image/png' ||
+                        file.type === 'application/pdf')
+                ) {
                     return true;
-                  } else {
+                }
+                if (type === 3 && file.type === 'application/pdf') {
+                    return true;
+                } else {
                     return false;
                 }
             } else {

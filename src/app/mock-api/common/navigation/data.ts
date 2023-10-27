@@ -39,7 +39,7 @@ export const SuperAdminNavigation: FuseNavigationItem[] = [
     },
     {
         id: 'Content',
-        title: 'Content Mangement',
+        title: 'Content Management',
         type: 'collapsable',
         icon: 'heroicons_outline:user',
 
@@ -61,13 +61,25 @@ export const SuperAdminNavigation: FuseNavigationItem[] = [
             },
         ],
     },
-    // {
-    //     id: 'patients',
-    //     title: 'Patients',
-    //     type: 'basic',
-    //     icon: 'mat_outline:supervisor_account',
-    //     link: '/patients/list',
-    // },
+    {
+        id: 'Finance',
+        title: 'Finance',
+        type: 'collapsable',
+        icon: 'heroicons_outline:user',
+
+        children: [
+            {
+                id: 'Tax',
+                title: "Tax management",
+                type: 'basic',
+
+                link: '/tax-management',
+            },
+
+          
+        ],
+    },
+   
     // {
     //     id: 'consultations',
     //     title: 'Consultations',
