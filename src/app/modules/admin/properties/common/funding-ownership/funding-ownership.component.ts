@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PropertiesService } from '../../properties.service';
+import { CommonService } from 'app/modules/admin/common/common.service';
 
 @Component({
     selector: 'app-funding-ownership',
@@ -21,7 +22,11 @@ export class FundingOwnershipComponent implements OnInit {
     @Output() invalidForm = new EventEmitter();
     form: FormGroup;
     public loading = false;
-    constructor(private _formBuilder: FormBuilder,   private _propertyService: PropertiesService,) {}
+    constructor(
+        private _formBuilder: FormBuilder,
+        private _propertyService: PropertiesService,
+        private _commonService: CommonService
+    ) {}
     previousTab() {
         this.tabChange.emit(0);
         window.scroll(0, 0);
@@ -36,14 +41,13 @@ export class FundingOwnershipComponent implements OnInit {
             percentageOwnewshipshare: [null, [Validators.required]],
             totalnumberShareavailable: [null, [Validators.required]],
             minimumInvestmentAmount: [null, [Validators.required]],
-            pricePerShare:[null ,[Validators.required]]
+            pricePerShare: [null, [Validators.required]],
         });
         let savedInfo = this.isEditForm
             ? localStorage.getItem('propertyData')
             : localStorage.getItem('fundingDetails');
 
         savedInfo ? this.patchValuestOfForm(JSON.parse(savedInfo)) : '';
-       
     }
 
     patchValuestOfForm(res: any) {
@@ -54,19 +58,28 @@ export class FundingOwnershipComponent implements OnInit {
         });
     }
     ngOnChanges(changes: SimpleChanges) {
-     
-        if (changes.SelectedTab.currentValue === 2 ) {
+        if (changes.SelectedTab.currentValue === 2) {
             if (this.form.invalid) {
                 this.add();
-               // alert('form-invalid');
+                // alert('form-invalid');
             } else {
                 this.add();
             }
         }
     }
     add() {
+        let savedInfo = localStorage.getItem('propertyData');
+
         if (this.form.invalid) {
-            this.invalidForm.emit({tab1:'invalid'});
+            this.invalidForm.emit({ tab1: 'invalid' });
+            return;
+        } else if (
+            this.form.value.minimumInvestmentAmount >
+            Number(JSON.parse(savedInfo).propertyCost)
+        ) {
+            this._commonService.error(
+                'Mininmum  invested amount cannot be greater than property cost'
+            );
             return;
         } else {
             this.patchValuestOfForm(this.form.value);
@@ -78,7 +91,7 @@ export class FundingOwnershipComponent implements OnInit {
                 index: 2,
                 formDetails: 'valid',
             });
-            this.invalidForm.emit({tab1:'valid'});
+            this.invalidForm.emit({ tab1: 'valid' });
             window.scroll(0, 0);
         }
     }

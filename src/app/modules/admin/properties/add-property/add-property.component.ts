@@ -22,25 +22,16 @@ export class AddPropertyComponent implements OnInit {
         private _commonService: CommonService
     ) {}
 
-    ngOnInit(): void {
-     
-    }
+    ngOnInit(): void {}
 
     formStatusChange(e: any) {
         let tab0 = e?.tab0 ? e?.tab0 : this.formStatus?.tab0;
         let tab1 = e?.tab1 ? e?.tab1 : this.formStatus?.tab1;
-
-        //  this.formStatus=e?.index?this.formStatus:e;
         this.formStatus = { tab0: tab0, tab1: tab1 };
         console.log(this.formStatus);
     }
     tabChange(e: any) {
-        //    this.formStatus = e?.formDetails || 'invalid';
-
         this.selectedIndex = e.index;
-        // console.log(this.formStatus, this.selectedIndex);
-
-        //  localStorage.setItem('tabStatus', this.selectedIndex.toString());
     }
     nextStep() {
         if (this.selectedIndex != 2) {
@@ -54,16 +45,13 @@ export class AddPropertyComponent implements OnInit {
     }
     addContent() {
         this.loading = true;
-
         this._propertiesService.addProperty({}).subscribe(
             (response) => {
                 this.loading = false;
-                //this._router.navigate(['/whats-new/list']);
             },
             (err) => {
                 this.loading = false;
                 this._commonService.error(err.error.message);
-                // this.isLoading = false;
             }
         );
     }

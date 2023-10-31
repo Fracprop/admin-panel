@@ -33,7 +33,7 @@
 
         >
             <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
-            <span class="ml-2 mr-1">Add tax values</span>
+            <span class="ml-2 mr-1">{{this.form.value.transactionFee && this.form.value.listingFee?'Edit tax values':'Add tax values'}}</span>
         </button>
     </div>
     <!-- Main -->
@@ -46,7 +46,7 @@
           
     
                 <mat-label class=" font-bold text-2xl">
-                    Transaction Fee(%) - 1<span class="text-warn"></span
+                    Transaction Fee(%) - {{this.transactionFee || 'NA'}}<span class="text-warn"></span
                 ></mat-label>
               
           
@@ -54,7 +54,7 @@
         <div class="flex flex-col gt-xs:flex-row">
           
                 <mat-label class=" font-bold text-2xl"
-                    >Listing Fee(%) - 2.5<span class="text-warn"></span
+                    >Listing Fee(%) - {{this.listingFee || 'NA'}}<span class="text-warn"></span
                 ></mat-label>
                
         </div>
@@ -78,7 +78,7 @@
                     ></mat-label>
                     <input
                         matInput
-                        [formControlName]="'transaction fee'"
+                        [formControlName]="'transactionFee'"
                         placeholder="Enter transaction fee"
                         type="number"
                         min="0"
@@ -113,6 +113,7 @@
                 class="px-6 ml-3 bg-theme"
                 mat-flat-button
                 [color]="'primary'"
+                (click)="this.form.value.transactionFee && this.form.value.listingFee?editFeeDetails():addFeeDetails()"
             >
                 <span> Save</span>
                 <mat-progress-spinner

@@ -35,13 +35,6 @@ export class PropertyComponent implements OnInit {
         this.getCommunities();
         this.getCountries();
     }
-
-    //   tabChange(e: any) {
-
-    //     this.selectedIndex = e;
-    //     localStorage.setItem('tabStatus', this.selectedIndex.toString());
-    //   }
-
     ngOnInit(): void {
         this.form = this._formBuilder.group({
             groupcriteriaId: [null, [Validators.required]],
@@ -55,7 +48,6 @@ export class PropertyComponent implements OnInit {
             country: [null, [Validators.required]],
             suburborDistrict: [null, []],
             cityorTown: [null, []],
-
             postalCode: [null, []],
         });
         let savedInfo = this.isEditForm
@@ -66,7 +58,6 @@ export class PropertyComponent implements OnInit {
     }
     ngOnChanges(changes: SimpleChanges) {
         const { SelectedTab } = changes;
-
         if (changes?.SelectedTab?.currentValue === 1) {
             this.add();
         }
@@ -193,7 +184,6 @@ export class PropertyComponent implements OnInit {
     }
     add() {
         this.isSubmitted = true;
-
         if (this.form.invalid) {
             this.invalidForm.emit({ tab0: 'invalid' });
             return;

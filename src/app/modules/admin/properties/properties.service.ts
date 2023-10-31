@@ -43,7 +43,6 @@ export class PropertiesService {
             .pipe(switchMap((response: any) => of(response)));
     }
     getCities(countryId: string, provinceId: string) {
-        console.log(provinceId,countryId)
         return this._httpClient
             .post(
                 environment.apiEndPoint +

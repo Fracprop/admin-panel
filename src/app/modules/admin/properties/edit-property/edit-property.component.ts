@@ -12,34 +12,29 @@ import { ConditionalExpr } from '@angular/compiler';
 export class EditPropertyComponent implements OnInit {
     public selectedIndex = 0;
     public loading = false;
-    public id=''
-    public data=false;
-    public formData:any
-  public formStatus='invalid';
+    public id = '';
+    public data = false;
+    public formData: any;
+    public formStatus = 'invalid';
     constructor(
         private _propertiesService: PropertiesService,
         private _commonService: CommonService,
-        private __activatedRoute:ActivatedRoute
+        private __activatedRoute: ActivatedRoute
     ) {
         this.__activatedRoute.params.subscribe((params) => {
             this.id = params['id'];
-          });
-          this.fetchContent();
+        });
+        this.fetchContent();
     }
 
-    ngOnInit(): void {
-       
+    ngOnInit(): void {}
+    invalidForm(e) {
+        this.formStatus = e;
     }
-    invalidForm(e){
-        console.log(e)
-        this.formStatus=e;
-    
-      }
 
     tabChange(e: any) {
-        console.log(e)
+        console.log(e);
         this.selectedIndex = e.index;
-     //   localStorage.setItem('tabStatus', this.selectedIndex.toString());
     }
     nextStep() {
         if (this.selectedIndex != 2) {
@@ -55,13 +50,11 @@ export class EditPropertyComponent implements OnInit {
         this._propertiesService.getDetails(this.id).subscribe(
             (response) => {
                 console.log(response);
-                this.data=true;
-                localStorage.setItem('propertyData',JSON.stringify(response))
-              
+                this.data = true;
+                localStorage.setItem('propertyData', JSON.stringify(response));
             },
             (err) => {
                 this._commonService.error(err.error.message);
-                // this.isLoading = false;
             }
         );
     }

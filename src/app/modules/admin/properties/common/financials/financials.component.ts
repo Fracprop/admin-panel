@@ -86,7 +86,6 @@ export class FinancialsComponent implements OnInit {
             type === 'images' &&
             this._commonService.checkFileSizeAndType(files, 2)
         ) {
-            //   let imagePath: any = await this._commonService.getBase64(files);
             this.fileType = files.type;
             let formData = new FormData();
             formData.append('file', files);
@@ -103,7 +102,6 @@ export class FinancialsComponent implements OnInit {
             type === 'pdf' &&
             this._commonService.checkFileSizeAndType(files, 3)
         ) {
-            //   let imagePath: any = await this._commonService.getBase64(files);
             this.fileType = files.type;
             let formData = new FormData();
             formData.append('file', files);
@@ -129,20 +127,15 @@ export class FinancialsComponent implements OnInit {
             : this.agreementImages.splice(key, 1);
     }
     patchValuestOfForm(res: any, type: string) {
-        console.log(type, '------');
         Object.keys(this.form['controls']).forEach((key) => {
             if (key === 'floorplanImages' && type === 'fetch') {
                 this.floorplanImages = res[key].split(',');
-
                 return;
             }
             if (key === 'termsAndCondition') {
-                console.log(res[key]);
                 res[key] && res[key].length
                     ? (this.agreementImages = res[key].split(','))
                     : undefined;
-                // console.log(this.agreementImages)
-
                 return;
             } else if (key === 'openingDate') {
                 this.form['controls'][key].setValue(
@@ -262,7 +255,7 @@ export class FinancialsComponent implements OnInit {
                     (err) => {
                         this.loading = false;
                         this._commonService.error(err.error.message);
-                        // this.isLoading = false;
+                        
                     }
                 );
             }
