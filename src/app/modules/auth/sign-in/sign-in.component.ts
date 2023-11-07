@@ -128,13 +128,15 @@ export class AuthSignInComponent implements OnInit {
                 // Set the alert
                 this.alert = {
                     type: 'error',
-                    message: this._translocoService.translate(
-                        'wrong_email_password'
-                    ),
+                    message: 'Wrong email and password',
                 };
 
                 // Show the alert
                 this.showAlert = true;
+                setTimeout(()=>{
+                    this.showAlert = false;
+
+                },3000)
             }
         );
     }

@@ -68,7 +68,7 @@ export class FundingOwnershipComponent implements OnInit {
         }
     }
     add() {
-        let savedInfo = localStorage.getItem('propertyData');
+        let savedInfo = localStorage.getItem('propertyDetails');
 
         if (this.form.invalid) {
             this.invalidForm.emit({ tab1: 'invalid' });

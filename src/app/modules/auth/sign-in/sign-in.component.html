@@ -70,7 +70,7 @@
                     <mat-error
                         *ngIf="signInForm.get('email').hasError('required')"
                     >
-                        {{ t("user_name_required") }}
+                        Email is required
                     </mat-error>
                     <!-- <mat-error
                         *ngIf="signInForm.get('email').hasError('email')"
@@ -111,7 +111,7 @@
                             [svgIcon]="'heroicons_solid:eye'"
                         ></mat-icon>
                     </button>
-                    <mat-error> {{ t("password_required") }} </mat-error>
+                    <mat-error> Password is required </mat-error>
                 </mat-form-field>
 
                 <!-- Actions -->
