@@ -13,25 +13,6 @@ import { CountriesService } from '../countries.service';
     selector: 'app-countries',
     templateUrl: './countries.component.html',
     styleUrls: ['./countries.component.scss'],
-    styles: [
-        `
-            .country-grid {
-                grid-template-columns: auto auto auto;
-
-                @screen sm {
-                    grid-template-columns: auto auto auto auto;
-                }
-
-                @screen md {
-                    grid-template-columns: 50x 200px 200px 200px 200px 200px 200px;
-                }
-
-                @screen lg {
-                    grid-template-columns: 50px 200px 200px 200px 200px 200px 200px;
-                }
-            }
-        `,
-    ],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     animations: fuseAnimations,
@@ -41,7 +22,6 @@ export class CountriesComponent implements OnInit {
     countries$: any = [];
     isLoading1: boolean = false;
     isLoading: boolean = false;
-
     isBlocked: boolean = false;
     pagination: any = {
         limit: 10,
