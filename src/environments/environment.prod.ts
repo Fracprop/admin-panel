@@ -1,7 +1,6 @@
 export const environment = {
     production: true,
-
-    apiEndPoint: 'http://13.244.75.169/',
-    signalREndPoint: 'https://beta-api.swasthyaingit.in/chat',
-    webSocketEndpoint: 'wss://beta-api.fracProp.esanjeevani.in/ws',
+    apiEndPoint: 'https://dev-api.fracprop.co.za/',
+    signalREndPoint: 'https://dev-api.fracprop.co.za',
+    webSocketEndpoint: 'https://dev-api.fracprop.co.za',
 };
