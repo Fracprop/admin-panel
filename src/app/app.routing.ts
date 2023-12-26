@@ -173,6 +173,30 @@ export const appRoutes: Route[] = [
                     ).then((m) => m.FinanceModule),
               
             },
+            {
+                path: "FAQ",
+                loadChildren: () =>
+                    import(
+                        'app/modules/admin/content-management/faq/faq.module'
+                    ).then((m) => m.FaqModule),
+              
+            },
+            {
+                path: "news",
+                loadChildren: () =>
+                    import(
+                        'app/modules/admin/content-management/news/news.module'
+                    ).then((m) => m.NewsModule),
+              
+            },
+            {
+                path: "blogs",
+                loadChildren: () =>
+                    import(
+                        'app/modules/admin/content-management/blogs/blogs.module'
+                    ).then((m) => m.BlogsModule),
+              
+            },
             
             
 

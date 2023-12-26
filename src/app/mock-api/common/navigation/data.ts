@@ -59,6 +59,27 @@ export const SuperAdminNavigation: FuseNavigationItem[] = [
                
                 link: '/community-notes/list',
             },
+            {
+                id: 'FAQ',
+                title: "FAQ",
+                type: 'basic',
+
+                link: '/FAQ/list',
+            },
+            {
+                id: 'News',
+                title: "News",
+                type: 'basic',
+
+                link: '/news/list',
+            },
+            {
+                id: 'blogs',
+                title: "Blogs",
+                type: 'basic',
+
+                link: '/blogs/list',
+            },
         ],
     },
     {

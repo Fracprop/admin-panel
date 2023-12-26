@@ -7,7 +7,7 @@ import { CommonService } from 'app/modules/admin/common/common.service';
 
 @Component({
     selector: 'app-community-notes-list',
-    templateUrl: './community-notes-list.component.html',
+    templateUrl: './community-notes-list.component.html',git
     styleUrls: ['./community-notes-list.component.scss'],
     styles: [
         `
