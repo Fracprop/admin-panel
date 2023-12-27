@@ -213,6 +213,14 @@ export class CommonService {
             })
             .pipe(switchMap((response: any) => of(response)));
     }
+    getCategoryList(obj): Observable<any> {
+        return this._httpClient
+            .get(environment.apiEndPoint + `blog-catagory`, {
+                params: { ...obj },
+            })
+            .pipe(switchMap((response: any) => of(response)));
+    }
+
 
     /**
      * GET FINAL DIAGNOSIS
@@ -281,11 +289,34 @@ export class CommonService {
 
     checkImageSizeAndType(file) {
         if (file) {
-            if (file.size < 100000) {
+            if (file.size ) {
                 if (
                     file.type === 'image/jpeg' ||
                     file.type === 'image/jpg' ||
-                    file.type === 'image/png'
+                    file.type === 'image/png'||
+                    file.type==='video/mp4'
+                ) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+        
+        return false;
+    }
+
+    checkVideoSizeAndType(file) {
+        console.log(file.type.split('/'))
+       
+        if (file) {
+
+            if (file.size ) {
+                if (
+                   
+                    file.type.split('/')[0]==='video'
                 ) {
                     return true;
                 } else {
@@ -308,7 +339,9 @@ export class CommonService {
                         file.type === 'image/png')
                 ) {
                     return true;
-                } else if (
+                } 
+                
+                else if (
                     type === 2 &&
                     (file.type === 'image/jpeg' ||
                         file.type === 'image/jpg' ||
@@ -317,9 +350,12 @@ export class CommonService {
                 ) {
                     return true;
                 }
-                if (type === 3 && file.type === 'application/pdf') {
+              else  if (type === 3 && file.type === 'application/pdf') {
                     return true;
-                } else {
+                } 
+               
+
+                else {
                     return false;
                 }
             } else {
@@ -328,6 +364,7 @@ export class CommonService {
         }
         return false;
     }
+   
 
     saveFile(data) {
         console.log(data);
