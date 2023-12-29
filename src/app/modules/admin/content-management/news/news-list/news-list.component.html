@@ -15,7 +15,7 @@
                 <h2
                     class="text-3xl font-bold tracking-tight leading-8 text-theme"
                 >
-                    Blogs
+                    News
                 </h2>
             </div>
         </div>
@@ -24,7 +24,7 @@
     <div class="mr-4 flex justify-end pb-2">
         <!-- Add product button -->
         <button
-            routerLink="/community-notes/add-content"
+            routerLink="/news/add-news"
             class="ml-4 bg-header rounded-lg"
             mat-flat-button
             type="button"
@@ -32,7 +32,7 @@
             [color]="'primary'"
         >
             <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
-            <span class="ml-2 mr-1">Add Blogs</span>
+            <span class="ml-2 mr-1">Add News</span>
         </button>
     </div>
     <!-- Main -->
@@ -50,8 +50,8 @@
                             style="background-color: #ecf1f2"
                         >
                             <div class="hidden md:block">S No.</div>
-                            <div class="hidden md:block">Community</div>
-                            <div class="hidden md:block">Notes</div>
+                            <div class="hidden md:block">Author</div>
+                            <div class="hidden md:block">Category</div>
 
                             <div class="hidden md:block">Action</div>
                         </div>
@@ -72,16 +72,16 @@
                                     </div>
                                     <!-- Community -->
                                     <div class="">
-                                        {{ item?.groupName || "-" }}
+                                        {{ item?.author || "-" }}
                                     </div>
                                     <!-- Notes -->
                                     <div class="">
-                                        {{ item?.Notes || "-" }}
+                                        {{ item?.category || "-" }}
                                     </div>
 
                                     <div class="flex justify-start">
                                         <button
-                                            routerLink="/community-notes/edit-content/{{
+                                            routerLink="/news/edit-news/{{
                                                 item?.id
                                             }}"
                                             class="min-w-10 min-h-7 h-7 px-2 ml-1 bg-green-600 rounded-2xl"

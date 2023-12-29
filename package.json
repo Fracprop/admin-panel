@@ -37,6 +37,7 @@
         "@ng-plus/signature-pad": "0.0.5",
         "@ngneat/transloco": "2.22.0",
         "@sweetalert2/ngx-sweetalert2": "^11.0.0",
+        "@syncfusion/ej2-angular-richtexteditor": "^24.1.43",
         "@types/grecaptcha": "^3.0.4",
         "apexcharts": "3.28.1",
         "axios": "^0.26.1",

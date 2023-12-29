@@ -45,8 +45,9 @@ export class EditBlogsComponent implements OnInit {
             blog_title: [null, [Validators.required]],
             description: [null, [Validators.required]],
             blogcat: [null, [Validators.required]],
-            image:[null,[]],
-            videos:[null,[]]
+            image: [null, []],
+            videos: [null, []],
+            dateSchdule: [null, [Validators.required]],
         });
         this.getCategories();
     }
@@ -92,8 +93,8 @@ export class EditBlogsComponent implements OnInit {
             this.loading = false;
             return;
         }
-        delete this.form.value.image
-        delete this.form.value.videos
+        delete this.form.value.image;
+        delete this.form.value.videos;
         this._blogsService
             .editBlogs({ ...this.form.value, ...data }, this.blogId)
             .subscribe(
@@ -110,17 +111,17 @@ export class EditBlogsComponent implements OnInit {
     }
     patchValuestOfForm(res: any) {
         Object.keys(this.form['controls']).forEach((key) => {
-          console.log(res);
-            if (key==='image') {
+            console.log(res);
+            if (key === 'image') {
                 this.images = res[key].split(',');
                 return;
-            } else if (key==='videos') {
+            } else if (key === 'videos') {
                 this.videos = res[key].split(',');
             } else {
                 this.form['controls'][key].setValue(res[key] ? res[key] : '');
             }
         });
-        console.log(this.images,this.videos);
+        console.log(this.images, this.videos);
     }
     onFileChange(event: any, format: string) {
         let files = event.target.files

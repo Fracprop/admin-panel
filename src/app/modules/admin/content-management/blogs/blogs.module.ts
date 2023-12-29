@@ -17,6 +17,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { BlogsListComponent } from './blogs-list/blogs-list.component';
 import { AddBlogsComponent } from './add-blogs/add-blogs.component';
 import { EditBlogsComponent } from './edit-blogs/edit-blogs.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const blogsRoutes: Route[] = [
   {
@@ -58,7 +60,9 @@ const blogsRoutes: Route[] = [
     MatTooltipModule,
     MatSlideToggleModule,
     MatSortModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class BlogsModule { }

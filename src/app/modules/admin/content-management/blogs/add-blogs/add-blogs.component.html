@@ -193,6 +193,24 @@
                         </div>
                     </div>
                 </div>
+                <div class="flex flex-col w-120">
+                    <mat-form-field class="w-full">
+                        <mat-label class="text-header font-bold">
+                            Schedule date to post blog<span class="text-warn"></span
+                        ></mat-label>
+                        <input
+                            matInput
+                            [matDatepicker]="picker2"
+                            formControlName="dateSchdule"
+                        />
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle
+                            matIconSuffix
+                            [for]="picker2"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                </div>
 
                 <div
                     class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700"

@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { CommonService } from 'app/modules/admin/common/common.service';
-import { FaqService } from '../../faq/faq.service';
+import { NewsService } from '../news.service';
 
 @Component({
   selector: 'app-news-list',
@@ -47,7 +47,7 @@ export class NewsListComponent implements OnInit {
   };
 
   constructor(
-      private _faqService: FaqService,
+      private _newsService: NewsService,
       private _changeDetectorRef: ChangeDetectorRef,
       private _fuseConfirmationService: FuseConfirmationService,
       private _formBuilder: FormBuilder,
@@ -68,13 +68,13 @@ export class NewsListComponent implements OnInit {
       };
 
       this.isLoading = true;
-      this._faqService.getList({ ...paginationParams }).subscribe(
+      this._newsService.getList({ ...paginationParams }).subscribe(
           (response) => {
               this.isLoading = false;
 
-              this.pagination.TotalCount = response?.totalCount || 10;
+              this.pagination.TotalCount = response?.totalNews || 10;
 
-              this.newsList$ = response.getRecords ? [...response.getRecords] : [];
+              this.newsList$ = response.userNews ? [...response.userNews] : [];
 
               this._changeDetectorRef.detectChanges();
           },
@@ -152,8 +152,7 @@ export class NewsListComponent implements OnInit {
       // Subscribe to afterClosed from the dialog reference
       dialogRef.afterClosed().subscribe((result) => {
           if (result === 'confirmed') {
-              this._faqService
-                  .deleteFaq(userId)
+              this._newsService.deleteNews(userId)
                   .subscribe(
                       (response) => {
                           this.getListing();

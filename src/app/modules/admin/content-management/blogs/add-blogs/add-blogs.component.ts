@@ -39,6 +39,7 @@ export class AddBlogsComponent implements OnInit {
             blog_title: [null, [Validators.required]],
             description: [null, [Validators.required]],
             blogcat: [null, [Validators.required]],
+            dateSchdule:[null,[Validators.required]]
         });
         this.getCategories();
     }

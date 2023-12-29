@@ -4,6 +4,7 @@ import { environment } from 'environments/environment';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -46,4 +47,9 @@ export class NewsService {
          .delete(environment.apiEndPoint + 'news/'+id)
          .pipe(switchMap((response: any) => of(response)));
  }
+ upload(obj): Observable<any> {
+  return this._httpClient
+      .post(environment.apiEndPoint + 'upload', obj)
+      .pipe(switchMap((response: any) => of(response)));
+}
 }
