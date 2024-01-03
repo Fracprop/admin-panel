@@ -124,7 +124,7 @@ export class EditNewsComponent implements OnInit {
         this.form = this._formBuilder.group({
             author: [null, [Validators.required]],
             category: [null, [Validators.required]],
-            article: [null, []],
+            article: [null, [Validators.required]],
             image: [null, []],
             tags: [null, []],
         });
@@ -198,21 +198,21 @@ export class EditNewsComponent implements OnInit {
             return;
         }
 
-        if (!this.rteObj || !this.images.length || !this.tags.length) {
+        if ( !this.images.length || !this.tags.length) {
             this._commonService.error('All fields are required.');
             this.loading = false;
             return;
         }
         let data: any = {
             tags: this.tags.map((item) => item.name).toString(),
-            article: this.rteObj,
+          //  article: this.rteObj,
         };
         if (this.images.length) {
             data.image = this.images.toString();
         }
         delete this.form.value.image
         delete this.form.value.tags
-        delete this.form.value.article
+       // delete this.form.value.article
 
 
         this._newsService.editNews({ ...this.form.value, ...data },this.newsId).subscribe(
@@ -298,8 +298,9 @@ export class EditNewsComponent implements OnInit {
                 console.log(this.tags);
             } else if (key === 'article') {
                 console.log(res[key]);
-                this.rteObj = res[key];
-                console.log(this.rteObj);
+               // this.rteObj = res[key];
+                this.form['controls'][key].setValue(res[key] ? res[key] : '');
+               // console.log(this.rteObj);
             } else {
                 this.form['controls'][key].setValue(res[key] ? res[key] : '');
             }

@@ -56,29 +56,43 @@ export const SuperAdminNavigation: FuseNavigationItem[] = [
                 id: 'admins',
                 title: 'Community note',
                 type: 'basic',
-               
+
                 link: '/community-notes/list',
             },
             {
                 id: 'FAQ',
-                title: "FAQ",
+                title: 'FAQ',
                 type: 'basic',
 
                 link: '/FAQ/list',
             },
             {
                 id: 'News',
-                title: "News",
+                title: 'News',
                 type: 'basic',
 
                 link: '/news/list',
             },
             {
                 id: 'blogs',
-                title: "Blogs",
+                title: 'Blogs',
                 type: 'basic',
 
                 link: '/blogs/list',
+            },
+            {
+                id: 'dividend-content',
+                title: 'Dividend Calendar',
+                type: 'basic',
+
+                link: '/dividend-calendar/list',
+            },
+            {
+                id: 'auction-content',
+                title: 'Auction Calendar',
+                type: 'basic',
+
+                link: '/auction-calendar/list',
             },
         ],
     },
@@ -91,16 +105,14 @@ export const SuperAdminNavigation: FuseNavigationItem[] = [
         children: [
             {
                 id: 'Tax',
-                title: "Tax management",
+                title: 'Tax management',
                 type: 'basic',
 
                 link: '/tax-management',
             },
-
-          
         ],
     },
-   
+
     // {
     //     id: 'consultations',
     //     title: 'Consultations',
@@ -108,8 +120,6 @@ export const SuperAdminNavigation: FuseNavigationItem[] = [
     //     icon: 'mat_outline:supervisor_account',
     //     link: '/consultations/list',
     // },
-
-   
 ];
 export const compactNavigation: FuseNavigationItem[] = [
     {

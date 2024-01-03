@@ -5,7 +5,6 @@ import { LayoutComponent } from 'app/layout/layout.component';
 import { InitialDataResolver } from 'app/app.resolvers';
 import { PropertiesResolver } from './modules/admin/properties/properties.resolver';
 
-
 // @formatter:off
 // tslint:disable:max-line-length
 export const appRoutes: Route[] = [
@@ -95,7 +94,7 @@ export const appRoutes: Route[] = [
     {
         path: '',
         canActivate: [AuthGuard],
-         canActivateChild: [AuthGuard],
+        canActivateChild: [AuthGuard],
         component: LayoutComponent,
         resolve: {
             initialData: InitialDataResolver,
@@ -111,9 +110,7 @@ export const appRoutes: Route[] = [
                         (m) => m.DashboardModule
                     ),
             },
-           
 
-            
             {
                 path: 'users',
                 loadChildren: () =>
@@ -127,16 +124,16 @@ export const appRoutes: Route[] = [
             {
                 path: 'banks',
                 loadChildren: () =>
-                    import(
-                        'app/modules/admin/banks/banks.module'
-                    ).then((m) => m.BanksModule),
+                    import('app/modules/admin/banks/banks.module').then(
+                        (m) => m.BanksModule
+                    ),
             },
             {
                 path: 'countries',
                 loadChildren: () =>
-                    import(
-                        'app/modules/admin/countries/countries.module'
-                    ).then((m) => m.CountriesModule),
+                    import('app/modules/admin/countries/countries.module').then(
+                        (m) => m.CountriesModule
+                    ),
             },
 
             {
@@ -146,59 +143,58 @@ export const appRoutes: Route[] = [
                         'app/modules/admin/properties/properties.module'
                     ).then((m) => m.PropertiesModule),
                 resolve: {
-                   //  commanData: PropertiesResolver,
+                    //  commanData: PropertiesResolver,
                 },
             },
             {
-                path: "whats-new",
+                path: 'whats-new',
                 loadChildren: () =>
                     import(
                         'app/modules/admin/content-management/whats-new/whats-new.module'
                     ).then((m) => m.WhatsNewModule),
-              
             },
             {
-                path: "community-notes",
+                path: 'community-notes',
                 loadChildren: () =>
                     import(
                         'app/modules/admin/content-management/community-notes/community-notes.module'
                     ).then((m) => m.CommunityNotesModule),
-              
             },
             {
-                path: "tax-management",
+                path: 'tax-management',
                 loadChildren: () =>
-                    import(
-                        'app/modules/admin/finance/finance.module'
-                    ).then((m) => m.FinanceModule),
-              
+                    import('app/modules/admin/finance/finance.module').then(
+                        (m) => m.FinanceModule
+                    ),
             },
             {
-                path: "FAQ",
+                path: 'FAQ',
                 loadChildren: () =>
                     import(
                         'app/modules/admin/content-management/faq/faq.module'
                     ).then((m) => m.FaqModule),
-              
             },
             {
-                path: "news",
+                path: 'news',
                 loadChildren: () =>
                     import(
                         'app/modules/admin/content-management/news/news.module'
                     ).then((m) => m.NewsModule),
-              
             },
             {
-                path: "blogs",
+                path: 'blogs',
                 loadChildren: () =>
                     import(
                         'app/modules/admin/content-management/blogs/blogs.module'
                     ).then((m) => m.BlogsModule),
-              
             },
-            
-            
+            {
+                path: 'dividend-calendar',
+                loadChildren: () =>
+                    import(
+                        'app/modules/admin/content-management/dividend-calender/dividend-calender.module'
+                    ).then((m) => m.DividendCalenderModule),
+            },
 
             // {
             //     path: 'settings',

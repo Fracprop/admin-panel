@@ -3,7 +3,6 @@ import {
     FormBuilder,
     FormGroup,
     Validators,
-    FormArray,
     FormControl,
 } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -110,8 +109,6 @@ export class AddNewsComponent implements OnInit {
         private _newsService: NewsService
     ) {}
 
-   
-
     ngOnInit(): void {
         /**
          * FORM INITILIZATION
@@ -119,11 +116,11 @@ export class AddNewsComponent implements OnInit {
         this.form = this._formBuilder.group({
             author: [null, [Validators.required]],
             category: [null, [Validators.required]],
-            // article: [null, [Validators.required]],
+            article: [null, [Validators.required]],
             // blogcat: [null, [Validators.required]],
             tags: [null, [Validators.required]],
         });
-        //this.getCategories();
+      
     }
     onCreate() {
         const instance: any = this.rteObj;
@@ -140,29 +137,27 @@ export class AddNewsComponent implements OnInit {
         //     });
     }
     add(event: MatChipInputEvent): void {
-      console.log(event);
+        const input = event.input;
+        const value = event.value;
+        if (input) {
+            const value = event.value;
+            // Add our fruit
+            if ((value || '').trim()) {
+                this.tags.push({ name: value.trim() });
+            }
+            // Reset the input value
+            if (input) {
+                this.form.value.tags = '';
+            }
+        }
+    }
+    remove(tag: tags): void {
+        const index = this.tags.indexOf(tag);
 
-      const input = event.input;
-      const value = event.value;    
-      if (input) {
-          const value = event.value;
-          // Add our fruit
-          if ((value || '').trim()) {
-              this.tags.push({ name: value.trim() });
-          }
-          // Reset the input value
-          if (input) {
-              this.form.value.tags = '';
-          }
-     }
-  }
-  remove(tag: tags): void {
-      const index = this.tags.indexOf(tag);
-
-      if (index >= 0) {
-          this.tags.splice(index, 1);
-      }
-  }
+        if (index >= 0) {
+            this.tags.splice(index, 1);
+        }
+    }
     /**
      * Fetching  communities list
      */
@@ -177,22 +172,22 @@ export class AddNewsComponent implements OnInit {
         );
     }
     addNews() {
+        console.log('called');
         this.loading = true;
-   //     console.log(this.form.value, this.rteObj, this.images, this.tags);
-
+           console.log(this.form.value, this.rteObj, this.images, this.tags);
         if (this.form.invalid) {
             this.loading = false;
             return;
         }
 
-        if (!this.rteObj || !this.images.length || !this.tags.length) {
+        if ( !this.images.length || !this.tags.length) {
             this._commonService.error('All fields are required.');
             this.loading = false;
             return;
         }
         let data: any = {
             tags: this.tags.map((item) => item.name).toString(),
-            article: this.rteObj,
+            // article: this.rteObj,
         };
         if (this.images.length) {
             data.image = this.images.toString();

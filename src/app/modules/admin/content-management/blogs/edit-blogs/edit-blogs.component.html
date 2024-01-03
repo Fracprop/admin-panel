@@ -69,25 +69,24 @@
                             Images<span class="text-warn"></span
                         ></mat-label>
                         <div
-                            class="flex items-center justify-center h-20 border-[#cbd5e1] border-1  rounded-lg"
+                            class="flex items-center justify-center h-20 border-2 border-dashed rounded-lg"
                             (click)="fileImages.click()"
                         >
                             <img
                                 class="w-10 h-10"
                                 src="../../../../../../assets/images/select.svg"
-                              
                             />
                             <span class="text-header underline"
                                 >Select images</span
                             >
                         </div>
                     </div>
-                  
+
                     <input
                         type="file"
                         #fileImages
                         style="display: none"
-                        (change)="onFileChange($event,'images')"
+                        (change)="onFileChange($event, 'images')"
                         multiple
                     />
 
@@ -97,13 +96,13 @@
                             *ngFor="let image of images; let i = index"
                         >
                             <a [href]="image.image" target="_blank">
-                                <img class="w-52 h-52" [src]="image"
+                                <img class="w-52 h-32" [src]="image"
                             /></a>
                             <button
                                 class="_icon absolute right-2 top-2"
                                 (click)="
                                     $event.preventDefault();
-                                    removeUploadedFile(i,'images    ')
+                                    removeUploadedFile(i, 'images    ')
                                 "
                             >
                                 <svg
@@ -135,13 +134,12 @@
                             Videos<span class="text-warn"></span
                         ></mat-label>
                         <div
-                            class="flex items-center justify-center h-20 border-[#cbd5e1] border-1  rounded-lg"
+                            class="flex items-center justify-center h-20 border-2 border-dashed rounded-lg"
                             (click)="fileVideos.click()"
                         >
                             <img
                                 class="w-10 h-10"
                                 src="../../../../../../assets/images/select.svg"
-                               
                             />
                             <span class="text-header underline"
                                 >Select videos</span
@@ -152,7 +150,7 @@
                         type="file"
                         #fileVideos
                         style="display: none"
-                        (change)="onFileChange($event,'video')"
+                        (change)="onFileChange($event, 'video')"
                         multiple
                     />
 
@@ -162,13 +160,15 @@
                             *ngFor="let video of videos; let i = index"
                         >
                             <a [href]="video.video" target="_blank">
-                                <img class="w-52 h-52" src="../../../../../../assets/images/logo/pdf.svg"
+                                <img
+                                    class="w-52 h-32"
+                                    src="../../../../../../assets/images/logo/pdf.svg"
                             /></a>
                             <button
-                                class="_icon absolute right-2 top-2"
+                                class="_icon absolute right-1 top-5"
                                 (click)="
                                     $event.preventDefault();
-                                    removeUploadedFile(i,'video')
+                                    removeUploadedFile(i, 'video')
                                 "
                             >
                                 <svg
@@ -197,9 +197,11 @@
                 <div class="flex flex-col w-120">
                     <mat-form-field class="w-full">
                         <mat-label class="text-header font-bold">
-                            Schedule date to post blog<span class="text-warn"></span
+                            Schedule date to post blog<span
+                                class="text-warn"
+                            ></span
                         ></mat-label>
-                      
+
                         <input
                             matInput
                             [matDatepicker]="picker2"
@@ -236,4 +238,3 @@
         </div>
     </div>
 </div>
-

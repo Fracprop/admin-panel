@@ -1,0 +1,130 @@
+<div
+    class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent"
+>
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-4 px-6 md:px-4"
+    >
+        <!-- Loader -->
+
+        <div class="absolute inset-x-0 top-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+        <div class="flex items-start justify-between w-full">
+            <div>
+                <h2
+                    class="text-3xl font-bold tracking-tight leading-8 text-theme"
+                >
+                    Dividend Calender Content
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="mr-4 flex justify-end pb-2">
+        <!-- Add product button -->
+        <button
+            routerLink="/dividend-calendar/add-dividend-content"
+            class="ml-4 bg-header rounded-lg"
+            mat-flat-button
+            type="button"
+            [matTooltip]="'Add Content'"
+            [color]="'primary'"
+        >
+            <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+            <span class="ml-2 mr-1">Add Dividend Calender</span>
+        </button>
+    </div>
+    <!-- Main -->
+    <div class="flex flex-auto overflow-hidden">
+        <!-- Userslist -->
+        <div
+            class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto"
+        >
+            <ng-container *ngIf="dividendList$.length; else noAdmin">
+                <ng-container>
+                    <div class="grid table_tr_bg">
+                        <!-- Header -->
+                        <div
+                            class="dividend-grid z-10 text-lg sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow font-semibold"
+                            style="background-color: #ecf1f2"
+                        >
+                            <div class="hidden md:block">S No.</div>
+                            <div class="hidden md:block">Title</div>
+                            <div class="hidden md:block">Descriptions</div>
+
+                            <div class="hidden md:block">Action</div>
+                        </div>
+                        <ng-container>
+                            <ng-container
+                                *ngFor="let item of dividendList$; let i = index"
+                            >
+                                <div
+                                    class="dividend-grid font-medium grid items-center gap-4 py-3 px-6 md:px-8 border-b-2 border-gray-300"
+                                >
+                                    <div>
+                                        {{
+                                            pagination?.PageNo *
+                                                pagination?.limit +
+                                                i +
+                                                1
+                                        }}
+                                    </div>
+                                    <!-- Community -->
+                                    <div class="">
+                                        {{ item?.title || "-" }}
+                                    </div>
+                                    <!-- Notes -->
+                                    <div class="">
+                                        {{ item?.description || "-" }}
+                                    </div>
+
+                                    <div class="flex justify-start">
+                                        <button
+                                            routerLink="/dividend-calender/edit-dividend-content{{
+                                                item?.id
+                                            }}"
+                                            class="min-w-10 min-h-7 h-7 px-2 ml-1 bg-green-600 rounded-2xl"
+                                            matTooltip="Details"
+                                        >
+                                            Edit
+                                        </button>
+                                        <button
+                                            class="min-w-20 min-h-7 h-7 px-2 ml-1 bg-red-600 text-white rounded-2xl"
+                                            matTooltip="Delete"
+                                            (click)="deleteContent(item?.id)"
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+
+                    <mat-paginator
+                        *ngIf="dividendList$.length"
+                        class="sm:absolute sm:inset-x-0 sm:bottom-0 border-b sm:border-t sm:border-b-0 z-10 bg-gray-50 dark:bg-transparent justify-center text-header"
+                        [ngClass]="{ 'pointer-events-none': isLoading }"
+                        [length]="pagination.TotalCount"
+                        [pageIndex]="pagination.PageNo"
+                        [pageSize]="pagination.LimitRecords"
+                        [pageSizeOptions]="[5, 10, 25, 100]"
+                        (page)="pageChanged($event)"
+                        [showFirstLastButtons]="true"
+                    ></mat-paginator>
+                </ng-container>
+            </ng-container>
+
+            <ng-template #noAdmin>
+                <div
+                    class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center"
+                >
+                    {{ isLoading ? "Fetching Data" : "There is no data!" }}
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>
+
+
