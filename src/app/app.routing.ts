@@ -195,6 +195,13 @@ export const appRoutes: Route[] = [
                         'app/modules/admin/content-management/dividend-calender/dividend-calender.module'
                     ).then((m) => m.DividendCalenderModule),
             },
+            {
+                path: 'auction-calendar',
+                loadChildren: () =>
+                    import(
+                        'app/modules/admin/content-management/auction-calender/auction-calender.module'
+                    ).then((m) => m.AuctionCalenderModule),
+            },
 
             // {
             //     path: 'settings',

@@ -17,6 +17,9 @@ import {
 } from '@syncfusion/ej2-angular-richtexteditor';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
+// import { CKEditorComponent } from '@ckeditor/ckeditor5-angular';
+
+
 
 export interface tags {
     name: string;
@@ -29,7 +32,10 @@ export interface tags {
 })
 export class AddNewsComponent implements OnInit {
     @ViewChild('defaultRTE') public rteObj?: RichTextEditorComponent;
+    // @ViewChild('editor') public data?:CKEditorComponent
     form: FormGroup;
+    // editor = ClassicEditor;
+   // data: any = `<p>Hello, world!</p>`;
     confirmationDialog: FormGroup;
     public loading = false;
     public categoryList$: any = [

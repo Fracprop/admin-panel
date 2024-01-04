@@ -52,6 +52,7 @@
                             <div class="hidden md:block">S No.</div>
                             <div class="hidden md:block">Title</div>
                             <div class="hidden md:block">Description</div>
+                            <div class="hidden md:block">Scheduled Date</div>
 
                             <div class="hidden md:block">Action</div>
                         </div>
@@ -70,13 +71,17 @@
                                                 1
                                         }}
                                     </div>
-                                    <!-- Community -->
+                                    <!-- Title -->
                                     <div class="">
                                         {{ item?.blog_title || "-" }}
                                     </div>
-                                    <!-- Notes -->
+                                    <!-- Description -->
                                     <div class="">
                                         {{ item?.description || "-" }}
+                                    </div>
+                                       <!-- date -->
+                                       <div class="">
+                                        {{ item?.dateSchdule || "-" }}
                                     </div>
 
                                     <div class="flex justify-start">

@@ -20,6 +20,7 @@ import { EditBlogsComponent } from './edit-blogs/edit-blogs.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
+
 const blogsRoutes: Route[] = [
   {
       path: 'list',
@@ -62,7 +63,8 @@ const blogsRoutes: Route[] = [
     MatSortModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    
   ]
 })
 export class BlogsModule { }

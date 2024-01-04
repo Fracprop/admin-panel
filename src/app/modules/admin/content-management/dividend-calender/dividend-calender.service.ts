@@ -16,7 +16,7 @@ export class DividendCalenderService {
         return this._httpClient
             .get(
                 environment.apiEndPoint +
-                    'faq/' +
+                    'dividendcalendar/' +
                     obj.pageNo +
                     '/' +
                     obj.limit
@@ -25,12 +25,12 @@ export class DividendCalenderService {
     }
     getDetails(id: string) {
         return this._httpClient
-            .get(environment.apiEndPoint + 'faq/' + id)
+            .get(environment.apiEndPoint + 'dividendcalendar/' + id)
             .pipe(switchMap((response: any) => of(response)));
     }
     addContent(obj): Observable<any> {
         return this._httpClient
-            .post(environment.apiEndPoint + 'faq', {
+            .post(environment.apiEndPoint + 'dividendcalendar', {
                 ...obj,
             })
             .pipe(switchMap((response: any) => of(response)));
@@ -38,14 +38,14 @@ export class DividendCalenderService {
 
     editContent(obj: any, id: string): Observable<any> {
         return this._httpClient
-            .patch(environment.apiEndPoint + 'faq/' + id, {
+            .patch(environment.apiEndPoint + 'dividendcalendar/' + id, {
                 ...obj,
             })
             .pipe(switchMap((response: any) => of(response)));
     }
     deleteContent(id: string): Observable<any> {
         return this._httpClient
-            .delete(environment.apiEndPoint + 'faq/' + id)
+            .delete(environment.apiEndPoint + 'dividendcalendar/' + id)
             .pipe(switchMap((response: any) => of(response)));
     }
 }

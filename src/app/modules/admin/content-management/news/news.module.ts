@@ -18,8 +18,7 @@ import { NewsListComponent } from './news-list/news-list.component';
 import { AddNewsComponent } from './add-news/add-news.component';
 import { EditNewsComponent } from './edit-news/edit-news.component';
 import { RichTextEditorModule } from '@syncfusion/ej2-angular-richtexteditor';
-import { MatChipInputEvent, MatChipsModule} from '@angular/material/chips';
-
+import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 
 const newsRoutes: Route[] = [
     {
@@ -57,7 +56,8 @@ const newsRoutes: Route[] = [
         MatSortModule,
         MatSelectModule,
         RichTextEditorModule,
-        MatChipsModule
+        MatChipsModule,
+        
     ],
 })
 export class NewsModule {}

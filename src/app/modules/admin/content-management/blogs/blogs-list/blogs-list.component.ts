@@ -13,18 +13,18 @@ import { BlogsService } from '../blogs.service';
   styles: [
     `
         .blogs-grid {
-            grid-template-columns: auto auto auto auto;
+            grid-template-columns: auto auto auto auto auto;
 
             @screen sm {
-                grid-template-columns: auto auto auto auto ;
+                grid-template-columns: auto auto auto auto auto ;
             }
 
             @screen md {
-                grid-template-columns: 300px 300px 300px 300px;
+                grid-template-columns: 250px 250px 250px 250px 250px;
             }
 
             @screen lg {
-                grid-template-columns: 300px 300px 300px 300px;
+                grid-template-columns: 250px 250px 250px 250px 250px;
             }
         }
     `,
