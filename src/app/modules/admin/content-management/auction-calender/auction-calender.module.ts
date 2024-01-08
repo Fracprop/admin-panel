@@ -21,6 +21,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { AuctionCalenderListComponent } from './auction-calender-list/auction-calender-list.component';
 import { AddAuctionCalenderComponent } from './add-auction-calender/add-auction-calender.component';
 import { EditAuctionCalenderComponent } from './edit-auction-calender/edit-auction-calender.component';
+import { ApprovalDialogComponent } from './approval-dialog/approval-dialog.component';
 
 const auctionRoutes: Route[] = [
   {
@@ -43,7 +44,8 @@ const auctionRoutes: Route[] = [
   declarations: [
     AuctionCalenderListComponent,
     AddAuctionCalenderComponent,
-    EditAuctionCalenderComponent
+    EditAuctionCalenderComponent,
+    ApprovalDialogComponent
   ],
   imports: [
     CommonModule,
@@ -62,6 +64,7 @@ const auctionRoutes: Route[] = [
     MatDatepickerModule,
     MatNativeDateModule
 ],
+exports:[ApprovalDialogComponent],
 providers: [
     {
         provide: MAT_DATE_RANGE_SELECTION_STRATEGY,

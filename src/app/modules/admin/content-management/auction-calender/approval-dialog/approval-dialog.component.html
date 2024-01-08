@@ -1,0 +1,110 @@
+<div class="relative flex flex-col w-full h-full">
+  <form  [formGroup]="form"
+  (submit)="(approve())">
+  <!-- Dismiss button -->
+  <ng-container >
+      <div class="absolute top-0 right-0 pt-4 pr-4">
+          <button mat-icon-button (click)="close('cancelled')" >
+              <mat-icon
+                  class="text-secondary"
+                  [svgIcon]="'heroicons_outline:x'"
+              ></mat-icon>
+          </button>
+      </div>
+  </ng-container>
+
+  <!-- Content -->
+  <div
+      class="flex flex-col sm:flex-row flex-auto items-center sm:items-start p-6 pb-4 sm:pb-6"
+  >
+      <!-- Icon -->
+     
+
+      <ng-container >
+          <div
+              class="flex flex-col items-center sm:items-start mt-4 sm:mt-0 sm:pr-8 space-y-1 text-center sm:text-left"
+          >
+              <!-- Title -->
+              <ng-container >
+                  <div
+                      class="text-2xl leading-6 font-medium"
+                      [innerHTML]="'Approval'"
+                  ></div>
+              </ng-container>
+
+              <!-- Message -->
+              <ng-container>
+                  <div
+                      class="text-secondary"
+                      [innerHTML]="'Are you sure want to approve?'"
+                  ></div>
+              </ng-container>
+              <div
+              class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0"
+          >
+              <div class="flex flex-col gt-xs:flex-row">
+                  <mat-form-field class="w-full">
+                      <mat-label>Auction start date</mat-label>
+                      <input
+                          matInput
+                          [matDatepicker]="picker2"
+                          formControlName="startDate"
+                      />
+                      <mat-hint>MM/DD/YYYY</mat-hint>
+                      <mat-datepicker-toggle
+                          matIconSuffix
+                          [for]="picker2"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+              </div>
+              <div class="flex flex-col gt-xs:flex-row">
+                  <mat-form-field class="w-full">
+                      <mat-label>Auction end date</mat-label>
+
+                      <input
+                          matInput
+                          [matDatepicker]="picker1"
+                          formControlName="endDate"
+                      />
+                      <mat-hint>MM/DD/YYYY</mat-hint>
+                      <mat-datepicker-toggle
+                          matIconSuffix
+                          [for]="picker1"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
+              </div>
+          </div>
+          </div>
+      </ng-container>
+  </div>
+
+  <!-- Actions -->
+  <ng-container >
+      <div
+          class="flex items-center justify-center sm:justify-end px-6 py-4 space-x-3 bg-gray-50 dark:bg-black dark:bg-opacity-10"
+      >
+          <!-- Cancel -->
+          <ng-container >
+              <button mat-stroked-button type="button">
+                No
+              </button>
+          </ng-container>
+
+          <!-- Confirm -->
+          <ng-container >
+              <button
+                  mat-flat-button
+                  color="red"
+                  (click)="approve()"
+                  class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                 
+              >
+                 Yes
+              </button>
+          </ng-container>
+      </div>
+  </ng-container>
+  </form>
+</div>

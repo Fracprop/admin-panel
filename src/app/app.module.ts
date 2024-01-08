@@ -16,7 +16,8 @@ import { AuthInterceptor } from 'app/core/auth/auth.interceptor';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ToastrModule } from 'ngx-toastr';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy: PreloadAllModules,
@@ -56,6 +57,8 @@ const routerConfig: ExtraOptions = {
             resetTimeoutOnDuplicate: true,
             progressBar: true,
         }),
+        MatDatepickerModule,
+        MatNativeDateModule
     ],
     bootstrap: [AppComponent],
     providers: [

@@ -1,9 +1,11 @@
 import { Component, OnInit ,ChangeDetectorRef} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { CommonService } from 'app/modules/admin/common/common.service';
 import { AuctionCalenderService } from '../auction-calender.service';
+import { ApprovalDialogComponent } from '../approval-dialog/approval-dialog.component';
 
 @Component({
   selector: 'app-auction-calender-list',
@@ -51,7 +53,7 @@ export class AuctionCalenderListComponent implements OnInit {
       private _changeDetectorRef: ChangeDetectorRef,
       private _fuseConfirmationService: FuseConfirmationService,
       private _formBuilder: FormBuilder,
-      private _commonService: CommonService
+      private _commonService: CommonService,private _matDialog:MatDialog
   ) {
       this.confirmationForm();
   }
@@ -163,6 +165,21 @@ export class AuctionCalenderListComponent implements OnInit {
                   );
           }
       });
+  }
+  approve(id:any) {
+    const dialogRef = this._matDialog.open(ApprovalDialogComponent, {
+      panelClass: 'custom-dialog-container',
+      disableClose: true,
+      data: {
+        type: 2,
+        message: id,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'confirmed') {
+       // this.ThreadsListing();
+      }
+    });
   }
 
 

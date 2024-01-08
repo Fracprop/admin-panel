@@ -81,7 +81,7 @@
                                     </div>
                                        <!-- date -->
                                        <div class="">
-                                        {{ item?.dateSchdule || "-" }}
+                                        {{ item?.dateSchdule  | date: 'dd/MM/yyyy' }}
                                     </div>
 
                                     <div class="flex justify-start">
