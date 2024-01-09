@@ -39,7 +39,7 @@ export class AddBlogsComponent implements OnInit {
             blog_title: [null, [Validators.required]],
             description: [null, [Validators.required]],
             blogcat: [null, [Validators.required]],
-            dateSchdule:[null,[Validators.required]]
+            dateSchdule: [null, [Validators.required]],
         });
         this.getCategories();
     }
@@ -58,20 +58,36 @@ export class AddBlogsComponent implements OnInit {
     }
     addBlogs() {
         this.loading = true;
-        console.log(this.form.value, this.images, this.videos);
-        let data:any={  };
+        let data: any = {};
+        if (
+            this.form.value.blogcat === '777ff6e0-dd0e-4375-80a2-02ff7c583207'
+        ) {
+            if (!this.videos.length) {
+                this._commonService.error('Kindly upload video!');
+                this.loading = false;
+                return;
+            }
+        } else if (
+            this.form.value.blogcat !== '777ff6e0-dd0e-4375-80a2-02ff7c583207'
+        ) {
+            if (!this.images.length) {
+                this._commonService.error('Kindly upload iamges!');
+                this.loading = false;
+                return;
+            }
+        }
         if (this.images.length) {
             data.image = this.images.toString();
         }
         if (this.videos.length) {
             data.videos = this.videos.toString();
         }
-        
+
         if (this.form.invalid) {
             this.loading = false;
             return;
         }
-        this._blogsService.addBlogs({...this.form.value,...data}).subscribe(
+        this._blogsService.addBlogs({ ...this.form.value, ...data }).subscribe(
             (response) => {
                 this.loading = false;
                 this._router.navigate(['/blogs/list']);

@@ -77,37 +77,41 @@
                                     </div>
                                     <!-- Community -->
                                     <div class="">
-                                        {{ item?.title || "-" }}
+                                        {{ item?.admin_status?"ADMIN":"WEB" || "-" }}
                                     </div>
                                     <!-- Notes -->
                                     <div class="">
                                         {{ item?.description || "-" }}
                                     </div>
-                                       <!-- Community -->
+                                       <!-- No. of shares -->
                                        <div class="">
-                                        {{ item?.title || "-" }}
+                                        {{ item?.noofsharetoAuction || "-" }}
                                     </div>
-                                    <!-- Notes -->
+                                    <!-- Selling price -->
                                     <div class="">
-                                        {{ item?.description || "-" }}
+                                        {{ item?.sellingPrice
+                                            || "-" }}
                                     </div>
 
                                     <div class="flex justify-start">
                                         <button
-                                            routerLink="/dividend-calender/edit-dividend-content{{
+                                            routerLink="/auction-calendar/edit-auction-content/{{
                                                 item?.id
                                             }}"
+                                            *ngIf="item?.admin_status"
                                             class="min-w-10 min-h-7 h-7 px-2 ml-1 bg-green-600 rounded-2xl"
                                             matTooltip="Details"
                                         >
                                             Edit
                                         </button>
-                                        <!-- <button
-                                        routerLink="/dividend-calender/edit-dividend-content{{
+                                        <button
+                                        routerLink="/auction-calender/edit-auction-content/{{
                                             item?.id
                                         }}"
+                                           *ngIf="!item?.admin_status"
                                         class="min-w-10 min-h-7 h-7 px-2 ml-1 bg-green-600 rounded-2xl"
                                         matTooltip="Details"
+                                        (click)="approve(item?.id)"
                                     >
                                         Approve
                                     </button>
@@ -115,13 +119,15 @@
                                         class="min-w-20 min-h-7 h-7 px-2 ml-1 bg-red-600 text-white rounded-2xl"
                                         matTooltip="Delete"
                                         (click)="deleteContent(item?.id)"
+                                        *ngIf="!item?.admin_status"
                                     >
                                         Reject
-                                    </button> -->
+                                    </button>
                                         <button
                                             class="min-w-20 min-h-7 h-7 px-2 ml-1 bg-red-600 text-white rounded-2xl"
                                             matTooltip="Delete"
-                                            (click)="approve(item?.id)"
+                                            *ngIf="item?.admin_status"
+                                            (click)="delete(item?.id)"
                                         >
                                             Delete
                                         </button>

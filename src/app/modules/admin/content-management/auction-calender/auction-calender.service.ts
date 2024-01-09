@@ -4,12 +4,10 @@ import { environment } from 'environments/environment';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class AuctionCalenderService {
-
     /**
      * Constructor
      */
@@ -18,7 +16,7 @@ export class AuctionCalenderService {
         return this._httpClient
             .get(
                 environment.apiEndPoint +
-                    'faq/' +
+                    'fund-account/getAllAuctionList/' +
                     obj.pageNo +
                     '/' +
                     obj.limit
@@ -27,12 +25,16 @@ export class AuctionCalenderService {
     }
     getDetails(id: string) {
         return this._httpClient
-            .get(environment.apiEndPoint + 'faq/' + id)
+            .get(
+                environment.apiEndPoint +
+                    'fund-account/getAuction/' +
+                    id
+            )
             .pipe(switchMap((response: any) => of(response)));
     }
     addAuction(obj): Observable<any> {
         return this._httpClient
-            .post(environment.apiEndPoint + 'faq', {
+            .post(environment.apiEndPoint + 'fund-account/auctionShare', {
                 ...obj,
             })
             .pipe(switchMap((response: any) => of(response)));
@@ -40,14 +42,22 @@ export class AuctionCalenderService {
 
     editAuction(obj: any, id: string): Observable<any> {
         return this._httpClient
-            .patch(environment.apiEndPoint + 'faq/' + id, {
+            .patch(environment.apiEndPoint + 'fund-account/updateAuctionAdminModification/' + id, {
                 ...obj,
             })
             .pipe(switchMap((response: any) => of(response)));
     }
-    deleteAuction(id: string): Observable<any> {
+    deleteAuction(id: string ): Observable<any> {
         return this._httpClient
-            .delete(environment.apiEndPoint + 'faq/' + id)
+            .delete(environment.apiEndPoint + 'fund-account/updateAuctionAdminApproveORDisapprove' + id)
             .pipe(switchMap((response: any) => of(response)));
     }
+    approveAuction(obj): Observable<any> {
+        return this._httpClient
+            .post(environment.apiEndPoint + 'fund-account/updateAuctionAdminApproveORDisapprove', {
+                ...obj,
+            })
+            .pipe(switchMap((response: any) => of(response)));
+    }
+
 }

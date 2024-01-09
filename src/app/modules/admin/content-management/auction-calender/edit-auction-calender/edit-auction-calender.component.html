@@ -14,6 +14,20 @@
                 [formGroup]="form"
                 (submit)="(editData)"
             >
+                <h2 class="text-3xl tracking-tight text-left leading-8 pb-4">
+                    Auction Details
+                </h2>
+                <div
+                    class="grid sm:grid-cols-1 md:grid-cols-1 gap-6 w-full min-w-0 pb-4"
+                    *ngIf="form.value.property_id"
+                >
+                    <div
+                        class="flex flex-col gt-xs:flex-row text-2xl text-center"
+                    >
+                        Total number of shares available:
+                        {{ propertyDetails?.totalnumberShareavailable || "-" }}
+                    </div>
+                </div>
                 <div
                     class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0"
                 >
@@ -27,12 +41,15 @@
                             ></mat-label>
                             <mat-select
                                 placeholder="Select property"
-                                [formControlName]="'blogcat'"
+                                [formControlName]="'property_id'"
+                                (selectionChange)="
+                                    getDetailOnSelect($event.value)
+                                "
                             >
                                 <mat-option
                                     *ngFor="let d of propertyList$"
-                                    [value]="d?.value"
-                                    >{{ d?.text || "" }}</mat-option
+                                    [value]="d?.id"
+                                    >{{ d?.property_name || "" }}</mat-option
                                 >
                             </mat-select>
                         </mat-form-field>
@@ -47,7 +64,7 @@
                             ></mat-label>
                             <mat-select
                                 placeholder="Select community"
-                                [formControlName]="'groupcriteriaId'"
+                                [formControlName]="'group_id'"
                             >
                                 <mat-option
                                     *ngFor="let d of communityList$"
@@ -63,11 +80,14 @@
                 >
                     <div class="flex flex-col gt-xs:flex-row">
                         <mat-form-field class="w-full">
-                            <mat-label>Auction start date</mat-label>
+                            <mat-label class="text-header font-bold">
+                                Auction start date<span class="text-warn"></span
+                            ></mat-label>
+
                             <input
                                 matInput
                                 [matDatepicker]="picker2"
-                                formControlName="startDate"
+                                formControlName="startdate"
                             />
                             <mat-hint>MM/DD/YYYY</mat-hint>
                             <mat-datepicker-toggle
@@ -79,12 +99,14 @@
                     </div>
                     <div class="flex flex-col gt-xs:flex-row">
                         <mat-form-field class="w-full">
-                            <mat-label>Auction end date</mat-label>
+                            <mat-label class="text-header font-bold">
+                                Auction end date<span class="text-warn"></span
+                            ></mat-label>
 
                             <input
                                 matInput
                                 [matDatepicker]="picker1"
-                                formControlName="endDate"
+                                formControlName="enddate"
                             />
                             <mat-hint>MM/DD/YYYY</mat-hint>
                             <mat-datepicker-toggle
@@ -103,14 +125,13 @@
                             [floatLabel]="'always'"
                             class="flex-auto gt-xs:pr-3"
                         >
-                            <mat-label
-                                class="text-header font-normal text-black"
+                            <mat-label class="text-header font-bold"
                                 >No. of Shares <span class="text-warn"></span
                             ></mat-label>
                             <input
                                 matInput
                                 placeholder="No. of shares"
-                                [formControlName]="'noOfShares'"
+                                [formControlName]="'noofsharetoAuction'"
                                 type="number"
                             />
                         </mat-form-field>
@@ -120,44 +141,25 @@
                             [floatLabel]="'always'"
                             class="flex-auto gt-xs:pr-3"
                         >
-                            <mat-label
-                                class="text-header font-normal text-black"
-                                >Share Price(ZAR) <span class="text-warn"></span
+                            <mat-label class="text-header font-bold"
+                                >Selling Price(ZAR)
+                                <span class="text-warn"></span
                             ></mat-label>
                             <input
                                 matInput
-                                placeholder="Share Price"
-                                [formControlName]="'sharePrice'"
+                                placeholder="Selling Price"
+                                type="number"
+                                [formControlName]="'sellingPrice'"
                             />
                         </mat-form-field>
-                    </div>
-                </div>
-
-                <div
-                    class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0"
-                >
-                    <div class="flex flex-col gt-xs:flex-row">
-                        <mat-form-field
-                            [floatLabel]="'always'"
-                            class="flex-auto gt-xs:pr-3"
-                        >
-                            <mat-label
-                                class="text-header font-normal text-black"
-                                >Offer Price(ZAR) <span class="text-warn"></span
-                            ></mat-label>
-                            <input
-                                matInput
-                                placeholder="Offer price"
-                                [formControlName]="'offerPrice'"
-                            />
-                        </mat-form-field>
+                        Note:- 2.5% listing fee will be charged on selling price
                     </div>
                 </div>
 
                 <div
                     class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700"
                 >
-                    <button routerLink="/auction-calender/list" mat-button>
+                    <button routerLink="/auction-calendar/list" mat-button>
                         Cancel
                     </button>
                     <button
@@ -178,4 +180,3 @@
         </div>
     </div>
 </div>
-

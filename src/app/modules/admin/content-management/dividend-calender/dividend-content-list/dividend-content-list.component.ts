@@ -71,9 +71,12 @@ export class DividendContentListComponent implements OnInit {
           (response) => {
               this.isLoading = false;
 
-              this.pagination.TotalCount = response?.totalFaq || 10;
+              this.pagination.TotalCount = response?.TotalDividend
+              || 10;
 
-              this.dividendList$ = response.userFaq ? [...response.userFaq] : [];
+              this.dividendList$ = response.DividendResult
+              ? [...response.DividendResult
+              ] : [];
 
               this._changeDetectorRef.detectChanges();
           },

@@ -70,7 +70,7 @@ export class AddDividendContentComponent implements OnInit {
                     (dates[i + 1].getFullYear() - dates[i].getFullYear()) * 12 +
                     dates[i + 1].getMonth() -
                     dates[i].getMonth();
-                console.log(monthDifference);
+                console.log(monthDifference, dates[i], dates[i + 1]);
                 if (monthDifference !== 4) {
                     isValid = false;
                     break;
@@ -133,8 +133,13 @@ export class AddDividendContentComponent implements OnInit {
             } else if (this.form.value.type === 'QUATERLY') {
                 error = this.validateDates();
                 console.log(this.validateDates(), error);
-                error ? this._commonService.error(error) : '';
-                return;
+                if(error){
+                    this._commonService.error(error) 
+                    this.loading=false;
+                    return;
+
+                }
+               
             }
 
             // if(error){
@@ -143,7 +148,7 @@ export class AddDividendContentComponent implements OnInit {
             //     return
             // }
         }
-        
+
         this._dividendService.addContent(this.form.value).subscribe(
             (response) => {
                 this.loading = false;

@@ -36,6 +36,7 @@ export class AuctionCalenderListComponent implements OnInit {
   confirmationDialog: FormGroup;
   public loading: boolean = false;
   auctionList$: any = [];
+  propertyList$ :any=[];
   isLoading1: boolean = false;
   isLoading: boolean = false;
   public form: FormGroup;
@@ -60,13 +61,14 @@ export class AuctionCalenderListComponent implements OnInit {
   ngOnInit(): void {
       this.getListing();
   }
+  
   /**
    * Fetching  banks list
    */
   getListing() {
       let paginationParams = {
-          pageNo: this.pagination?.pageNo,
-          limit: this.pagination?.limit,
+          pageNo: this.pagination?.pageNo || 0,
+          limit: this.pagination?.limit ||10,
       };
 
       this.isLoading = true;
@@ -74,9 +76,11 @@ export class AuctionCalenderListComponent implements OnInit {
           (response) => {
               this.isLoading = false;
 
-              this.pagination.TotalCount = response?.totalFaq || 10;
+              this.pagination.TotalCount = response?.totalAuction || 10;
 
-              this.auctionList$ = response.userFaq ? [...response.userFaq] : [];
+              this.auctionList$ = response.auctionProperty
+              ? [...response.auctionProperty
+              ] : [];
 
               this._changeDetectorRef.detectChanges();
           },
@@ -177,6 +181,15 @@ export class AuctionCalenderListComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'confirmed') {
+        this._auctionService.approveAuction({...this.form.value,auctionId:id})
+        .subscribe(
+            (response) => {
+                this.getListing();
+            },
+            (err) => {
+              this._commonService.error(err.error.message);
+            }
+        );
        // this.ThreadsListing();
       }
     });

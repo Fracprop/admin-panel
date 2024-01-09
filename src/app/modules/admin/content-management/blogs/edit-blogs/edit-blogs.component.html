@@ -25,6 +25,7 @@
                         <mat-select
                             placeholder="Select category"
                             [formControlName]="'blogcat'"
+                            (selectionChange)="resetValues()"
                         >
                             <mat-option
                                 *ngFor="let d of categoryList$"
@@ -63,7 +64,7 @@
                         ></textarea>
                     </mat-form-field>
                 </div>
-                <div class="flex flex-col w-120">
+                <div class="flex flex-col w-120"  *ngIf="this.form.value.blogcat==='777ff6e0-dd0e-4375-80a2-02ff7c583207'">
                     <div class="w-full">
                         <mat-label class="text-header font-bold">
                             Images<span class="text-warn"></span
@@ -128,7 +129,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col w-120">
+                <div class="flex flex-col w-120 "  *ngIf="this.form.value.blogcat==='777ff6e0-dd0e-4375-80a2-02ff7c583207'">
                     <div class="w-full">
                         <mat-label class="text-header font-bold">
                             Videos<span class="text-warn"></span

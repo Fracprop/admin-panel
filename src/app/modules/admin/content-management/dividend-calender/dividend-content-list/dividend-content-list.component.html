@@ -50,8 +50,8 @@
                             style="background-color: #ecf1f2"
                         >
                             <div class="hidden md:block">S No.</div>
-                            <div class="hidden md:block">Title</div>
-                            <div class="hidden md:block">Descriptions</div>
+                            <div class="hidden md:block">Type</div>
+                            <div class="hidden md:block">Created At</div>
 
                             <div class="hidden md:block">Action</div>
                         </div>
@@ -75,16 +75,19 @@
                                     </div>
                                     <!-- Community -->
                                     <div class="">
-                                        {{ item?.title || "-" }}
+                                        {{ item?.type || "-" }}
                                     </div>
                                     <!-- Notes -->
                                     <div class="">
-                                        {{ item?.description || "-" }}
+                                        {{
+                                            item?.createdAt
+                                                | date : "dd/MM/yyyy"
+                                        }}
                                     </div>
 
                                     <div class="flex justify-start">
                                         <button
-                                            routerLink="/dividend-calender/edit-dividend-content{{
+                                            routerLink="/dividend-calendar/edit-dividend-content/{{
                                                 item?.id
                                             }}"
                                             class="min-w-10 min-h-7 h-7 px-2 ml-1 bg-green-600 rounded-2xl"

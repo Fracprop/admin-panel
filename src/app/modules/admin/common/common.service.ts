@@ -220,6 +220,13 @@ export class CommonService {
             })
             .pipe(switchMap((response: any) => of(response)));
     }
+    getPropertyList(obj): Observable<any> {
+        return this._httpClient
+            .get(environment.apiEndPoint + `property/adminPropertyList`, {
+                params: { ...obj },
+            })
+            .pipe(switchMap((response: any) => of(response)));
+    }
 
 
     /**

@@ -35,7 +35,7 @@ const auctionRoutes: Route[] = [
   },
   {
       // canActivate: [AdminGuard],
-      path: 'add-auctiion-content/:id',
+      path: 'edit-auction-content/:id',
       component: EditAuctionCalenderComponent,
   },
 ];

@@ -34,7 +34,7 @@ const dividendRoutes: Route[] = [
     },
     {
         // canActivate: [AdminGuard],
-        path: 'add-dividend-content/:id',
+        path: 'edit-dividend-content/:id',
         component: EditDividendContentComponent,
     },
 ];

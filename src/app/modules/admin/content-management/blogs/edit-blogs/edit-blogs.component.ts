@@ -77,11 +77,31 @@ export class EditBlogsComponent implements OnInit {
             }
         );
     }
+    resetValues() {
+        this.images = [];
+        this.videos = [];
+    }
 
     editBlogs() {
         this.loading = true;
         console.log(this.form.value, this.images, this.videos);
         let data: any = {};
+        if(this.form.value.blogcat==='777ff6e0-dd0e-4375-80a2-02ff7c583207'){
+            if(!this.videos.length){
+                this._commonService.error('Kindly upload video!');
+                this.loading=false;
+                return
+
+            }
+        } else if(this.form.value.blogcat!=='777ff6e0-dd0e-4375-80a2-02ff7c583207'){
+            if(!this.images.length){
+                this._commonService.error('Kindly upload iamges!');
+                this.loading=false;
+                return
+
+            }
+        }
+
         if (this.images.length) {
             data.image = this.images.toString();
         }

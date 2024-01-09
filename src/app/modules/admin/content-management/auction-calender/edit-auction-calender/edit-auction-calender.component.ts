@@ -13,6 +13,8 @@ export class EditAuctionCalenderComponent implements OnInit {
     form: FormGroup;
     confirmationDialog: FormGroup;
     public loading = false;
+    public propertyDetails: any;
+    public userID: String;
     public propertyList$ = [
         { text: 'Yearly', value: 'Yearly' },
         { text: 'Quaterly', value: 'Quaterly' },
@@ -31,6 +33,7 @@ export class EditAuctionCalenderComponent implements OnInit {
         this._activatedRoute.params.subscribe((params) => {
             this.auctionId = params['id'];
         });
+        this.userID = JSON.parse(localStorage.getItem('user')).id;
     }
 
     ngOnInit(): void {
@@ -38,15 +41,16 @@ export class EditAuctionCalenderComponent implements OnInit {
          * FORM INITILIZATION
          */
         this.form = this._formBuilder.group({
-            property: [null, [Validators.required]],
-            coummiunity: [null, [Validators.required]],
-            startDate: [null, [Validators.required]],
-            endDate: [null, [Validators.required]],
-            sharePrice: [null, [Validators.required]],
-            offerPrice: [null, [Validators.required]],
-            noOfShares: [null, [Validators.required]],
+            property_id: [null, [Validators.required]],
+            group_id: [null, [Validators.required]],
+            startdate: [null, [Validators.required]],
+            enddate: [null, [Validators.required]],
+            sellingPrice: [null, [Validators.required]],
+
+            noofsharetoAuction: [null, [Validators.required]],
         });
         this.getCommunities();
+        this.getProperties();
     }
     /**
      * Fetching  communities list
@@ -61,6 +65,27 @@ export class EditAuctionCalenderComponent implements OnInit {
             }
         );
     }
+    getProperties() {
+        this._commonService.getPropertyList({}).subscribe(
+            (response) => {
+                this.propertyList$ = response ? [...response] : [];
+                this.fetchContent();
+            },
+            (err) => {
+                // this.isLoading = false;
+            }
+        );
+    }
+    getDetailOnSelect(id: any) {
+        this.propertyDetails = {};
+        this.propertyList$.filter((e: any) => {
+            if (e.id == id) {
+                this.propertyDetails = { ...e };
+
+                this.form.patchValue({ group_id: e.groupcriteriaId });
+            }
+        });
+    }
     editData() {
         this.loading = true;
         if (this.form.invalid) {
@@ -68,30 +93,54 @@ export class EditAuctionCalenderComponent implements OnInit {
             return;
         }
         if (
-            Date.parse(this.form.value.closingDate) <=
-            Date.parse(this.form.value.openingDate)
+            Date.parse(this.form.value.startdate) <=
+            Date.parse(this.form.value.endadate)
         ) {
+            this.loading = false;
             this._commonService.error(
                 'End Date should be greater than start date'
             );
+            this.loading = false;
             return;
         }
-        this._auctionService.addAuction(this.form.value).subscribe(
-            (response) => {
-                this.loading = false;
-                this._router.navigate(['/dividend-calender/list']);
-            },
-            (err) => {
-                this.loading = false;
-                this._commonService.error(err.error.message);
-                // this.isLoading = false;
-            }
-        );
+        if (
+            Number(this.form.value.noofsharetoAuction) >
+            Number(this.propertyDetails.totalnumberShareavailable)
+        ) {
+            this._commonService.error(
+                'Number of shares cannot be greater than total number of available shares'
+            );
+            this.loading = false;
+            return;
+        }
+        this._auctionService
+            .editAuction(
+                {
+                    ...this.form.value,
+                    admin_status: 'true',
+                    noofsharetoAuction:
+                        this.form.value.noofsharetoAuction.toString(),
+                    sellingPrice: this.form.value.sellingPrice.toString(),
+                    user_id: this.userID,
+                },
+                this.auctionId
+            )
+            .subscribe(
+                (response) => {
+                    this.loading = false;
+                    this._router.navigate(['/auction-calendar/list']);
+                },
+                (err) => {
+                    this.loading = false;
+                    this._commonService.error(err.error.message);
+                    // this.isLoading = false;
+                }
+            );
     }
     fetchContent() {
         this._auctionService.getDetails(this.auctionId).subscribe(
             (response) => {
-                this.patchValuestOfForm(response);
+                this.patchValuestOfForm(response[0]);
             },
             (err) => {
                 this._commonService.error(err.error.message);
@@ -103,5 +152,6 @@ export class EditAuctionCalenderComponent implements OnInit {
         Object.keys(this.form['controls']).forEach((key) => {
             this.form['controls'][key].setValue(res[key] ? res[key] : '');
         });
+        this.getDetailOnSelect(this.form.value.property_id);
     }
 }

@@ -38,10 +38,10 @@ export class EditDividendContentComponent implements OnInit {
          */
         this.form = this._formBuilder.group({
             type: [null, [Validators.required]],
-            date1: [null, [Validators.required]],
-            date2: [null, [Validators.required]],
-            date3: [null, [Validators.required]],
-            date4: [null, [Validators.required]],
+            Date1: [null, [Validators.required]],
+            Date2: [null, []],
+            Date3: [null, []],
+            Date4: [null, []],
         });
         this.fetchContent();
     }
@@ -107,24 +107,26 @@ export class EditDividendContentComponent implements OnInit {
     }
     editData() {
         this.loading = true;
+        console.log(this.form);
         if (this.form.invalid) {
             this.loading = false;
             return;
         } else if (this.form.value.type) {
             let error = null;
             let month1 = this.form.value.Date1
-                ? this.form.value.Date1
+                ? new Date(this.form.value.Date1)
                 : undefined;
             let month2 = this.form.value.Date2
-                ? this.form.value.Date2
+                ? new Date(this.form.value.Date2)
                 : undefined;
             if (this.form.value.type === 'YEARLY') {
             } else if (this.form.value.type === 'HALFYEARLY') {
                 this.form.get('Date2').setValidators([Validators.required]);
                 this.form.get('Date2').updateValueAndValidity();
+                console.log(this.form.value.Date1)
                 const monthDifference =
-                    (this.form.value.Date1.getFullYear() -
-                        this.form.value.Date2.getFullYear()) *
+                    (new Date(this.form.value.Date1).getFullYear() -
+                    new Date( this.form.value.Date2).getFullYear()) *
                         12 +
                     month1.getMonth() -
                     month2.getMonth();
@@ -139,16 +141,19 @@ export class EditDividendContentComponent implements OnInit {
             } else if (this.form.value.type === 'QUATERLY') {
                 error = this.validateDates();
                 console.log(this.validateDates(), error);
-                error ? this._commonService.error(error) : '';
-                return;
-            }
+                if(error){
+                    this._commonService.error(error) 
+                    this.loading=false;
+                    return;
+
+                }}
         }
         this._dividendService
             .editContent(this.form.value, this.dividendId)
             .subscribe(
                 (response) => {
                     this.loading = false;
-                    this._router.navigate(['/dividend-calender/list']);
+                    this._router.navigate(['/dividend-calendar/list']);
                 },
                 (err) => {
                     this.loading = false;
