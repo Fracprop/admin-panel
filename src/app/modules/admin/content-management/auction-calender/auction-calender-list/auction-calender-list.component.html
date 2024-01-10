@@ -59,10 +59,7 @@
                         </div>
                         <ng-container>
                             <ng-container
-                                *ngFor="
-                                    let item of auctionList$;
-                                    let i = index
-                                "
+                                *ngFor="let item of auctionList$; let i = index"
                             >
                                 <div
                                     class="auction-grid font-medium grid items-center gap-4 py-3 px-6 md:px-8 border-b-2 border-gray-300"
@@ -77,56 +74,62 @@
                                     </div>
                                     <!-- Community -->
                                     <div class="">
-                                        {{ item?.admin_status?"ADMIN":"WEB" || "-" }}
+                                        {{ item?.userType }}
                                     </div>
                                     <!-- Notes -->
                                     <div class="">
                                         {{ item?.description || "-" }}
                                     </div>
-                                       <!-- No. of shares -->
-                                       <div class="">
+                                    <!-- No. of shares -->
+                                    <div class="">
                                         {{ item?.noofsharetoAuction || "-" }}
                                     </div>
                                     <!-- Selling price -->
                                     <div class="">
-                                        {{ item?.sellingPrice
-                                            || "-" }}
+                                        {{ item?.sellingPrice || "-" }}
                                     </div>
 
                                     <div class="flex justify-start">
+                                        {{
+                                            item?.admin_status && item?.userType !== 'ADMIN' ? "APPROVED" : ""
+                                        }}
                                         <button
                                             routerLink="/auction-calendar/edit-auction-content/{{
                                                 item?.id
                                             }}"
-                                            *ngIf="item?.admin_status"
+                                            *ngIf="item?.userType === 'ADMIN'"
                                             class="min-w-10 min-h-7 h-7 px-2 ml-1 bg-green-600 rounded-2xl"
                                             matTooltip="Details"
                                         >
                                             Edit
                                         </button>
                                         <button
-                                        routerLink="/auction-calender/edit-auction-content/{{
-                                            item?.id
-                                        }}"
-                                           *ngIf="!item?.admin_status"
-                                        class="min-w-10 min-h-7 h-7 px-2 ml-1 bg-green-600 rounded-2xl"
-                                        matTooltip="Details"
-                                        (click)="approve(item?.id)"
-                                    >
-                                        Approve
-                                    </button>
-                                        <button
-                                        class="min-w-20 min-h-7 h-7 px-2 ml-1 bg-red-600 text-white rounded-2xl"
-                                        matTooltip="Delete"
-                                        (click)="deleteContent(item?.id)"
-                                        *ngIf="!item?.admin_status"
-                                    >
-                                        Reject
-                                    </button>
+                                            *ngIf="
+                                                item?.userType != 'ADMIN' &&
+                                                !item?.admin_status
+                                            "
+                                            class="min-w-10 min-h-7 h-7 px-2 ml-1 bg-green-600 rounded-2xl"
+                                            matTooltip="Details"
+                                            (click)="approve(item?.id, true)"
+                                            type="button"
+                                        >
+                                            Approve
+                                        </button>
                                         <button
                                             class="min-w-20 min-h-7 h-7 px-2 ml-1 bg-red-600 text-white rounded-2xl"
                                             matTooltip="Delete"
-                                            *ngIf="item?.admin_status"
+                                            (click)="approve(item?.id, false)"
+                                            *ngIf="
+                                                item?.userType != 'ADMIN' &&
+                                                !item?.admin_status
+                                            "
+                                        >
+                                            Reject
+                                        </button>
+                                        <button
+                                            class="min-w-20 min-h-7 h-7 px-2 ml-1 bg-red-600 text-white rounded-2xl"
+                                            matTooltip="Delete"
+                                            *ngIf="item?.userType === 'ADMIN'"
                                             (click)="delete(item?.id)"
                                         >
                                             Delete
@@ -161,4 +164,3 @@
         </div>
     </div>
 </div>
-

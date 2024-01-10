@@ -49,7 +49,7 @@ export class AuctionCalenderService {
     }
     deleteAuction(id: string ): Observable<any> {
         return this._httpClient
-            .delete(environment.apiEndPoint + 'fund-account/updateAuctionAdminApproveORDisapprove' + id)
+            .delete(environment.apiEndPoint + 'fund-account/deleteAuction' + id)
             .pipe(switchMap((response: any) => of(response)));
     }
     approveAuction(obj): Observable<any> {

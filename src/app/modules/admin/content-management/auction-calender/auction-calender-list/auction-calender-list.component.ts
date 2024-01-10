@@ -170,27 +170,20 @@ export class AuctionCalenderListComponent implements OnInit {
           }
       });
   }
-  approve(id:any) {
+  approve(id:any, isApprove) {
     const dialogRef = this._matDialog.open(ApprovalDialogComponent, {
       panelClass: 'custom-dialog-container',
       disableClose: true,
       data: {
         type: 2,
-        message: id,
+        message: {id:id, isApprove:isApprove},
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
+        console.log('yes')
       if (result === 'confirmed') {
-        this._auctionService.approveAuction({...this.form.value,auctionId:id})
-        .subscribe(
-            (response) => {
-                this.getListing();
-            },
-            (err) => {
-              this._commonService.error(err.error.message);
-            }
-        );
-       // this.ThreadsListing();
+      
+       this.getListing();
       }
     });
   }

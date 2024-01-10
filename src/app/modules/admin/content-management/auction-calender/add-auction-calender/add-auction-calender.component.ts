@@ -14,7 +14,7 @@ import { UserService } from 'app/core/user/user.service';
 export class AddAuctionCalenderComponent implements OnInit {
     form: FormGroup;
     confirmationDialog: FormGroup;
-    public loading = true;
+    public loading = false;
     public propertyDetails: any;
     public userID:String;
     public communityList$ = [
