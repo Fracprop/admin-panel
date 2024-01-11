@@ -40,6 +40,21 @@
                         class="flex-auto gt-xs:pr-3"
                     >
                         <mat-label class="text-header font-bold">
+                            Title<span class="text-warn"></span
+                        ></mat-label>
+                        <input
+                            matInput
+                            [formControlName]="'title'"
+                            placeholder="Enter title"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="w-120 flex">
+                    <mat-form-field
+                        [floatLabel]="'always'"
+                        class="flex-auto gt-xs:pr-3"
+                    >
+                        <mat-label class="text-header font-bold">
                             Author<span class="text-warn"></span
                         ></mat-label>
                         <input

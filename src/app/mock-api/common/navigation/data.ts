@@ -11,7 +11,7 @@ export const SuperAdminNavigation: FuseNavigationItem[] = [
     },
     {
         id: 'user',
-        title: 'User Mangement',
+        title: 'User Management',
         type: 'basic',
         icon: 'heroicons_outline:office-building',
         link: '/users/list',
@@ -207,7 +207,7 @@ export const futuristicNavigation: FuseNavigationItem[] = [
     },
     {
         id: 'facilities',
-        title: 'User Mangement',
+        title: 'User Management',
         type: 'basic',
         icon: 'heroicons_outline:office-building',
         link: '/users/list',

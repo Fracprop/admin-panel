@@ -125,6 +125,7 @@ export class EditNewsComponent implements OnInit {
             author: [null, [Validators.required]],
             category: [null, [Validators.required]],
             article: [null, [Validators.required]],
+            title: [null, [Validators.required]],
             image: [null, []],
             tags: [null, []],
         });

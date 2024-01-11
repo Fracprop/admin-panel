@@ -123,7 +123,7 @@ export class AddNewsComponent implements OnInit {
             author: [null, [Validators.required]],
             category: [null, [Validators.required]],
             article: [null, [Validators.required]],
-            // blogcat: [null, [Validators.required]],
+         title: [null, [Validators.required]],
             tags: [null, [Validators.required]],
         });
       

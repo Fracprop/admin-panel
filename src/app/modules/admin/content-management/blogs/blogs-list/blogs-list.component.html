@@ -50,6 +50,7 @@
                             style="background-color: #ecf1f2"
                         >
                             <div class="hidden md:block">S No.</div>
+                            <div class="hidden md:block">Category</div>
                             <div class="hidden md:block">Title</div>
                             <div class="hidden md:block">Description</div>
                             <div class="hidden md:block">Scheduled Date</div>
@@ -71,17 +72,26 @@
                                                 1
                                         }}
                                     </div>
+                                    <!-- Category -->
+                                    <div class="">
+                                        {{
+                                            item?.blogCategory?.category || "-"
+                                        }}
+                                    </div>
                                     <!-- Title -->
                                     <div class="">
                                         {{ item?.blog_title || "-" }}
                                     </div>
                                     <!-- Description -->
-                                    <div class="">
+                                    <div class="break-word">
                                         {{ item?.description || "-" }}
                                     </div>
-                                       <!-- date -->
-                                       <div class="">
-                                        {{ item?.dateSchdule  | date: 'dd/MM/yyyy' }}
+                                    <!-- date -->
+                                    <div class="">
+                                        {{
+                                            item?.dateSchdule
+                                                | date : "dd/MM/yyyy"
+                                        }}
                                     </div>
 
                                     <div class="flex justify-start">
@@ -131,5 +141,3 @@
         </div>
     </div>
 </div>
-
-
