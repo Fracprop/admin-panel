@@ -81,7 +81,7 @@
                                     </div>
                                     <!-- desciption -->
                                     <div class="">
-                                        {{ item?.description || "-" }}
+                                        {{ item?.description  | slice : 0 : 150 }}
                                     </div>
 
                                     <div class="flex justify-start">

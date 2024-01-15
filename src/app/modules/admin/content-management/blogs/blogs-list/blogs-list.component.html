@@ -83,8 +83,8 @@
                                         {{ item?.blog_title || "-" }}
                                     </div>
                                     <!-- Description -->
-                                    <div class="break-word">
-                                        {{ item?.description || "-" }}
+                                    <div class="">
+                                        {{ item?.description | slice : 0 : 50 }} ...
                                     </div>
                                     <!-- date -->
                                     <div class="">

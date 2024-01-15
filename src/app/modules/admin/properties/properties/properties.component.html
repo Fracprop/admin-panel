@@ -86,7 +86,7 @@
                                     </div>
                                     <!-- desciption -->
                                     <div class="">
-                                        {{ item?.property_description || "-" }}
+                                        {{ item?.property_description  | slice : 0 : 100 }}
                                     </div>
 
                                     <div class="flex justify-start">
