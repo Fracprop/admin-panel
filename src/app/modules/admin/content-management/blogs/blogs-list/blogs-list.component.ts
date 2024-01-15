@@ -19,11 +19,11 @@ import { BlogsService } from '../blogs.service';
                 }
 
                 @screen md {
-                    grid-template-columns: 250px 200px 200px 200px 200p 200px;
+                    grid-template-columns: 100px 200px 250px 200px 200p 200px;
                 }
 
                 @screen lg {
-                    grid-template-columns: 250px 200px 200px 200px 200p 200px;
+                    grid-template-columns: 100px 200px 250px 200px 200p 200px;
                 }
             }
         `,
