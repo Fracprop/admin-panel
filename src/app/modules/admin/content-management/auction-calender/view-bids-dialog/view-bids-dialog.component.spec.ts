@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddAuctionCalenderComponent } from './add-auction-calender.component';
+import { ViewBidsDialogComponent } from './view-bids-dialog.component';
 
-describe('AddAuctionCalenderComponent', () => {
-  let component: AddAuctionCalenderComponent;
-  let fixture: ComponentFixture<AddAuctionCalenderComponent>;
+describe('ViewBidsDialogComponent', () => {
+  let component: ViewBidsDialogComponent;
+  let fixture: ComponentFixture<ViewBidsDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddAuctionCalenderComponent ]
+      declarations: [ ViewBidsDialogComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddAuctionCalenderComponent);
+    fixture = TestBed.createComponent(ViewBidsDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

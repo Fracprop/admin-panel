@@ -2,7 +2,7 @@
     <form [formGroup]="form">
         <!-- Dismiss button -->
         <ng-container>
-            <div class="absolute top-0 right-0 pt-4 pr-4">
+            <div class="absolute top-0 right-0">
                 <button mat-icon-button (click)="close('cancelled')">
                     <mat-icon
                         class="text-secondary"
@@ -14,7 +14,7 @@
 
         <!-- Content -->
         <div
-            class="flex flex-col sm:flex-row flex-auto items-center sm:items-start p-6 pb-4 sm:pb-6"
+            class="flex flex-col sm:flex-row flex-auto items-center sm:items-start p-2 pb-4 sm:pb-6"
         >
             <!-- Icon -->
 
@@ -86,6 +86,28 @@
                                 <mat-datepicker #picker1></mat-datepicker>
                             </mat-form-field>
                         </div>
+                    </div>
+                    <div
+                        class="grid sm:grid-cols-1 md:grid-cols-1
+                         gap-6 w-full min-w-0"
+                        *ngIf="!data.message.isApprove"
+                    >
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >Reason <span class="text-warn"></span
+                            ></mat-label>
+                            <textarea
+                                matInput
+                                name="reason"
+                                cols="35"
+                                rows="8"
+                                placeholder="Enter reason "
+                                [formControlName]="'reason'"
+                            ></textarea>
+                        </mat-form-field>
                     </div>
                 </div>
             </ng-container>

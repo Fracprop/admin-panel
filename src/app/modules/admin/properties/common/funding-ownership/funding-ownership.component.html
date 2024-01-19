@@ -2,7 +2,6 @@
     <form
         class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden"
         [formGroup]="form"
-        
     >
         <div class="prose prose-sm max-w-3xl">
             <h2 class="text-3xl font-semibold tracking-tight leading-8 mb-5">
@@ -18,8 +17,13 @@
                     <mat-label class="text-header font-normal text-black"
                         >Funding Target <span class="text-warn"></span
                     ></mat-label>
-                    <input matInput placeholder="Funding target" [formControlName]="'fundingTarget'" type="number"
-                    min="0"/>
+                    <input
+                        matInput
+                        placeholder="Funding target"
+                        [formControlName]="'fundingTarget'"
+                        type="number"
+                        min="0"
+                    />
                 </mat-form-field>
             </div>
             <div class="flex flex-col gt-xs:flex-row">
@@ -30,8 +34,13 @@
                     <mat-label class="text-header font-normal text-black"
                         >Internal Rate of Return<span class="text-warn"></span
                     ></mat-label>
-                    <input matInput placeholder="Rate of Return" [formControlName]="'internalRateofReturn'"  type="number"
-                    min="0" />
+                    <input
+                        matInput
+                        placeholder="Rate of Return"
+                        [formControlName]="'internalRateofReturn'"
+                        type="number"
+                        min="0"
+                    />
                 </mat-form-field>
             </div>
             <div class="flex flex-col gt-xs:flex-row">
@@ -44,8 +53,13 @@
                             class="text-warn"
                         ></span
                     ></mat-label>
-                    <input matInput placeholder="Net Rental Yield" [formControlName]="'estimatedNetRental'"  type="number"
-                    min="0"/>
+                    <input
+                        matInput
+                        placeholder="Net Rental Yield"
+                        [formControlName]="'estimatedNetRental'"
+                        type="number"
+                        min="0"
+                    />
                 </mat-form-field>
             </div>
             <div class="flex flex-col gt-xs:flex-row">
@@ -56,8 +70,13 @@
                     <mat-label class="text-header font-normal text-black"
                         >Market Valuation<span class="text-warn"></span
                     ></mat-label>
-                    <input matInput placeholder="Market valuation" [formControlName]="'marketValuation'"  type="number"
-                    min="0"/>
+                    <input
+                        matInput
+                        placeholder="Market valuation"
+                        [formControlName]="'marketValuation'"
+                        type="number"
+                        min="0"
+                    />
                 </mat-form-field>
             </div>
         </div>
@@ -80,8 +99,13 @@
                             class="text-warn"
                         ></span
                     ></mat-label>
-                    <input matInput placeholder="Ownership per share" [formControlName]="'percentageOwnewshipshare'"  type="number"
-                    min="0" />
+                    <input
+                        matInput
+                        placeholder="Ownership per share"
+                        [formControlName]="'percentageOwnewshipshare'"
+                        type="number"
+                        min="0"
+                    />
                 </mat-form-field>
             </div>
             <div class="flex flex-col gt-xs:flex-row">
@@ -94,8 +118,13 @@
                             class="text-warn"
                         ></span
                     ></mat-label>
-                    <input matInput placeholder="No. of shares" [formControlName]="'totalnumberShareavailable'"  type="number"
-                    min="0" />
+                    <input
+                        matInput
+                        placeholder="No. of shares"
+                        [formControlName]="'totalnumberShareavailable'"
+                        type="number"
+                        min="0"
+                    />
                 </mat-form-field>
             </div>
             <div class="flex flex-col gt-xs:flex-row">
@@ -106,8 +135,13 @@
                     <mat-label class="text-header font-normal text-black"
                         >Minimum Investment Amount<span class="text-warn"></span
                     ></mat-label>
-                    <input matInput placeholder="Investment amount" [formControlName]="'minimumInvestmentAmount'"  type="number"
-                    min="0" />
+                    <input
+                        matInput
+                        placeholder="Investment amount"
+                        [formControlName]="'minimumInvestmentAmount'"
+                        type="number"
+                        min="0"
+                    />
                 </mat-form-field>
             </div>
             <div class="flex flex-col gt-xs:flex-row">
@@ -118,10 +152,34 @@
                     <mat-label class="text-header font-normal text-black"
                         >Price per share(R)<span class="text-warn"></span
                     ></mat-label>
-                    <input matInput placeholder="Price per share" [formControlName]="'pricePerShare'"  type="number"
-                    min="0" />
+                    <input
+                        matInput
+                        placeholder="Price per share"
+                        [formControlName]="'pricePerShare'"
+                        type="number"
+                        min="0"
+                    />
                 </mat-form-field>
             </div>
+            <!-- <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >No. of shares owned by Fracprop<span
+                            class="text-warn"
+                        ></span
+                    ></mat-label>
+                    <input
+                        matInput
+                        placeholder="Shares owned by fracprop"
+                        [formControlName]="'pricePerShare'"
+                        type="number"
+                        min="0"
+                    />
+                </mat-form-field>
+            </div> -->
         </div>
         <div class="flex items-center justify-between mb-8 mt-5">
             <button mat-button (click)="previousTab()">Back</button>
@@ -130,12 +188,9 @@
                 mat-flat-button
                 [color]="'primary'"
                 (click)="add()"
-              
             >
                 <span> Next</span>
             </button>
         </div>
-
-      
     </form>
 </div>

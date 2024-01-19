@@ -84,7 +84,7 @@
                                     </div>
                                     <!-- Description -->
                                     <div class="">
-                                        {{ item?.description | slice : 0 : 50 }} ...
+                                        {{ item?.description | slice : 0 : 50 }} {{item?.description.length>100?'...':'  '}}
                                     </div>
                                     <!-- date -->
                                     <div class="">

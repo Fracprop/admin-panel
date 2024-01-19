@@ -33,6 +33,7 @@ export class ApprovalDialogComponent implements OnInit {
         this.form = this._formBuilder.group({
             startDate: [null, []],
             endDate: [null, []],
+            reason: [null, []],
         });
     }
     approve() {
@@ -53,15 +54,19 @@ export class ApprovalDialogComponent implements OnInit {
                 this.loading = false;
                 return;
             }
+            delete this.form.value.reason;
         }
         let data: {};
         this.data.message.isApprove ? (data = { ...this.form.value }) : '';
+        !this.data.message.isApprove
+            ? (data = { reason: this.form.value.reason })
+            : '';
 
         this._auctionService
             .approveAuction({
                 auctionId: this.data.message.id,
                 admin_status: this.data.message.isApprove,
-                ...data
+                ...data,
             })
             .subscribe(
                 (response) => {

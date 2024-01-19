@@ -99,7 +99,7 @@
                                             }}"
                                             *ngIf="item?.userType === 'ADMIN'"
                                             class="min-w-10 min-h-7 h-7 px-2 ml-1 bg-green-600 rounded-2xl"
-                                            matTooltip="Details"
+                                            matTooltip="Edit"
                                         >
                                             Edit
                                         </button>
@@ -109,7 +109,7 @@
                                                 !item?.admin_status
                                             "
                                             class="min-w-10 min-h-7 h-7 px-2 ml-1 bg-green-600 rounded-2xl"
-                                            matTooltip="Details"
+                                            matTooltip="Approve"
                                             (click)="approve(item?.id, true)"
                                             type="button"
                                         >
@@ -117,7 +117,7 @@
                                         </button>
                                         <button
                                             class="min-w-20 min-h-7 h-7 px-2 ml-1 bg-red-600 text-white rounded-2xl"
-                                            matTooltip="Delete"
+                                            matTooltip="Reject"
                                             (click)="approve(item?.id, false)"
                                             *ngIf="
                                                 item?.userType != 'ADMIN' &&
@@ -126,6 +126,17 @@
                                         >
                                             Reject
                                         </button>
+                                        <!-- <button
+                                        class="min-w-20 min-h-7 h-7 px-2 ml-1 bg-red-600 text-white rounded-2xl"
+                                        matTooltip="View Bids"
+                                        (click)="view(item?.id, false)"
+                                        *ngIf="
+                                            item?.userType != 'ADMIN' &&
+                                            !item?.admin_status
+                                        "
+                                    >
+                                        View Bids
+                                    </button> -->
                                         <button
                                             class="min-w-20 min-h-7 h-7 px-2 ml-1 bg-red-600 text-white rounded-2xl"
                                             matTooltip="Delete"

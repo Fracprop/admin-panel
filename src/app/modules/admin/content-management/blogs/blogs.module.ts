@@ -19,6 +19,7 @@ import { AddBlogsComponent } from './add-blogs/add-blogs.component';
 import { EditBlogsComponent } from './edit-blogs/edit-blogs.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 const blogsRoutes: Route[] = [

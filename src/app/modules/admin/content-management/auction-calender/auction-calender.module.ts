@@ -22,6 +22,8 @@ import { AuctionCalenderListComponent } from './auction-calender-list/auction-ca
 import { AddAuctionCalenderComponent } from './add-auction-calender/add-auction-calender.component';
 import { EditAuctionCalenderComponent } from './edit-auction-calender/edit-auction-calender.component';
 import { ApprovalDialogComponent } from './approval-dialog/approval-dialog.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ViewBidsDialogComponent } from './view-bids-dialog/view-bids-dialog.component';
 
 const auctionRoutes: Route[] = [
   {
@@ -45,7 +47,8 @@ const auctionRoutes: Route[] = [
     AuctionCalenderListComponent,
     AddAuctionCalenderComponent,
     EditAuctionCalenderComponent,
-    ApprovalDialogComponent
+    ApprovalDialogComponent,
+    ViewBidsDialogComponent
   ],
   imports: [
     CommonModule,
@@ -62,7 +65,8 @@ const auctionRoutes: Route[] = [
     MatSlideToggleModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatProgressSpinnerModule
 ],
 exports:[ApprovalDialogComponent],
 providers: [

@@ -5,7 +5,6 @@ import { CommonService } from 'app/modules/admin/common/common.service';
 import { AuctionCalenderService } from '../auction-calender.service';
 import { UserService } from 'app/core/user/user.service';
 
-
 @Component({
     selector: 'app-add-auction-calender',
     templateUrl: './add-auction-calender.component.html',
@@ -16,7 +15,7 @@ export class AddAuctionCalenderComponent implements OnInit {
     confirmationDialog: FormGroup;
     public loading = false;
     public propertyDetails: any;
-    public userID:String;
+    public userID: String;
     public communityList$ = [
         { text: 'Yearly', value: 'Yearly' },
         { text: 'Quaterly', value: 'Quaterly' },
@@ -29,10 +28,9 @@ export class AddAuctionCalenderComponent implements OnInit {
         private _router: Router,
         private _commonService: CommonService,
         private _auctionService: AuctionCalenderService,
-        private _userService:UserService,
+        private _userService: UserService
     ) {
-    
-       this.userID=JSON.parse(localStorage.getItem('user')).id
+        this.userID = JSON.parse(localStorage.getItem('user')).id;
     }
 
     ngOnInit(): void {
@@ -98,7 +96,7 @@ export class AddAuctionCalenderComponent implements OnInit {
             this._commonService.error(
                 'End Date should be greater than start date'
             );
-            this.loading=false;
+            this.loading = false;
             return;
         }
         if (
@@ -118,7 +116,7 @@ export class AddAuctionCalenderComponent implements OnInit {
                 noofsharetoAuction:
                     this.form.value.noofsharetoAuction.toString(),
                 sellingPrice: this.form.value.sellingPrice.toString(),
-                user_id:this.userID
+                user_id: this.userID,
             })
             .subscribe(
                 (response) => {
