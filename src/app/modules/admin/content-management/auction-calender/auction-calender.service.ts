@@ -23,6 +23,15 @@ export class AuctionCalenderService {
             )
             .pipe(switchMap((response: any) => of(response)));
     }
+    getBidList(obj) {
+        return this._httpClient
+            .get(
+                environment.apiEndPoint +
+                    'user-bids/showAllBids/' +
+                    obj.id
+            )
+            .pipe(switchMap((response: any) => of(response)));
+    }
     getDetails(id: string) {
         return this._httpClient
             .get(
@@ -55,6 +64,13 @@ export class AuctionCalenderService {
     approveAuction(obj): Observable<any> {
         return this._httpClient
             .post(environment.apiEndPoint + 'fund-account/updateAuctionAdminApproveORDisapprove', {
+                ...obj,
+            })
+            .pipe(switchMap((response: any) => of(response)));
+    }
+    updateBidStatus(obj): Observable<any> {
+        return this._httpClient
+            .post(environment.apiEndPoint + '/user-bids/accepetBids', {
                 ...obj,
             })
             .pipe(switchMap((response: any) => of(response)));

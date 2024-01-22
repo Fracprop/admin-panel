@@ -9,6 +9,7 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PropertiesService } from '../../properties.service';
 import { CommonService } from 'app/modules/admin/common/common.service';
+import { V } from '@angular/cdk/keycodes';
 
 @Component({
     selector: 'app-funding-ownership',
@@ -42,6 +43,7 @@ export class FundingOwnershipComponent implements OnInit {
             totalnumberShareavailable: [null, [Validators.required]],
             minimumInvestmentAmount: [null, [Validators.required]],
             pricePerShare: [null, [Validators.required]],
+            fracropShare:[null,[Validators.required]]
         });
         let savedInfo = this.isEditForm
             ? localStorage.getItem('propertyData')

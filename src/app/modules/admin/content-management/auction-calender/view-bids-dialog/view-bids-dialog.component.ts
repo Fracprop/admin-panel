@@ -18,18 +18,18 @@ import { CommonService } from 'app/modules/admin/common/common.service';
     styles: [
         `
             .auction-grid {
-                grid-template-columns: auto auto auto auto ;
+                grid-template-columns: auto auto auto auto;
 
                 @screen sm {
-                    grid-template-columns: auto auto auto auto ;
+                    grid-template-columns: auto auto auto auto;
                 }
 
                 @screen md {
-                    grid-template-columns: 200px 200px 200px 200px ;
+                    grid-template-columns: 200px 200px 200px 200px;
                 }
 
                 @screen lg {
-                    grid-template-columns: 200px 200px 200px 200px ;
+                    grid-template-columns: 200px 200px 200px 200px;
                 }
             }
         `,
@@ -69,13 +69,15 @@ export class ViewBidsDialogComponent implements OnInit {
      * Fetching  banks list
      */
     getListing() {
+        console.log(this.data);
+
         let paginationParams = {
             pageNo: this.pagination?.pageNo || 0,
             limit: this.pagination?.limit || 10,
         };
 
         this.isLoading = true;
-        this._auctionService.getList({ ...paginationParams }).subscribe(
+        this._auctionService.getBidList({ id: this.data.message.id }).subscribe(
             (response) => {
                 this.isLoading = false;
 
@@ -93,6 +95,29 @@ export class ViewBidsDialogComponent implements OnInit {
                 this.isLoading = false;
             }
         );
+    }
+    changeStatusOfBid(id: any, auctionId: any, user_id: any) {
+        this.isLoading = true;
+        this._auctionService
+            .updateBidStatus({
+                bidId: id,
+                auctio_id: auctionId,
+                user_id: user_id,
+            })
+            .subscribe(
+                (response) => {
+                    this.isLoading = false;
+
+                    this._commonService.success('Bid is successfully accepted');
+
+                    this._changeDetectorRef.detectChanges();
+                },
+                (err) => {
+                    console.log(err);
+                    this._commonService.error(err.error.message);
+                    this.isLoading = false;
+                }
+            );
     }
 
     pageChanged(e) {
