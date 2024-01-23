@@ -1,14 +1,15 @@
 <div class="relative flex flex-col w-full h-full">
-    <div class="absolute top-0 right-0">
-        <button mat-icon-button (click)="close('cancelled')">
-            <mat-icon
-                class="text-secondary"
-                [svgIcon]="'heroicons_outline:x'"
-            ></mat-icon>
-        </button>
-    </div>
+    
     <!-- Main -->
     <div class="flex flex-auto overflow-hidden">
+        <div class="absolute top-0 right-0">
+            <button mat-icon-button (click)="close('cancelled')">
+                <mat-icon
+                    class="text-secondary"
+                    [svgIcon]="'heroicons_outline:x'"
+                ></mat-icon>
+            </button>
+        </div>
         <!-- Userslist -->
         <div
             class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto"
@@ -22,9 +23,9 @@
                             style="background-color: #ecf1f2"
                         >
                             <div class="hidden md:block">S No.</div>
-                            <div class="hidden md:block">User name</div>
-                            <div class="hidden md:block">Property name</div>
-                          
+                            <div class="hidden md:block">Bidder name</div>
+                            <div class="hidden md:block">Date & time</div>
+                            <div class="hidden md:block">Amount</div>
 
                             <div class="hidden md:block">Action</div>
                         </div>
@@ -45,18 +46,22 @@
                                     </div>
                                     <!-- Community -->
                                     <div class="">
-                                        {{ item?.userType }}
+                                        {{ item?.user?.username || "-" }}
                                     </div>
                                     <!-- Notes -->
                                     <div class="">
                                         {{
-                                            item?.property?.property_name || "-"
+                                            item?.createdAt
+                                                | date : "mediumDate"
                                         }}
                                     </div>
-                                   
+                                    <!-- Community -->
+                                    <div class="">
+                                        {{ item.amount }}
+                                    </div>
 
                                     <div class="flex justify-start">
-                                       
+                                        {{item.status}}
                                         <!-- <button
                                             routerLink="/auction-calendar/edit-auction-content/{{
                                                 item?.id
@@ -67,23 +72,27 @@
                                         >
                                             Edit
                                         </button> -->
-                                      
+
                                         <button
-                                        type="button ml-4"
-                                        *ngIf="element.status==='PENDING'"
-                                        (click)=" changeStatusOfBid(element?.id,element?.auction_id,element?.user_id)"
-                                        [disabled]="loading"
-                                        class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                                      >
-                                        
-                                        <span *ngIf="!loading">Accept</span
-                                          ><mat-spinner
-                                            *ngIf="loading"
-                                            class="w-full h-10"
-                                            [diameter]="30"
-                                          ></mat-spinner>
-                                      </button>
-                                      
+                                            type="button ml-4"
+                                            *ngIf="item.status === 'PENDING'"
+                                            class="min-w-10 min-h-7 h-7 px-2 ml-1 bg-green-600 rounded-2xl"
+                                            (click)="
+                                                changeStatusOfBid(
+                                                    item?.id,
+                                                    item?.auction_id,
+                                                    item?.user_id
+                                                )
+                                            "
+                                            [disabled]="loading"
+                                        >
+                                            <span *ngIf="!loading">Accept</span
+                                            ><mat-spinner
+                                                *ngIf="loading"
+                                                class="w-full h-10"
+                                                [diameter]="30"
+                                            ></mat-spinner>
+                                        </button>
                                     </div>
                                 </div>
                             </ng-container>
@@ -106,7 +115,7 @@
 
             <ng-template #noAdmin>
                 <div
-                    class="p-8 sm:p-16  text-4xl font-semibold tracking-tight text-center"
+                    class="p-8 sm:p-16 text-4xl font-semibold tracking-tight text-center"
                 >
                     {{ isLoading ? "Fetching Data" : "There is no data!" }}
                 </div>

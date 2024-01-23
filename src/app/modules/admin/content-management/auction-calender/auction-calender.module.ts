@@ -18,6 +18,7 @@ import {
     DefaultMatCalendarRangeStrategy,
 } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatTableModule } from '@angular/material/table';
 import { AuctionCalenderListComponent } from './auction-calender-list/auction-calender-list.component';
 import { AddAuctionCalenderComponent } from './add-auction-calender/add-auction-calender.component';
 import { EditAuctionCalenderComponent } from './edit-auction-calender/edit-auction-calender.component';
@@ -26,54 +27,55 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ViewBidsDialogComponent } from './view-bids-dialog/view-bids-dialog.component';
 
 const auctionRoutes: Route[] = [
-  {
-      path: 'list',
-      component: AuctionCalenderListComponent,
-  },
-  {
-      // canActivate: [AdminGuard],
-      path: 'add-auction-content',
-      component: AddAuctionCalenderComponent,
-  },
-  {
-      // canActivate: [AdminGuard],
-      path: 'edit-auction-content/:id',
-      component: EditAuctionCalenderComponent,
-  },
+    {
+        path: 'list',
+        component: AuctionCalenderListComponent,
+    },
+    {
+        // canActivate: [AdminGuard],
+        path: 'add-auction-content',
+        component: AddAuctionCalenderComponent,
+    },
+    {
+        // canActivate: [AdminGuard],
+        path: 'edit-auction-content/:id',
+        component: EditAuctionCalenderComponent,
+    },
 ];
 
 @NgModule({
-  declarations: [
-    AuctionCalenderListComponent,
-    AddAuctionCalenderComponent,
-    EditAuctionCalenderComponent,
-    ApprovalDialogComponent,
-    ViewBidsDialogComponent
-  ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(auctionRoutes),
-    MatButtonModule,
-    MatCheckboxModule,
-    MatFormFieldModule,
-    MatIconModule,
-    SharedModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatTooltipModule,
-    MatSlideToggleModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatProgressSpinnerModule
-],
-exports:[ApprovalDialogComponent],
-providers: [
-    {
-        provide: MAT_DATE_RANGE_SELECTION_STRATEGY,
-        useClass: DefaultMatCalendarRangeStrategy,
-    },
-],
+    declarations: [
+        AuctionCalenderListComponent,
+        AddAuctionCalenderComponent,
+        EditAuctionCalenderComponent,
+        ApprovalDialogComponent,
+        ViewBidsDialogComponent,
+    ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(auctionRoutes),
+        MatButtonModule,
+        MatCheckboxModule,
+        MatFormFieldModule,
+        MatIconModule,
+        SharedModule,
+        MatInputModule,
+        MatPaginatorModule,
+        MatProgressBarModule,
+        MatTooltipModule,
+        MatSlideToggleModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatProgressSpinnerModule,
+        
+    ],
+    exports: [ApprovalDialogComponent],
+    providers: [
+        {
+            provide: MAT_DATE_RANGE_SELECTION_STRATEGY,
+            useClass: DefaultMatCalendarRangeStrategy,
+        },
+    ],
 })
-export class AuctionCalenderModule { }
+export class AuctionCalenderModule {}

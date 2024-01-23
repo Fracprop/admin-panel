@@ -130,10 +130,7 @@
                                         class="min-w-20 min-h-7 h-7 px-2 ml-1 bg-red-600 text-white rounded-2xl"
                                         matTooltip="View Bids"
                                         (click)="view(item?.id, false)"
-                                        *ngIf="
-                                            item?.userType != 'ADMIN' &&
-                                            !item?.admin_status
-                                        "
+                                       
                                     >
                                         View Bids
                                     </button>                                        

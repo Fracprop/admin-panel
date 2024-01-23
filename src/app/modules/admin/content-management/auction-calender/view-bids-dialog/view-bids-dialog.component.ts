@@ -18,18 +18,18 @@ import { CommonService } from 'app/modules/admin/common/common.service';
     styles: [
         `
             .auction-grid {
-                grid-template-columns: auto auto auto auto;
+                grid-template-columns: auto auto auto auto auto;
 
                 @screen sm {
-                    grid-template-columns: auto auto auto auto;
+                    grid-template-columns: auto auto auto auto auto;
                 }
 
                 @screen md {
-                    grid-template-columns: 200px 200px 200px 200px;
+                    grid-template-columns: 200px 200px 200px 200px 200px;
                 }
 
                 @screen lg {
-                    grid-template-columns: 200px 200px 200px 200px;
+                    grid-template-columns: 200px 200px 200px 200px 200px;
                 }
             }
         `,
@@ -42,6 +42,7 @@ export class ViewBidsDialogComponent implements OnInit {
     isLoading1: boolean = false;
     isLoading: boolean = false;
     public form: FormGroup;
+    displayedColumns: string[] = ['id', 'name', 'date', 'amount', 'action'];
 
     isBlocked: boolean = false;
     pagination: any = {
@@ -82,9 +83,10 @@ export class ViewBidsDialogComponent implements OnInit {
                 this.isLoading = false;
 
                 this.pagination.TotalCount = response?.totalAuction || 10;
+                
 
-                this.auctionList$ = response.auctionProperty
-                    ? [...response.auctionProperty]
+                this.auctionList$ = response
+                    ? [...response]
                     : [];
 
                 this._changeDetectorRef.detectChanges();
@@ -109,6 +111,7 @@ export class ViewBidsDialogComponent implements OnInit {
                     this.isLoading = false;
 
                     this._commonService.success('Bid is successfully accepted');
+                   this.close('cancelled')
 
                     this._changeDetectorRef.detectChanges();
                 },
