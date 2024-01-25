@@ -11,7 +11,7 @@ export const SuperAdminNavigation: FuseNavigationItem[] = [
     },
     {
         id: 'user',
-        title: 'User Mangement',
+        title: 'User Management',
         type: 'basic',
         icon: 'heroicons_outline:office-building',
         link: '/users/list',
@@ -30,37 +30,89 @@ export const SuperAdminNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:office-building',
         link: '/countries/list',
     },
-    // {
-    //     id: 'users',
-    //     title: 'User Mangement',
-    //     type: 'collapsable',
-    //     icon: 'heroicons_outline:user',
+    {
+        id: 'propterties',
+        title: 'Propterties',
+        type: 'basic',
+        icon: 'heroicons_outline:office-building',
+        link: '/properties/list',
+    },
+    {
+        id: 'Content',
+        title: 'Content Management',
+        type: 'collapsable',
+        icon: 'heroicons_outline:user',
 
-    //     children: [
-    //         {
-    //             id: 'users',
-    //             title: 'Users',
-    //             type: 'basic',
+        children: [
+            {
+                id: 'users',
+                title: "What's new",
+                type: 'basic',
 
-    //             link: '/users/list',
-    //         },
+                link: '/whats-new/list',
+            },
 
-    //         // {
-    //         //     id: 'admins',
-    //         //     title: 'Admins',
-    //         //     type: 'basic',
-    //         //     icon: 'mat_outline:supervisor_account',
-    //         //     link: '/admins/list',
-    //         // },
-    //     ],
-    // },
-    // {
-    //     id: 'patients',
-    //     title: 'Patients',
-    //     type: 'basic',
-    //     icon: 'mat_outline:supervisor_account',
-    //     link: '/patients/list',
-    // },
+            {
+                id: 'admins',
+                title: 'Community note',
+                type: 'basic',
+
+                link: '/community-notes/list',
+            },
+            {
+                id: 'FAQ',
+                title: 'FAQ',
+                type: 'basic',
+
+                link: '/FAQ/list',
+            },
+            {
+                id: 'News',
+                title: 'News',
+                type: 'basic',
+
+                link: '/news/list',
+            },
+            {
+                id: 'blogs',
+                title: 'Blogs',
+                type: 'basic',
+
+                link: '/blogs/list',
+            },
+            {
+                id: 'dividend-content',
+                title: 'Dividend Calendar',
+                type: 'basic',
+
+                link: '/dividend-calendar/list',
+            },
+            {
+                id: 'auction-content',
+                title: 'Auction Calendar',
+                type: 'basic',
+
+                link: '/auction-calendar/list',
+            },
+        ],
+    },
+    {
+        id: 'Finance',
+        title: 'Finance',
+        type: 'collapsable',
+        icon: 'heroicons_outline:user',
+
+        children: [
+            {
+                id: 'Tax',
+                title: 'Tax management',
+                type: 'basic',
+
+                link: '/tax-management',
+            },
+        ],
+    },
+
     // {
     //     id: 'consultations',
     //     title: 'Consultations',
@@ -68,8 +120,6 @@ export const SuperAdminNavigation: FuseNavigationItem[] = [
     //     icon: 'mat_outline:supervisor_account',
     //     link: '/consultations/list',
     // },
-
-   
 ];
 export const compactNavigation: FuseNavigationItem[] = [
     {
@@ -157,7 +207,7 @@ export const futuristicNavigation: FuseNavigationItem[] = [
     },
     {
         id: 'facilities',
-        title: 'User Mangement',
+        title: 'User Management',
         type: 'basic',
         icon: 'heroicons_outline:office-building',
         link: '/users/list',

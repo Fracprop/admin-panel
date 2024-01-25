@@ -35,11 +35,11 @@ import { environment } from '../../../../../environments/environment';
                 }
 
                 @screen md {
-                    grid-template-columns: 50px 200px 200px 200px 200px 200px 200px;
+                    grid-template-columns: 100px 200px 200px 200px 200px 200px;
                 }
 
                 @screen lg {
-                    grid-template-columns: 50px 200px 200px 200px 200px 200px 200px;
+                    grid-template-columns: 100px 200px 200px 200px 200px 200px;
                 }
             }
         `,
@@ -84,6 +84,17 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     ) {
         this.titleService.setTitle('FracProp');
         this.confirmationForm();
+        this.pagination = localStorage.getItem('userPayload')
+            ? JSON.parse(localStorage.getItem('userPayload'))
+            : {
+                  limit: 10,
+                  pageNo: 0,
+                  TotalCount: 0,
+                  PageNo: 0,
+              };
+        this.currentTab = localStorage.getItem('userPayload')
+            ? JSON.parse(localStorage.getItem('userPayload')).currentTab
+            : 0;
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -120,10 +131,11 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
      */
     getUsers() {
         let paginationParams = {
-          
-            pageNo: this.pagination?.pageNo,
+            pageNo: this.pagination?.PageNo,
             limit: this.pagination?.limit,
         };
+        console.log(paginationParams);
+
         /* if (this.form?.value.EnterSearch) {
             paginationParams['EnterSearch'] = this.form?.value.EnterSearch;
         }
@@ -134,38 +146,37 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
             paginationParams['DistrictID'] = this.form?.value.DistrictID;
         } */
         this.isLoading = true;
-        this._userService.getUsers({ ...paginationParams,currentTab:this.currentTab }).subscribe(
-            (response) => {
-                if (!response) {
-                    if (response.requestCode == 401) {
-                        this.isLoading = false;
-                        return;
-                    } else {
-                        let msg = this._errorService.errorMessage(response);
-                        this._commonService.error(msg);
 
-                        this.isLoading = false;
-                    }
-                } else {
+        this._userService
+            .getUsers({ ...paginationParams, currentTab: this.currentTab })
+            .subscribe(
+                (response) => {
                     this.isLoading = false;
+                    localStorage.setItem(
+                        'userPayload',
+                        JSON.stringify({
+                            ...this.pagination,
+                            currentTab: this.currentTab,
+                        })
+                    );
 
                     this.pagination.TotalCount = response?.totalCount;
 
-                    this.users$ = response?.users
-                        ? [...response?.users]
-                        : []; 
+                    this.users$ = response?.users ? [...response?.users] : [];
                     this._changeDetectorRef.detectChanges();
+                },
+                (err) => {
+                    this.isLoading = false;
+                    this._commonService.error(err.error.message);
                 }
-            },
-            (err) => {
-                this.isLoading = false;
-            }
-        );
+            );
     }
 
-    pageChanged(e) {
+    pageChanged(e: any) {
+        console.log(this.pagination?.limit, this.pagination?.PageNo);
+        console.log(e?.pageSize, this.pagination?.limit);
         if (e?.pageSize !== this.pagination?.limit) {
-            this.pagination.limit = e?.pageSize;
+            this.pagination.LimitRecords = e?.pageSize;
             this.resetPagination();
             return;
         }
@@ -173,6 +184,7 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
         this.pagination.PageNo = e?.pageIndex;
         this.pagination.pageNo =
             this.pagination?.limit * this.pagination?.PageNo;
+        console.log(this.pagination?.limit, this.pagination?.PageNo);
 
         this.getUsers();
     }
@@ -194,9 +206,7 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
      */
     resetFilter() {
         this.form.reset();
-        this.form.controls['DistrictID'].setValue(
-            this._authService.user.districtId
-        );
+
         this.pagination = {
             limit: this.pagination.limit,
             pageNo: 0,
@@ -302,15 +312,5 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.isLoading1 = false;
             }
         );
-    }
-
-    downloadSampleFile() {
-        environment.apiEndPoint === 'https://dev-api.swasthyaingit.in/api/'
-            ? this._commonService.downloadReport(
-                  'https://dev-swasthyaingit.s3.ap-south-1.amazonaws.com/Uploads/User-management-demo-list.xlsx'
-              )
-            : this._commonService.downloadReport(
-                  'https://s3.ap-south-1.amazonaws.com/swasthyaingit.in-s3-bucket/Uploads/User-management-demo-list.xlsx'
-              );
     }
 }

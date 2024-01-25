@@ -3,8 +3,7 @@ import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { InitialDataResolver } from 'app/app.resolvers';
-import { AdminMangementResolver } from './modules/admin/admin-management/admin-mangement.resolver';
-import { UserMangementResolver } from './modules/admin/user-management/user-mangement.resolver';
+import { PropertiesResolver } from './modules/admin/properties/properties.resolver';
 
 // @formatter:off
 // tslint:disable:max-line-length
@@ -95,7 +94,7 @@ export const appRoutes: Route[] = [
     {
         path: '',
         canActivate: [AuthGuard],
-         canActivateChild: [AuthGuard],
+        canActivateChild: [AuthGuard],
         component: LayoutComponent,
         resolve: {
             initialData: InitialDataResolver,
@@ -111,9 +110,7 @@ export const appRoutes: Route[] = [
                         (m) => m.DashboardModule
                     ),
             },
-           
 
-            
             {
                 path: 'users',
                 loadChildren: () =>
@@ -127,30 +124,84 @@ export const appRoutes: Route[] = [
             {
                 path: 'banks',
                 loadChildren: () =>
-                    import(
-                        'app/modules/admin/banks/banks.module'
-                    ).then((m) => m.BanksModule),
+                    import('app/modules/admin/banks/banks.module').then(
+                        (m) => m.BanksModule
+                    ),
             },
             {
                 path: 'countries',
                 loadChildren: () =>
-                    import(
-                        'app/modules/admin/countries/countries.module'
-                    ).then((m) => m.CountriesModule),
+                    import('app/modules/admin/countries/countries.module').then(
+                        (m) => m.CountriesModule
+                    ),
             },
 
-            // {
-            //     path: 'admins',
-            //     loadChildren: () =>
-            //         import(
-            //             'app/modules/admin/admin-management/admin-management.module'
-            //         ).then((m) => m.AdminManagementModule),
-            //     resolve: {
-            //         commanData: AdminMangementResolver,
-            //     },
-            // },
-            
-            
+            {
+                path: 'properties',
+                loadChildren: () =>
+                    import(
+                        'app/modules/admin/properties/properties.module'
+                    ).then((m) => m.PropertiesModule),
+                resolve: {
+                    //  commanData: PropertiesResolver,
+                },
+            },
+            {
+                path: 'whats-new',
+                loadChildren: () =>
+                    import(
+                        'app/modules/admin/content-management/whats-new/whats-new.module'
+                    ).then((m) => m.WhatsNewModule),
+            },
+            {
+                path: 'community-notes',
+                loadChildren: () =>
+                    import(
+                        'app/modules/admin/content-management/community-notes/community-notes.module'
+                    ).then((m) => m.CommunityNotesModule),
+            },
+            {
+                path: 'tax-management',
+                loadChildren: () =>
+                    import('app/modules/admin/finance/finance.module').then(
+                        (m) => m.FinanceModule
+                    ),
+            },
+            {
+                path: 'FAQ',
+                loadChildren: () =>
+                    import(
+                        'app/modules/admin/content-management/faq/faq.module'
+                    ).then((m) => m.FaqModule),
+            },
+            {
+                path: 'news',
+                loadChildren: () =>
+                    import(
+                        'app/modules/admin/content-management/news/news.module'
+                    ).then((m) => m.NewsModule),
+            },
+            {
+                path: 'blogs',
+                loadChildren: () =>
+                    import(
+                        'app/modules/admin/content-management/blogs/blogs.module'
+                    ).then((m) => m.BlogsModule),
+            },
+            {
+                path: 'dividend-calendar',
+                loadChildren: () =>
+                    import(
+                        'app/modules/admin/content-management/dividend-calender/dividend-calender.module'
+                    ).then((m) => m.DividendCalenderModule),
+            },
+            {
+                path: 'auction-calendar',
+                loadChildren: () =>
+                    import(
+                        'app/modules/admin/content-management/auction-calender/auction-calender.module'
+                    ).then((m) => m.AuctionCalenderModule),
+            },
 
             // {
             //     path: 'settings',

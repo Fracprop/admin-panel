@@ -1,0 +1,50 @@
+<div class="p-8 w-full _custom">
+    <h2 class="text-6xl mb-5">Add a property</h2>
+   
+    <mat-tab-group
+        class="w-full"
+        [selectedIndex]="selectedIndex"
+        #tabGroup
+        (selectedTabChange)="tabChange($event);"
+    >
+        <!--TAB 1-->
+        <mat-tab class="p-0" label="1. Property">
+            <!-- Main -->
+            <app-property
+                (tabChange)="tabChange($event)"
+                [SelectedTab]="selectedIndex"
+                [isEditForm]="false"
+                [formStatus]="formStatus"
+                (invalidForm)="formStatusChange($event)"
+            ></app-property>
+        </mat-tab>
+        <!--TAB 1-->
+        <!--TAB 2-->
+        <mat-tab label="2. Funding & Ownership">
+            <app-funding-ownership
+                (tabChange)="tabChange($event)"
+                [SelectedTab]="selectedIndex"
+                [isEditForm]="false"
+                (invalidForm)="formStatusChange($event)"
+            ></app-funding-ownership>
+        </mat-tab>
+        <!--TAB 2-->
+        <!--TAB 3-->
+        <mat-tab label="3. Financials">
+            <app-financials
+                (tabChange)="tabChange($event)"
+                [SelectedTab]="selectedIndex"
+                [formStatus]="formStatus"
+                [isEditForm]="false"
+                (invalidForm)="formStatusChange($event)"
+            ></app-financials>
+        </mat-tab>
+        <!--TAB 3-->
+    </mat-tab-group>
+    <!-- <div class="flex items-center justify-between mb-8 mt-5">
+        <button mat-button>Back</button>
+        <button class="px-6 ml-3 bg-theme" mat-flat-button [color]="'primary'">
+            <span> Next</span>
+        </button>
+    </div> -->
+</div>

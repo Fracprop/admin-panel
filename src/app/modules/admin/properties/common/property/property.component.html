@@ -1,0 +1,320 @@
+<div class="w-full">
+    <form
+        class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden"
+        [formGroup]="form"
+    >
+        <div class="prose prose-sm max-w-3xl">
+            <h2 class="text-3xl font-semibold tracking-tight leading-8 mb-5">
+                Property Details
+            </h2>
+        </div>
+        <div class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0">
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-bold">
+                        Community<span class="text-warn"></span
+                    ></mat-label>
+                    <mat-select
+                        placeholder="Select community"
+                        [formControlName]="'groupcriteriaId'"
+                    >
+                        <mat-option
+                            *ngFor="let d of communityList$"
+                            [value]="d?.id"
+                            >{{ d?.name || "" }}</mat-option
+                        >
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Property Cost <span class="text-warn"></span
+                    ></mat-label>
+                    <input
+                        matInput
+                        placeholder="Property Cost"
+                        [formControlName]="'propertyCost'"
+                    />
+                </mat-form-field>
+            </div>
+        </div>
+        <div>
+            <h3 class="-mb-1">Property Images</h3>
+            <div *ngIf="property_image.length < 20">
+                <img
+                    style="height: 110px"
+                    src="../../../../../assets/images/select.svg"
+                    (click)="fileImages.click()"
+                />
+            </div>
+            <input
+                type="file"
+                #fileImages
+                style="display: none"
+                (change)="onFileChange($event)"
+                multiple
+            />
+
+            <div class="grid grid-cols-5 gap-4 my-5">
+                <div
+                    class="_mg relative"
+                    *ngFor="let image of property_image; let i = index"
+                >
+                    <a [href]="image.image" target="_blank">
+                        <img class="w-52 h-52" [src]="image"
+                    /></a>
+                    <button
+                        class="_icon absolute right-2 top-2"
+                        (click)="$event.preventDefault(); removeUploadedFile(i)"
+                    >
+                        <svg
+                            width="30"
+                            height="30"
+                            viewBox="0 0 30 30"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <circle
+                                cx="15"
+                                cy="15"
+                                r="15"
+                                fill="black"
+                                fill-opacity="0.3"
+                            />
+                            <path
+                                d="M10.5 20.25C10.5 20.6478 10.658 21.0294 10.9393 21.3107C11.2206 21.592 11.6022 21.75 12 21.75H18C18.3978 21.75 18.7794 21.592 19.0607 21.3107C19.342 21.0294 19.5 20.6478 19.5 20.25V11.25H10.5V20.25ZM12 12.75H18V20.25H12V12.75ZM17.625 9L16.875 8.25H13.125L12.375 9H9.75V10.5H20.25V9H17.625Z"
+                                fill="white"
+                            />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div
+                class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0"
+            >
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field
+                        [floatLabel]="'always'"
+                        class="flex-auto gt-xs:pr-3"
+                    >
+                        <mat-label class="text-header font-normal text-black"
+                            >Property Name<span class="text-warn"></span
+                        ></mat-label>
+                        <input
+                            matInput
+                            placeholder="Property name"
+                            [formControlName]="'property_name'"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="flex flex-col gt-xs:flex-row gap-3">
+                    <h3 style="margin-bottom: 6px; margin-top: -1px">
+                        Property Type
+                    </h3>
+
+                    <mat-radio-group
+                        aria-label="Property type"
+                        formControlName="property_type"
+                        color="primary"
+                        class
+                    >
+                        <mat-radio-button value="RESIDENTIAL"
+                            >Residential</mat-radio-button
+                        >
+                        <mat-radio-button value="COMMERCIAL" class="pl-2"
+                            >Commerical</mat-radio-button
+                        >
+
+                        <mat-error
+                            *ngIf="
+                                isSubmitted &&
+                                form.get('property_type')?.invalid
+                            "
+                            >Please select the field.</mat-error
+                        >
+                    </mat-radio-group>
+                    <!-- <mat-tab-group
+                        (selectedTabChange)="selectedPropertyType($event)"
+                       
+                    >
+                        <mat-tab
+                            label="Residential"
+                            value="Residential"
+                        ></mat-tab>
+                        <mat-tab
+                            label="Commerical"
+                            value="Commerical"
+                        ></mat-tab>
+                    </mat-tab-group> -->
+                </div>
+            </div>
+            <div>
+                <h3 class="mb-1">Property Description</h3>
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3 w-full mt-3"
+                >
+                    <textarea
+                        matInput
+                        placeholder="Type here..."
+                        class="w-full border-1"
+                        name=""
+                        id=""
+                        cols="20"
+                        rows="8"
+                        [formControlName]="'property_description'"
+                    >
+                    </textarea>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="prose prose-sm max-w-3xl mt-8">
+            <h2 class="text-3xl font-semibold tracking-tight leading-8 mb-5">
+                Property Address
+            </h2>
+        </div>
+        <div class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0">
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Unit Number and Complex<span class="text-warn"></span
+                    ></mat-label>
+                    <input
+                        matInput
+                        placeholder="Unit number and complex"
+                        [formControlName]="'unitNumberandComplex'"
+                    />
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Street Number and Name<span class="text-warn"></span
+                    ></mat-label>
+                    <input
+                        matInput
+                        placeholder="Street number and name"
+                        [formControlName]="'streatNumberandName'"
+                    />
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black">
+                        Country<span class="text-warn"></span
+                    ></mat-label>
+                    <mat-select
+                        placeholder="Select country"
+                        [formControlName]="'country'"
+                        (selectionChange)="getProvinces()"
+                    >
+                        <mat-option
+                            *ngFor="let type of countries$"
+                            [value]="type.id"
+                            >{{ type.name }}</mat-option
+                        >
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div
+                class="flex flex-col gt-xs:flex-row"
+                *ngIf="
+                    form.value.country ===
+                    '3080b9fa-e67b-46e9-b03b-9ed196bc37aa'
+                "
+            >
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                    (selectionChange)="getCites()"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Suburb or District<span class="text-warn"></span
+                    ></mat-label>
+                    <mat-select
+                        placeholder="Select country"
+                        [formControlName]="'suburborDistrict'"
+                        (selectionChange)="getCities()"
+                    >
+                        <mat-option
+                            *ngFor="let type of provines$"
+                            [value]="type.id"
+                            >{{ type.name }}</mat-option
+                        >
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >City or Town<span class="text-warn"></span
+                    ></mat-label>
+                    <mat-select
+                        placeholder="Select country"
+                        [formControlName]="'cityorTown'"
+                    >
+                        <mat-option
+                            *ngFor="let type of cities$"
+                            [value]="type.id"
+                            >{{ type.name }}</mat-option
+                        >
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div
+                class="flex flex-col gt-xs:flex-row"
+                *ngIf="
+                    form.value.country ===
+                    '3080b9fa-e67b-46e9-b03b-9ed196bc37aa'
+                "
+            >
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Postal Code<span class="text-warn"></span
+                    ></mat-label>
+                    <input
+                        matInput
+                        placeholder="Enter postal code"
+                        [formControlName]="'postalCode'"
+                    />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="flex items-center justify-between mb-8 mt-5">
+            <button mat-button>Back</button>
+            <button
+                class="px-6 ml-3 bg-theme"
+                mat-flat-button
+                [color]="'primary'"
+                (click)="add()"
+            >
+                <span> Next</span>
+            </button>
+        </div>
+    </form>
+</div>

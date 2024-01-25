@@ -90,7 +90,20 @@ export class AuthInterceptor implements HttpInterceptor {
                     error.status === 401
                 ) {
                     //Sign out
+                    console.log('----signout---')
                     this._authService.signOut();
+                    localStorage.clear();
+                    //Reload the app
+                    location.reload();
+                }
+                if (
+                    error instanceof HttpErrorResponse &&
+                    error.status === 403
+                ) {
+                    //Sign out
+                    console.log('----signout---')
+                    this._authService.signOut();
+                    localStorage.clear();
                     //Reload the app
                     location.reload();
                 }

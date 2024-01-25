@@ -1,0 +1,282 @@
+<div class="w-full">
+    <form
+        class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden"
+        [formGroup]="form"
+    >
+        <div class="prose prose-sm max-w-3xl">
+            <h2 class="text-3xl font-semibold tracking-tight leading-8 mb-5">
+                Financials
+            </h2>
+        </div>
+        <div class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0">
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Projected Returns<span class="text-warn"></span
+                    ></mat-label>
+                    <input
+                        matInput
+                        placeholder="Projected returns"
+                        [formControlName]="'projectedReturns'"
+                        type="number"
+                        min="0"
+                    />
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Potential Rental Income<span class="text-warn"></span
+                    ></mat-label>
+                    <input
+                        matInput
+                        placeholder="Potential rental inome"
+                        [formControlName]="'potentialRentalincome'"
+                        type="number"
+                        min="0"
+                    />
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Estimated Expenses<span class="text-warn"></span
+                    ></mat-label>
+                    <input
+                        matInput
+                        placeholder="Expenses"
+                        [formControlName]="'estimatedExpenses'"
+                        type="number"
+                        min="0"
+                    />
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Estimated Reserve Fund<span class="text-warn"></span
+                    ></mat-label>
+                    <input
+                        matInput
+                        placeholder="Reserve fund"
+                        [formControlName]="'estimatedReserveFund'"
+                        type="number"
+                        min="0"
+                    />
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [floatLabel]="'always'"
+                    class="flex-auto gt-xs:pr-3"
+                >
+                    <mat-label class="text-header font-normal text-black"
+                        >Taxes and other fees<span class="text-warn"></span
+                    ></mat-label>
+                    <input
+                        matInput
+                        placeholder="Taxes and other fees"
+                        [formControlName]="'TaxesandOtherfees'"
+                        type="number"
+                        min="0"
+                    />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="mt-5">
+            <mat-label class="text-header font-normal text-black"
+                >Floor Plan<span class="text-warn"></span
+            ></mat-label>
+            <div>
+                <img
+                    style="height: 110px"
+                    src="../../../../../assets/images/select.svg"
+                    (click)="fileImages.click()"
+                />
+            </div>
+            <input
+                type="file"
+                #fileImages
+                style="display: none"
+                (change)="onFileChange($event,'images')"
+                multiple
+            />
+
+            <!--Floor plan-->
+            <div class="grid grid-cols-5 gap-4 my-5">
+                <div
+                    class="_mg relative"
+                    *ngFor="let image of floorplanImages; let i = index"
+                >
+                    <a
+                        [href]="image.image"
+                        *ngIf="image.type == 'application/pdf'"
+                        target="_blank"
+                    >
+                        <img
+                            width="10"
+                            height="10"
+                            src="../../../../../../assets/images/logo/pdf.svg"
+                    /></a>
+                    <a
+                        [href]="image.image"
+                        *ngIf="image.type !== 'application/pdf'"
+                        target="_blank"
+                    >
+                        <img class="w-52 h-52" [src]="image.image"
+                    /></a>
+                    <button
+                        class="_icon absolute right-2 top-2"
+                        (click)="$event.preventDefault(); removeUploadedFile(i,'floorPlan')"
+                        *ngIf="image.image"
+                    >
+                        <svg
+                            width="30"
+                            height="30"
+                            viewBox="0 0 30 30"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <circle
+                                cx="15"
+                                cy="15"
+                                r="15"
+                                fill="black"
+                                fill-opacity="0.3"
+                            />
+                            <path
+                                d="M10.5 20.25C10.5 20.6478 10.658 21.0294 10.9393 21.3107C11.2206 21.592 11.6022 21.75 12 21.75H18C18.3978 21.75 18.7794 21.592 19.0607 21.3107C19.342 21.0294 19.5 20.6478 19.5 20.25V11.25H10.5V20.25ZM12 12.75H18V20.25H12V12.75ZM17.625 9L16.875 8.25H13.125L12.375 9H9.75V10.5H20.25V9H17.625Z"
+                                fill="white"
+                            />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <!--Floor plan-->
+            <div
+                class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0 mb-5"
+            >
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field class="w-full">
+                        <mat-label>Opening date</mat-label>
+                        <input
+                            matInput
+                            [matDatepicker]="picker2"
+                            formControlName="openingDate"
+                        />
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle
+                            matIconSuffix
+                            [for]="picker2"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field class="w-full">
+                        <mat-label>Close date</mat-label>
+
+                        <input
+                            matInput
+                            [matDatepicker]="picker1"
+                            formControlName="closingDate"
+                        />
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle
+                            matIconSuffix
+                            [for]="picker1"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <mat-label class="text-header font-normal text-black"
+            >Property Aggreement<span class="text-warn"></span
+        ></mat-label>
+        <div>
+            <img
+                style="height: 110px"
+                src="../../../../../assets/images/select-pdf.svg"
+                (click)="fileAgreement.click()"
+            />
+        </div>
+        <input
+            type="file"
+            #fileAgreement
+            style="display: none"
+            (change)="onFileChange($event,'pdf')"
+            multiple
+        />
+            <!--Property Agreement-->
+
+            <div class="grid grid-cols-5 gap-4 my-5">
+                <div
+                    class="_mg relative"
+                    *ngFor="let image of agreementImages; let i = index"
+                >
+                    <a
+                        [href]="image"
+                        
+                        target="_blank"
+                    >
+                        <img
+                            width="10"
+                            height="10"
+                            src="../../../../../../assets/images/logo/pdf.svg"
+                    /></a>
+                   
+                    <button
+                        class="_icon absolute right-2 top-2"
+                        (click)="$event.preventDefault(); removeUploadedFile(i,'doc')"
+                        *ngIf="image"
+                    >
+                        <svg
+                            width="30"
+                            height="30"
+                            viewBox="0 0 30 30"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <circle
+                                cx="15"
+                                cy="15"
+                                r="15"
+                                fill="black"
+                                fill-opacity="0.3"
+                            />
+                            <path
+                                d="M10.5 20.25C10.5 20.6478 10.658 21.0294 10.9393 21.3107C11.2206 21.592 11.6022 21.75 12 21.75H18C18.3978 21.75 18.7794 21.592 19.0607 21.3107C19.342 21.0294 19.5 20.6478 19.5 20.25V11.25H10.5V20.25ZM12 12.75H18V20.25H12V12.75ZM17.625 9L16.875 8.25H13.125L12.375 9H9.75V10.5H20.25V9H17.625Z"
+                                fill="white"
+                            />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <!--Floor plan-->
+        </div>
+        <!-- <mat-divider class="mt-5 mb-5"></mat-divider> -->
+        <div class="flex items-center justify-between mb-8 mt-5">
+            <button mat-button (click)="previousTab()">Back</button>
+            <button
+                class="px-6 ml-3 bg-theme"
+                mat-flat-button
+                [color]="'primary'"
+                (click)="add()"
+            >
+                <span> Next</span>
+            </button>
+        </div>
+    </form>
+</div>

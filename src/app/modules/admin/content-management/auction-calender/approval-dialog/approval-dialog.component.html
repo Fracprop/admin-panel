@@ -1,0 +1,146 @@
+<div class="relative flex flex-col w-full h-full">
+    <form [formGroup]="form">
+        <!-- Dismiss button -->
+        <ng-container>
+            <div class="absolute top-0 right-0">
+                <button mat-icon-button (click)="close('cancelled')">
+                    <mat-icon
+                        class="text-secondary"
+                        [svgIcon]="'heroicons_outline:x'"
+                    ></mat-icon>
+                </button>
+            </div>
+        </ng-container>
+
+        <!-- Content -->
+        <div
+            class="flex flex-col sm:flex-row flex-auto items-center sm:items-start p-2 pb-4 sm:pb-6"
+        >
+            <!-- Icon -->
+
+            <ng-container>
+                <div
+                    class="flex flex-col items-center sm:items-start mt-4 sm:mt-0 sm:pr-8 space-y-1 text-center sm:text-left"
+                >
+                    <!-- Title -->
+                    <ng-container>
+                        <div
+                            class="text-2xl leading-6 font-medium"
+                            [innerHTML]="'Approval'"
+                            *ngIf="data.message.isApprove"
+                        ></div>
+                        <div
+                            class="text-2xl leading-6 font-medium"
+                            *ngIf="!data.message.isApprove"
+                            [innerHTML]="'Rejection'"
+                        ></div>
+                    </ng-container>
+
+                    <!-- Message -->
+                    <ng-container>
+                        <div
+                            class="text-secondary"
+                            *ngIf="data.message.isApprove"
+                            [innerHTML]="'Are you sure want to reject?'"
+                        ></div>
+                        <div
+                            *ngIf="!data.message.isApprove"
+                            class="text-secondary"
+                            [innerHTML]="'Are you sure want to reject?'"
+                        ></div>
+                    </ng-container>
+                    <div
+                        class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0"
+                        *ngIf="data.message.isApprove"
+                    >
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <mat-form-field class="w-full">
+                                <mat-label>Auction start date</mat-label>
+                                <input
+                                    matInput
+                                    [matDatepicker]="picker2"
+                                    formControlName="startDate"
+                                />
+                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                <mat-datepicker-toggle
+                                    matIconSuffix
+                                    [for]="picker2"
+                                ></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <mat-form-field class="w-full">
+                                <mat-label>Auction end date</mat-label>
+
+                                <input
+                                    matInput
+                                    [matDatepicker]="picker1"
+                                    formControlName="endDate"
+                                />
+                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                <mat-datepicker-toggle
+                                    matIconSuffix
+                                    [for]="picker1"
+                                ></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div
+                        class="grid sm:grid-cols-1 md:grid-cols-1
+                         gap-6 w-full min-w-0"
+                        *ngIf="!data.message.isApprove"
+                    >
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >Reason <span class="text-warn"></span
+                            ></mat-label>
+                            <textarea
+                                matInput
+                                name="reason"
+                                cols="35"
+                                rows="8"
+                                placeholder="Enter reason "
+                                [formControlName]="'reason'"
+                            ></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+        <!-- Actions -->
+        <ng-container>
+            <div
+                class="flex items-center justify-center sm:justify-end px-6 py-4 space-x-3 bg-gray-50 dark:bg-black dark:bg-opacity-10"
+            >
+                <!-- Cancel -->
+                <ng-container>
+                    <button mat-stroked-button type="button">No</button>
+                </ng-container>
+
+                <!-- Confirm -->
+                <ng-container>
+                    <button
+                        class="px-6 ml-3 bg-theme"
+                        mat-flat-button
+                        [color]="'primary'"
+                        (click)="approve()"
+                        class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                    >
+                        <span *ngIf="!loading"> Save</span>
+                        <mat-progress-spinner
+                            *ngIf="loading"
+                            [diameter]="24"
+                            [mode]="'indeterminate'"
+                        ></mat-progress-spinner>
+                    </button>
+                </ng-container>
+            </div>
+        </ng-container>
+    </form>
+</div>

@@ -1,0 +1,43 @@
+<div class="p-8 w-full _custom">
+    <h2 class="text-6xl mb-5">Edit a property</h2>
+    
+    <mat-tab-group
+        class="w-full"
+        [selectedIndex]="selectedIndex"
+        (selectedTabChange)="tabChange($event)"
+    >
+        <!--TAB 1-->
+        <mat-tab class="p-0" label="1. Property"  >
+            <!-- Main -->
+            <app-property
+                *ngIf="data"
+                (tabChange)="tabChange($event)"
+                [SelectedTab]="selectedIndex"
+                [isEditForm]="true"
+                [formStatus]="formStatus"
+                (invalidForm)="invalidForm($event)"
+            ></app-property>
+        </mat-tab>
+        <!--TAB 1-->
+        <!--TAB 2-->
+        <mat-tab label="2. Funding & Ownership">
+            <app-funding-ownership
+                *ngIf="data"
+                (tabChange)="tabChange($event)"
+                [SelectedTab]="selectedIndex"
+                [isEditForm]="true"
+            ></app-funding-ownership>
+        </mat-tab>
+        <!--TAB 2-->
+        <!--TAB 3-->
+        <mat-tab label="3. Financials">
+            <app-financials
+                *ngIf="data"
+                (tabChange)="tabChange($event)"
+                [SelectedTab]="selectedIndex"
+                [isEditForm]="true"
+            ></app-financials>
+        </mat-tab>
+        <!--TAB 3-->
+    </mat-tab-group>
+</div>

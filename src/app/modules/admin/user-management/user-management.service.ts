@@ -115,4 +115,11 @@ export class UserManagementService {
             })
             .pipe(switchMap((response: any) => of(response)));
     }
+    matchingForGrps(userId): Observable<any> {
+        return this._httpClient
+            .get(environment.apiEndPoint + `matching-process/${userId}`, {
+                
+            })
+            .pipe(switchMap((response: any) => of(response)));
+    }
 }

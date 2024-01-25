@@ -14,9 +14,14 @@ export class BanksService {
     constructor(private _httpClient: HttpClient) {}
     getBanksList(obj) {
         return this._httpClient
-            .get(environment.apiEndPoint + 'banks', {
-                params: { ...obj },
-            })
+            .get(
+                environment.apiEndPoint +
+                    'bank/getallBanks/' +
+                    obj.pageNo +
+                    '/' +
+                    obj.limit,
+                {}
+            )
             .pipe(switchMap((response: any) => of(response)));
     }
     addBank(obj): Observable<any> {

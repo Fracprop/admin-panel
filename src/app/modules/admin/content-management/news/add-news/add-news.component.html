@@ -1,0 +1,197 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-2">
+        <div class="px-3 m-auto">
+            <!-- Sectioned form with dividers -->
+            <div class="prose prose-sm max-w-3xl">
+                <h2 class="text-4xl font-semibold tracking-tight leading-8">
+                    Add Content for News
+                </h2>
+            </div>
+
+            <form
+                class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden justify-center items-center"
+                [formGroup]="form"
+                (submit)="(addNews)"
+            >
+                <div class="w-120 flex">
+                    <mat-form-field
+                        [floatLabel]="'always'"
+                        class="flex-auto gt-xs:pr-3"
+                    >
+                        <mat-label class="text-header font-bold">
+                            Category<span class="text-warn"></span
+                        ></mat-label>
+                        <mat-select
+                            placeholder="Select category"
+                            [formControlName]="'category'"
+                        >
+                            <mat-option
+                                *ngFor="let d of categoryList$"
+                                [value]="d.name"
+                                >{{ d.name || "" }}</mat-option
+                            >
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="w-120 flex">
+                    <mat-form-field
+                        [floatLabel]="'always'"
+                        class="flex-auto gt-xs:pr-3"
+                    >
+                        <mat-label class="text-header font-bold">
+                            Title<span class="text-warn"></span
+                        ></mat-label>
+                        <input
+                            matInput
+                            [formControlName]="'title'"
+                            placeholder="Enter title"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="w-120 flex">
+                    <mat-form-field
+                        [floatLabel]="'always'"
+                        class="flex-auto gt-xs:pr-3"
+                    >
+                        <mat-label class="text-header font-bold">
+                            Author<span class="text-warn"></span
+                        ></mat-label>
+                        <input
+                            matInput
+                            [formControlName]="'author'"
+                            placeholder="Enter author"
+                        />
+                    </mat-form-field>
+                </div>
+
+                <div class="w-120 flex">
+                    <ejs-richtexteditor
+                        [toolbarSettings]="tools"
+                        [quickToolbarSettings]="quickTools"
+                        [formControlName]="'article'"
+                    ></ejs-richtexteditor>
+
+                    <!-- <ckeditor data="<p>Hello, world!</p>"></ckeditor> -->
+                </div>
+                <!-- <ckeditor id="editor" [data]="data" ></ckeditor> -->
+                <div class="flex flex-col w-120">
+                    <div class="w-full">
+                        <mat-label class="text-header font-bold">
+                            Images<span class="text-warn"></span
+                        ></mat-label>
+                        <div
+                            class="flex items-center justify-center h-20 border-2 border-dashed rounded-lg cursor-pointer"
+                            (click)="fileImages.click()"
+                        >
+                            <img
+                                class="w-10 h-10"
+                                src="../../../../../../assets/images/select.svg"
+                            />
+                            <span class="text-header underline"
+                                >Select images</span
+                            >
+                        </div>
+                    </div>
+                    <input
+                        type="file"
+                        #fileImages
+                        style="display: none"
+                        (change)="onFileChange($event, 'images')"
+                        multiple
+                    />
+
+                    <div class="grid grid-cols-5 gap-4 my-5">
+                        <div
+                            class="_mg relative"
+                            *ngFor="let image of images; let i = index"
+                        >
+                            <a [href]="image.image" target="_blank">
+                                <img class="w-52 h-32" [src]="image"
+                            /></a>
+                            <button
+                                class="_icon absolute right-2 top-2"
+                                (click)="
+                                    $event.preventDefault();
+                                    removeUploadedFile(i, 'images    ')
+                                "
+                            >
+                                <svg
+                                    width="30"
+                                    height="30"
+                                    viewBox="0 0 30 30"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <circle
+                                        cx="15"
+                                        cy="15"
+                                        r="15"
+                                        fill="black"
+                                        fill-opacity="0.3"
+                                    />
+                                    <path
+                                        d="M10.5 20.25C10.5 20.6478 10.658 21.0294 10.9393 21.3107C11.2206 21.592 11.6022 21.75 12 21.75H18C18.3978 21.75 18.7794 21.592 19.0607 21.3107C19.342 21.0294 19.5 20.6478 19.5 20.25V11.25H10.5V20.25ZM12 12.75H18V20.25H12V12.75ZM17.625 9L16.875 8.25H13.125L12.375 9H9.75V10.5H20.25V9H17.625Z"
+                                        fill="white"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-120 flex">
+                    <mat-form-field class="example-chip-list">
+                        <mat-label class="text-header font-bold">
+                            Tags<span class="text-warn"></span
+                        ></mat-label>
+                        <mat-chip-list #chipList aria-label="Fruit selection">
+                            <mat-chip
+                                *ngFor="let tag of tags"
+                                [selectable]="selectable"
+                                [removable]="removable"
+                                (removed)="remove(tag)"
+                            >
+                                {{ tag.name }}
+                                <mat-icon matChipRemove *ngIf="removable"
+                                    >cancel</mat-icon
+                                >
+                            </mat-chip>
+                            <input
+                                id="tags"
+                                placeholder="New Tags..."
+                                [matChipInputFor]="chipList"
+                                [matChipInputSeparatorKeyCodes]="
+                                    separatorKeysCodes
+                                "
+                                [formControlName]="'tags'"
+                                (matChipInputTokenEnd)="add($event)"
+                            />
+                        </mat-chip-list>
+                    </mat-form-field>
+                </div>
+
+                <div
+                    class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700"
+                >
+                    <button type="button" routerLink="/news/list" mat-button>
+                        Cancel
+                    </button>
+                    <button
+                        class="px-6 ml-3 bg-theme"
+                        mat-flat-button
+                        [color]="'primary'"
+                        type="button"
+                        (click)="addNews()"
+                    >
+                        <span *ngIf="!loading"> Save</span>
+                        <mat-progress-spinner
+                            *ngIf="loading"
+                            [diameter]="24"
+                            [mode]="'indeterminate'"
+                        ></mat-progress-spinner>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

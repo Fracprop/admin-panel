@@ -1,4 +1,13 @@
 /* ----------------------------------------------------------------------------------------------------- */
 /*  @ Main Tailwind file for injecting utilities.
 /* ----------------------------------------------------------------------------------------------------- */
-@tailwind utilities;
+
+._custom .mat-tab-label {
+    width: 100%;
+       border: 1px solid #E2BC72;
+       border-radius: 4px !important;
+    }
+    ._custom .mat-tab-label-active {
+    background-color: #FEFBF0 !important;
+    }
+    @tailwind utilities;

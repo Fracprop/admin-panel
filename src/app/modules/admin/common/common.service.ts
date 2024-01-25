@@ -206,178 +206,28 @@ export class CommonService {
         return roleFound;
     }
 
-    getDesignations(obj): Observable<any> {
+    getCommunityList(obj): Observable<any> {
         return this._httpClient
-            .get(environment.apiEndPoint + 'designation_m/GetAll', {
+            .get(environment.apiEndPoint + `grouping-criteria`, {
+                params: { ...obj },
+            })
+            .pipe(switchMap((response: any) => of(response)));
+    }
+    getCategoryList(obj): Observable<any> {
+        return this._httpClient
+            .get(environment.apiEndPoint + `blog-catagory`, {
+                params: { ...obj },
+            })
+            .pipe(switchMap((response: any) => of(response)));
+    }
+    getPropertyList(obj): Observable<any> {
+        return this._httpClient
+            .get(environment.apiEndPoint + `property/adminPropertyList`, {
                 params: { ...obj },
             })
             .pipe(switchMap((response: any) => of(response)));
     }
 
-    getFacilities(obj): Observable<any> {
-        return this._httpClient
-            .get(
-                environment.apiEndPoint + `AdminInstitution/ddListInstitution`,
-                {
-                    params: { ...obj },
-                }
-            )
-            .pipe(switchMap((response: any) => of(response)));
-    }
-
-    getParentFacilityTypeID(id) {
-        switch (id) {
-            case 1:
-                return [2, 3];
-                break;
-            case 2:
-                return [3];
-                break;
-            case 3:
-                return [10];
-                break;
-            case 4:
-                return [1];
-                break;
-            case 10:
-                return [];
-                break;
-        }
-    }
-
-    getRegions(obj): Observable<any> {
-        return this._httpClient
-            .get(environment.apiEndPoint + 'region_m/GetAll', obj)
-            .pipe(switchMap((response: any) => of(response)));
-    }
-
-    getStates(obj): Observable<any> {
-        return this._httpClient
-            .get(environment.apiEndPoint + 'state_m/GetAll', obj)
-            .pipe(switchMap((response: any) => of(response)));
-    }
-
-    getDistricts(obj): Observable<any> {
-        return this._httpClient
-            .get(
-                environment.apiEndPoint +
-                    `Masters/GetDistrictMaster/${SELECTED_STATE}`,
-                {
-                    params: { ...obj },
-                }
-            )
-            .pipe(switchMap((response: any) => of(response)));
-    }
-
-    getCities(obj): Observable<any> {
-        return this._httpClient
-            .get(environment.apiEndPoint + `Masters/GetCityMaster/${obj}`, {})
-            .pipe(switchMap((response: any) => of(response)));
-    }
-    getBlocks(obj): Observable<any> {
-        return this._httpClient
-            .get(environment.apiEndPoint + `Masters/GetBlockByDistrict`, {
-                params: { ...obj },
-            })
-            .pipe(switchMap((response: any) => of(response)));
-    }
-
-    getPrescription(obj): Observable<any> {
-        return this._httpClient
-            .get(environment.apiEndPoint + `Consultation/${obj}`, {})
-            .pipe(switchMap((response: any) => of(response)));
-    }
-
-    getMunicipality(obj): Observable<any> {
-        return this._httpClient
-            .get(
-                environment.apiEndPoint +
-                    `Masters/GetMunicipalityMasterByDistrictAndCity`,
-                { params: { ...obj } }
-            )
-            .pipe(switchMap((response: any) => of(response)));
-    }
-
-    getWards(obj): Observable<any> {
-        return this._httpClient
-            .get(
-                environment.apiEndPoint +
-                    `Masters/GetWardMasterByDistrictAndCityAndMunicipality`,
-                { params: { ...obj } }
-            )
-            .pipe(switchMap((response: any) => of(response)));
-    }
-
-    getGramPanchayat(obj): Observable<any> {
-        return this._httpClient
-            .get(
-                environment.apiEndPoint +
-                    `Masters/GetGrampanchayatByDistrictAndBlock`,
-                { params: { ...obj } }
-            )
-            .pipe(switchMap((response: any) => of(response)));
-    }
-
-    getFacilityTypes(obj): Observable<any> {
-        return this._httpClient
-            .get(environment.apiEndPoint + 'Masters/GetInstitutionTypeMaster', {
-                params: { ...obj },
-            })
-            .pipe(switchMap((response: any) => of(response)));
-    }
-    getSubFacilityTypes(obj): Observable<any> {
-        return this._httpClient
-            .get(environment.apiEndPoint + 'Masters/GetInstitutionTypeMaster', {
-                params: { ...obj },
-            })
-            .pipe(switchMap((response: any) => of(response)));
-    }
-
-    getUsers(obj) {
-        return this._httpClient
-            .get(environment.apiEndPoint + 'user_master_m/GetAll_NormalUser', {
-                params: { ...obj },
-            })
-            .pipe(switchMap((response: any) => of(response)));
-    }
-
-    getUserDetails(obj) {
-        return this._httpClient
-            .get(environment.apiEndPoint + 'user_master_m/GetByID', {
-                params: { ...obj },
-            })
-            .pipe(switchMap((response: any) => of(response)));
-    }
-    getQualification() {
-        return this._httpClient
-            .get(environment.apiEndPoint + 'Masters/GetQualificationMaster', {})
-            .pipe(switchMap((response: any) => of(response)));
-    }
-    getGender() {
-        return this._httpClient
-            .get(environment.apiEndPoint + 'Masters/GetGenderMaster', {})
-            .pipe(switchMap((response: any) => of(response)));
-    }
-    getSpeciality() {
-        return this._httpClient
-            .get(environment.apiEndPoint + 'Masters/GetSpeciality', {})
-            .pipe(switchMap((response: any) => of(response)));
-    }
-    updateAdmin(obj): Observable<any> {
-        return this._httpClient
-            .post(environment.apiEndPoint + 'user_master_m/Add_Admin', {
-                ...obj,
-            })
-            .pipe(switchMap((response: any) => of(response)));
-    }
-
-    updateUser(obj): Observable<any> {
-        return this._httpClient
-            .post(environment.apiEndPoint + 'user_master_m/Add_NormalUser', {
-                ...obj,
-            })
-            .pipe(switchMap((response: any) => of(response)));
-    }
 
     /**
      * GET FINAL DIAGNOSIS
@@ -446,11 +296,34 @@ export class CommonService {
 
     checkImageSizeAndType(file) {
         if (file) {
-            if (file.size < 100000) {
+            if (file.size ) {
                 if (
                     file.type === 'image/jpeg' ||
                     file.type === 'image/jpg' ||
-                    file.type === 'image/png'
+                    file.type === 'image/png'||
+                    file.type==='video/mp4'
+                ) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+        
+        return false;
+    }
+
+    checkVideoSizeAndType(file) {
+        console.log(file.type.split('/'))
+       
+        if (file) {
+
+            if (file.size ) {
+                if (
+                   
+                    file.type.split('/')[0]==='video'
                 ) {
                     return true;
                 } else {
@@ -463,17 +336,33 @@ export class CommonService {
         return false;
     }
 
-    checkFileSizeAndType(file) {
+    checkFileSizeAndType(file, type) {
         if (file) {
             if (file.size < 5000000) {
                 if (
-                    file.type === 'image/jpeg' ||
-                    file.type === 'image/jpg' ||
-                    file.type === 'image/png' ||
-                    file.type === 'application/pdf'
+                    type === 1 &&
+                    (file.type === 'image/jpeg' ||
+                        file.type === 'image/jpg' ||
+                        file.type === 'image/png')
                 ) {
                     return true;
-                } else {
+                } 
+                
+                else if (
+                    type === 2 &&
+                    (file.type === 'image/jpeg' ||
+                        file.type === 'image/jpg' ||
+                        file.type === 'image/png' ||
+                        file.type === 'application/pdf')
+                ) {
+                    return true;
+                }
+              else  if (type === 3 && file.type === 'application/pdf') {
+                    return true;
+                } 
+               
+
+                else {
                     return false;
                 }
             } else {
@@ -482,6 +371,7 @@ export class CommonService {
         }
         return false;
     }
+   
 
     saveFile(data) {
         console.log(data);
@@ -657,6 +547,7 @@ export class CommonService {
     }
 
     error(m) {
+        console.log(m);
         this.toastr.error(m);
     }
 }

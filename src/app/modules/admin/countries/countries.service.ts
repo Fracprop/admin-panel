@@ -14,9 +14,14 @@ export class CountriesService {
     constructor(private _httpClient: HttpClient) {}
     getCountriesList(obj) {
         return this._httpClient
-            .get(environment.apiEndPoint + 'country', {
-                params: { ...obj },
-            })
+            .get(
+                environment.apiEndPoint +
+                    'country/countryPagination/' +
+                    obj.pageNo +
+                    '/' +
+                    obj.limit,
+                {}
+            )
             .pipe(switchMap((response: any) => of(response)));
     }
     addCountry(obj): Observable<any> {
