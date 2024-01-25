@@ -18,8 +18,6 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ToastrModule } from 'ngx-toastr';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { BuySharePropertiesComponent } from './modules/admin/buy-share/buy-share-properties/buy-share-properties.component';
-import { BuyShareComponent } from './modules/admin/buy-share/buy-share/buy-share.component';
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy: PreloadAllModules,
@@ -28,7 +26,7 @@ const routerConfig: ExtraOptions = {
 };
 
 @NgModule({
-    declarations: [AppComponent, BuySharePropertiesComponent, BuyShareComponent],
+    declarations: [AppComponent],
     imports: [
         HttpClientModule,
         BrowserModule,
@@ -60,7 +58,7 @@ const routerConfig: ExtraOptions = {
             progressBar: true,
         }),
         MatDatepickerModule,
-        MatNativeDateModule
+        MatNativeDateModule,
     ],
     bootstrap: [AppComponent],
     providers: [
