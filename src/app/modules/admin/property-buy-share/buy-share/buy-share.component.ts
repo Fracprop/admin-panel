@@ -55,16 +55,16 @@ export class BuyShareComponent implements OnInit {
         );
     }
     getDetailOnSelect(id: any) {
-        console.log(id);
+        
         this.propertyDetails = {};
 
         this.propertyList$.filter((e) => {
-            if (e.groupcriteriaId == id) {
+            if (e.id == id) {
                 this.propertyDetails = { ...e };
                 console.log(e);
                // this.form.patchValue({ property_id: e.groupcriteriaId });
-                this.form.patchValue({ auction_id: e.id });
-                console.log(this.form.value);
+            
+               // console.log(this.form.value);
             }
         });
     }
