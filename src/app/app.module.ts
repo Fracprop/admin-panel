@@ -18,7 +18,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ToastrModule } from 'ngx-toastr';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-
+    
 
 
 const routerConfig: ExtraOptions = {
@@ -60,7 +60,7 @@ const routerConfig: ExtraOptions = {
             progressBar: true,
         }),
         MatDatepickerModule,
-        MatNativeDateModule
+        MatNativeDateModule,
     ],
     bootstrap: [AppComponent],
     providers: [
