@@ -103,7 +103,7 @@ export class ViewBidsDialogComponent implements OnInit {
         this._auctionService
             .updateBidStatus({
                 bidId: id,
-                auctio_id: auctionId,
+                auction_id: auctionId,
                 user_id: user_id,
             })
             .subscribe(

@@ -1,14 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {
-    FormBuilder,
-    FormGroup,
-    Validators,
-    FormArray,
-    FormControl,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonService } from 'app/modules/admin/common/common.service';
-import { FaqService } from '../../faq/faq.service';
+
 import { BlogsService } from '../blogs.service';
 
 @Component({

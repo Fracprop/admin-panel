@@ -70,7 +70,7 @@ export class AuctionCalenderService {
     }
     updateBidStatus(obj): Observable<any> {
         return this._httpClient
-            .post(environment.apiEndPoint + 'user-bids/accepetBidsByAdmin', {
+            .post(environment.apiEndPoint + 'user-bids/accepetBidsAdmin', {
                 ...obj,
             })
             .pipe(switchMap((response: any) => of(response)));

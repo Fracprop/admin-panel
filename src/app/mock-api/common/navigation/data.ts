@@ -24,6 +24,13 @@ export const SuperAdminNavigation: FuseNavigationItem[] = [
         link: '/banks/list',
     },
     {
+        id: 'buy-shares',
+        title: 'Buy Share',
+        type: 'basic',
+        icon: 'heroicons_outline:office-building',
+        link: '/buy-share/list',
+    },
+    {
         id: 'countries',
         title: 'Countries',
         type: 'basic',

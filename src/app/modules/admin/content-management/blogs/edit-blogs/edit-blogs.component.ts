@@ -136,7 +136,7 @@ export class EditBlogsComponent implements OnInit {
                 this.images = res[key].split(',');
                 return;
             } else if (key === 'videos') {
-                this.videos = res[key].split(',');
+                this.videos = res[key]?res[key].split(','):null
             } else {
                 this.form['controls'][key].setValue(res[key] ? res[key] : '');
             }

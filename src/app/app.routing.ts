@@ -126,7 +126,16 @@ export const appRoutes: Route[] = [
                 loadChildren: () =>
                     import('app/modules/admin/banks/banks.module').then(
                         (m) => m.BanksModule
-                    ),
+               
+                        ),
+            },
+            {
+                path: 'buy-share',
+                loadChildren: () =>
+                    import('app/modules/admin/property-buy-share/property-buy-share.module').then(
+                        (m) => m.PropertyBuyShareModule
+               
+                        ),
             },
             {
                 path: 'countries',

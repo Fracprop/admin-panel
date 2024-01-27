@@ -1,0 +1,129 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-2">
+        <div class="px-3 m-auto">
+            <!-- Sectioned form with dividers -->
+            <div class="prose prose-sm max-w-3xl">
+                <h2 class="text-4xl font-semibold tracking-tight leading-8">
+                    Buy Share
+                </h2>
+            </div>
+
+            <form
+                class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden justify-center items-center"
+                [formGroup]="form"
+                (submit)="(add)"
+            >
+                <h2 class="text-3xl tracking-tight text-left leading-8 pb-4">
+                     Details
+                </h2>
+                <div
+                    class="grid sm:grid-cols-1 md:grid-cols-1 gap-6 w-full min-w-0 pb-4"
+                    *ngIf="form.value.property_id"
+                >
+                    <div
+                        class="flex flex-col gt-xs:flex-row text-2xl text-center"
+                    >
+                        Total number of shares available:
+                        {{ propertyDetails?.totalnumberShareavailable || "-" }}
+                    </div>
+                </div>
+                <div
+                class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0"
+            >
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field
+                        [floatLabel]="'always'"
+                        class="flex-auto gt-xs:pr-3"
+                    >
+                        <mat-label class="text-header font-bold">
+                            Property<span class="text-warn"></span
+                        ></mat-label>
+                        <mat-select
+                            placeholder="Select property"
+                            [formControlName]="'property_id'"
+                            (selectionChange)="
+                            getDetailOnSelect($event.value)
+                        "
+                           
+                        >
+                            <mat-option
+                                *ngFor="let d of propertyList$"
+                                [value]="d?.groupcriteriaId"
+                                >{{ d?.property_name || "" }}</mat-option
+                            >
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+             
+            </div>
+                <div
+                    class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0"
+                >
+                   
+                </div>
+                <div
+                    class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0"
+                >
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >No. of Shares <span class="text-warn"></span
+                            ></mat-label>
+                            <input
+                                matInput
+                                placeholder="No. of shares"
+                                [formControlName]="'noofsharetoAuction'"
+                                type="number"
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field
+                            [floatLabel]="'always'"
+                            class="flex-auto gt-xs:pr-3"
+                        >
+                            <mat-label class="text-header font-bold"
+                                >Amount(ZAR)
+                                <span class="text-warn"></span
+                            ></mat-label>
+                            <input
+                                matInput
+                                placeholder="Amount"
+                                type="number"
+                                [formControlName]="'amount'"
+                            />
+                        </mat-form-field>
+                       
+                    </div>
+                </div>
+
+                <div
+                    class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700"
+                >
+                    <button routerLink="/auction-calendar/list" mat-button>
+                        Cancel
+                    </button>
+                    <button
+                        class="px-6 ml-3 bg-theme"
+                        mat-flat-button
+                        [color]="'primary'"
+                        (click)="add()"
+                    >
+                        <span *ngIf="!loading"> Save</span>
+                        <mat-progress-spinner
+                            *ngIf="loading"
+                            [diameter]="24"
+                            [mode]="'indeterminate'"
+                        ></mat-progress-spinner>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
