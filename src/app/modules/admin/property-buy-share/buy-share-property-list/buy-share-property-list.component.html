@@ -23,15 +23,15 @@
 
     <div class="mr-4 flex justify-end pb-2">
         <!-- Add product button -->
-        <button
+        <!-- <button
             routerLink="/buy-share/add-share"
             class="ml-4 bg-header rounded-lg"
             mat-flat-button
             type="button"
         >
-            <!-- <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon> -->
+            <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
             <span class="ml-2 mr-1">Buy Shares</span>
-        </button>
+        </button> -->
     </div>
     <!-- Main -->
     <div class="flex flex-auto overflow-hidden">
@@ -89,22 +89,22 @@
                                     <!-- date -->
 
                                     <div class="flex justify-start">
-                                        <!-- <button
-                                            routerLink="/blogs/edit-blogs/{{
+                                        <button
+                                            routerLink="/buy-share/add-share/{{
                                                 item?.id
                                             }}"
                                             class="min-w-10 min-h-7 h-7 px-2 ml-1 bg-green-600 rounded-2xl"
-                                            matTooltip="Details"
+                                            matTooltip="Buy Share"
                                         >
-                                            Edit
-                                        </button> -->
-                                        <button
+                                            Buy Share
+                                        </button>
+                                        <!-- <button
                                             class="min-w-20 min-h-7 h-7 px-2 ml-1 bg-red-600 text-white rounded-2xl"
                                             matTooltip="Delete"
                                             (click)="deleteContent(item?.id)"
                                         >
                                             Delete
-                                        </button>
+                                        </button> -->
                                     </div>
                                 </div>
                             </ng-container>

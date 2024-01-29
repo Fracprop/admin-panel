@@ -27,7 +27,7 @@ const buyShareRoutes: Route[] = [
       component: BuySharePropertyListComponent,
   },
   {
-    path: 'add-share',
+    path: 'add-share/:id',
     component: BuyShareComponent,
 },
 ];

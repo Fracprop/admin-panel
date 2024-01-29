@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router ,ActivatedRoute} from '@angular/router';
 import { CommonService } from 'app/modules/admin/common/common.service';
 import { PropertyBuyShareService } from '../property-buy-share.service';
 import { UserService } from 'app/core/user/user.service';
@@ -20,14 +20,20 @@ export class BuyShareComponent implements OnInit {
     public propertyList$: any = [];
     public propertyDetails: any = {};
     public userId: any;
+    public id:any
 
     constructor(
         private _formBuilder: FormBuilder,
         private _router: Router,
         private _commonService: CommonService,
         private _buyShareService: PropertyBuyShareService,
-        private _userService: UserService
-    ) {}
+        private _userService: UserService,
+        private _activatedRoute:ActivatedRoute
+    ) {
+      this._activatedRoute.params.subscribe((params) => {
+        this.id = params['id'];
+    });
+    }
 
     ngOnInit(): void {
         /**
@@ -35,8 +41,6 @@ export class BuyShareComponent implements OnInit {
          */
         this.form = this._formBuilder.group({
             property_id: [null, [Validators.required]],
-
-            auction_id: [null, [Validators.required]],
             amount: [null, [Validators.required]],
         });
         this.getProperties();
@@ -45,14 +49,16 @@ export class BuyShareComponent implements OnInit {
             : undefined;
     }
     getProperties() {
-        this._commonService.getPropertyList({}).subscribe(
-            (response) => {
-                this.propertyList$ = response ? [...response] : [];
-            },
-            (err) => {
-                // this.isLoading = false;
-            }
-        );
+      this._buyShareService.getDetails(this.id).subscribe(
+        (response) => {
+          this.propertyDetails={...response[0]}
+          this.form.patchValue({ property_id: this.propertyDetails.property_id });
+        },
+        (err) => {
+            this._commonService.error(err.error.message);
+            // this.isLoading = false;
+        }
+    );
     }
     getDetailOnSelect(id: any) {
         
@@ -80,7 +86,8 @@ export class BuyShareComponent implements OnInit {
             .buyShare({
                 ...this.form.value,
                 user_id: this.userId,
-                amount:this.form.value.amount.toString()
+                amount:this.form.value.amount.toString(),
+                auction_id:this.id
                 
             })
             .subscribe(

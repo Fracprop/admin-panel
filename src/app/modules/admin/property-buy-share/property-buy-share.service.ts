@@ -20,11 +20,11 @@ export class PropertyBuyShareService {
       )
       .pipe(switchMap((response: any) => of(response)));
   }
-  // getDetails(id: string) {
-  //     return this._httpClient
-  //         .get(environment.apiEndPoint + 'what-new/getWhatNewId/' + id)
-  //         .pipe(switchMap((response: any) => of(response)));
-  // }
+  getDetails(id: string) {
+      return this._httpClient
+          .get(environment.apiEndPoint + 'fund-account/getAuction/' + id)
+          .pipe(switchMap((response: any) => of(response)));
+  }
   buyShare(obj: any): Observable<any> {
       return this._httpClient
           .post(environment.apiEndPoint + 'user-bids/userBidForAdmin', {

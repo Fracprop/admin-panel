@@ -50,7 +50,7 @@
                             style="background-color: #ecf1f2"
                         >
                             <div class="hidden md:block">S No.</div>
-                            <div class="hidden md:block">User name</div>
+                            <div class="hidden md:block">User Type</div>
                             <div class="hidden md:block">Property name</div>
                             <div class="hidden md:block">No. of Shares</div>
                             <div class="hidden md:block">Selling price</div>
@@ -128,6 +128,7 @@
                                         </button>
                                         <button
                                         class="min-w-20 min-h-7 h-7 px-2 ml-1 bg-red-600 text-white rounded-2xl"
+                                        *ngIf="  item?.userType != 'ADMIN' "
                                         matTooltip="View Bids"
                                         (click)="view(item?.id, false)"
                                        

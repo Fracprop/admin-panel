@@ -15,24 +15,26 @@
                 (submit)="(add)"
             >
                 <h2 class="text-3xl tracking-tight text-left leading-8 pb-4">
-                     Details
+                    Details
                 </h2>
                 <div
                     class="grid sm:grid-cols-1 md:grid-cols-1 gap-6 w-full min-w-0 pb-4"
                     *ngIf="form.value.property_id"
                 >
-                    <div
+                    <!-- <div
                         class="flex flex-col gt-xs:flex-row text-2xl text-center"
                     >
                         Total number of shares available:
                         {{ propertyDetails?.totalnumberShareavailable || "-" }}
-                    </div>
+                    </div> -->
                 </div>
                 <div
-                class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0"
-            >
-                <div class="flex flex-col gt-xs:flex-row">
-                    <mat-form-field
+                    class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0"
+                >
+                    <div class="flex flex-col gt-xs:flex-row text-xl">
+                        Property name:
+                        {{ propertyDetails?.property?.property_name || "-" }}
+                        <!-- <mat-form-field
                         [floatLabel]="'always'"
                         class="flex-auto gt-xs:pr-3"
                     >
@@ -53,42 +55,33 @@
                                 >{{ d?.property_name || "" }}</mat-option
                             >
                         </mat-select>
-                    </mat-form-field>
+                    </mat-form-field> -->
+                    </div>
                 </div>
-             
-            </div>
                 <div
-                    class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0"
+                    class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0 pt-4"
+                >
+                    <div class="flex flex-col gt-xs:flex-row text-xl">
+                        No. of shares:
+                        {{ propertyDetails?.noofsharetoAuction || "-" }}
+                    </div>
+                    <div class="flex flex-col gt-xs:flex-row text-xl">
+                        Selling price:
+                        {{ propertyDetails?.sellingPrice || "-" }}
+                    </div>
+                </div>
+              
+                <div
+                    class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0 pt-4"
                 >
                    
-                </div>
-                <div
-                    class="grid sm:grid-cols-2 md:grid-cols-2 gap-6 w-full min-w-0"
-                >
                     <div class="flex flex-col gt-xs:flex-row">
                         <mat-form-field
                             [floatLabel]="'always'"
                             class="flex-auto gt-xs:pr-3"
                         >
                             <mat-label class="text-header font-bold"
-                                >No. of Shares <span class="text-warn"></span
-                            ></mat-label>
-                            <input
-                                matInput
-                                placeholder="No. of shares"
-                                [formControlName]="'noofsharetoAuction'"
-                                type="number"
-                            />
-                        </mat-form-field>
-                    </div>
-                    <div class="flex flex-col gt-xs:flex-row">
-                        <mat-form-field
-                            [floatLabel]="'always'"
-                            class="flex-auto gt-xs:pr-3"
-                        >
-                            <mat-label class="text-header font-bold"
-                                >Amount(ZAR)
-                                <span class="text-warn"></span
+                                >Amount(ZAR) <span class="text-warn"></span
                             ></mat-label>
                             <input
                                 matInput
@@ -97,7 +90,6 @@
                                 [formControlName]="'amount'"
                             />
                         </mat-form-field>
-                       
                     </div>
                 </div>
 
@@ -125,5 +117,3 @@
         </div>
     </div>
 </div>
-
-
