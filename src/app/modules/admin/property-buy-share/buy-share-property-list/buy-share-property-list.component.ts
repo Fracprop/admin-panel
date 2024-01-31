@@ -72,9 +72,12 @@ export class BuySharePropertyListComponent implements OnInit {
             (response) => {
                 this.isLoading = false;
 
-                this.pagination.TotalCount = response?.totalBlog || 10;
+                this.pagination.TotalCount =
+                    response?.auctionListForAdminTotal || 10;
 
-                this.bugShareList$ = response ? [...response] : [];
+                this.bugShareList$ = response.auctionListForAdmin
+                    ? [...response.auctionListForAdmin]
+                    : [];
 
                 this._changeDetectorRef.detectChanges();
             },

@@ -82,7 +82,7 @@ export class ViewBidsDialogComponent implements OnInit {
             (response) => {
                 this.isLoading = false;
 
-                this.pagination.TotalCount = response?.totalAuction || 10;
+                this.pagination.TotalCount = response?.totalAuction || 5;
                 
 
                 this.auctionList$ = response

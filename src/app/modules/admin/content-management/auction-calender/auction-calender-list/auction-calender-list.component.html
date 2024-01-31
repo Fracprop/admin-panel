@@ -78,7 +78,9 @@
                                     </div>
                                     <!-- Notes -->
                                     <div class="">
-                                        {{ item?.property?.property_name || "-" }}
+                                        {{
+                                            item?.property?.property_name || "-"
+                                        }}
                                     </div>
                                     <!-- No. of shares -->
                                     <div class="">
@@ -91,7 +93,10 @@
 
                                     <div class="flex justify-start">
                                         {{
-                                            item?.admin_status && item?.userType !== 'ADMIN' ? "APPROVED" : ""
+                                            item?.admin_status &&
+                                            item?.userType !== "ADMIN"
+                                                ? "APPROVED"
+                                                : ""
                                         }}
                                         <button
                                             routerLink="/auction-calendar/edit-auction-content/{{
@@ -127,14 +132,12 @@
                                             Reject
                                         </button>
                                         <button
-                                        class="min-w-20 min-h-7 h-7 px-2 ml-1 bg-red-600 text-white rounded-2xl"
-                                        *ngIf="  item?.userType != 'ADMIN' "
-                                        matTooltip="View Bids"
-                                        (click)="view(item?.id, false)"
-                                       
-                                    >
-                                        View Bids
-                                    </button>                                        
+                                            class="min-w-20 min-h-7 h-7 px-2 ml-1 bg-red-600 text-white rounded-2xl"
+                                            matTooltip="View Bids"
+                                            (click)="view(item?.id, false)"
+                                        >
+                                            View Bids
+                                        </button>
                                         <button
                                             class="min-w-20 min-h-7 h-7 px-2 ml-1 bg-red-600 text-white rounded-2xl"
                                             matTooltip="Delete"
