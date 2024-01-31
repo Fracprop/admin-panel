@@ -117,7 +117,7 @@ export class EditAuctionCalenderComponent implements OnInit {
             .editAuction(
                 {
                     ...this.form.value,
-                    admin_status: 'true',
+                    admin_status: true,
                     noofsharetoAuction:
                         this.form.value.noofsharetoAuction.toString(),
                     sellingPrice: this.form.value.sellingPrice.toString(),
