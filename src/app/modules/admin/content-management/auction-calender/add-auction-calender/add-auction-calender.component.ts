@@ -13,6 +13,7 @@ import { UserService } from 'app/core/user/user.service';
 export class AddAuctionCalenderComponent implements OnInit {
     form: FormGroup;
     confirmationDialog: FormGroup;
+    public todayDate=new Date();
     public loading = false;
     public propertyDetails: any;
     public userID: String;

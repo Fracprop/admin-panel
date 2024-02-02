@@ -13,6 +13,7 @@ import { BlogsService } from '../blogs.service';
 export class AddBlogsComponent implements OnInit {
     form: FormGroup;
     confirmationDialog: FormGroup;
+    public todayDate=new Date();
     public loading = false;
     public categoryList$: any;
     public images: any = [];

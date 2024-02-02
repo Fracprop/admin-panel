@@ -63,19 +63,24 @@
                         ></textarea>
                     </mat-form-field>
                 </div>
-                <div class="flex flex-col w-120" *ngIf="this.form.value.blogcat!='777ff6e0-dd0e-4375-80a2-02ff7c583207'">
+                <div
+                    class="flex flex-col w-120"
+                    *ngIf="
+                        this.form.value.blogcat !=
+                        '777ff6e0-dd0e-4375-80a2-02ff7c583207'
+                    "
+                >
                     <div class="w-full">
                         <mat-label class="text-header font-bold">
                             Images<span class="text-warn"></span
                         ></mat-label>
                         <div
-                            class="flex items-center justify-center h-20  border-2 border-dashed cursor-pointer"
+                            class="flex items-center justify-center h-20 border-2 border-dashed cursor-pointer"
                             (click)="fileImages.click()"
                         >
                             <img
                                 class="w-10 h-10"
                                 src="../../../../../../assets/images/select.svg"
-                              
                             />
                             <span class="text-header underline"
                                 >Select images</span
@@ -86,7 +91,7 @@
                         type="file"
                         #fileImages
                         style="display: none"
-                        (change)="onFileChange($event,'images')"
+                        (change)="onFileChange($event, 'images')"
                         multiple
                     />
 
@@ -102,7 +107,7 @@
                                 class="_icon absolute right-2 top-2"
                                 (click)="
                                     $event.preventDefault();
-                                    removeUploadedFile(i,'images    ')
+                                    removeUploadedFile(i, 'images    ')
                                 "
                             >
                                 <svg
@@ -128,19 +133,24 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col w-120" *ngIf="this.form.value.blogcat==='777ff6e0-dd0e-4375-80a2-02ff7c583207'">
+                <div
+                    class="flex flex-col w-120"
+                    *ngIf="
+                        this.form.value.blogcat ===
+                        '777ff6e0-dd0e-4375-80a2-02ff7c583207'
+                    "
+                >
                     <div class="w-full">
                         <mat-label class="text-header font-bold">
                             Videos<span class="text-warn"></span
                         ></mat-label>
                         <div
-                            class="flex items-center justify-center h-20   border-2 border-dashed cursor-pointer"
+                            class="flex items-center justify-center h-20 border-2 border-dashed cursor-pointer"
                             (click)="fileVideos.click()"
                         >
                             <img
                                 class="w-10 h-10"
                                 src="../../../../../../assets/images/select.svg"
-                               
                             />
                             <span class="text-header underline"
                                 >Select videos</span
@@ -151,7 +161,7 @@
                         type="file"
                         #fileVideos
                         style="display: none"
-                        (change)="onFileChange($event,'video')"
+                        (change)="onFileChange($event, 'video')"
                         multiple
                     />
 
@@ -161,13 +171,15 @@
                             *ngFor="let video of videos; let i = index"
                         >
                             <a [href]="video.video" target="_blank">
-                                <img class="w-52 h-32" src="../../../../../../assets/images/logo/pdf.svg"
+                                <img
+                                    class="w-52 h-32"
+                                    src="../../../../../../assets/images/logo/pdf.svg"
                             /></a>
                             <button
                                 class="_icon absolute right-1 top-5"
                                 (click)="
                                     $event.preventDefault();
-                                    removeUploadedFile(i,'video')
+                                    removeUploadedFile(i, 'video')
                                 "
                             >
                                 <svg
@@ -196,12 +208,15 @@
                 <div class="flex flex-col w-120">
                     <mat-form-field class="w-full">
                         <mat-label class="text-header font-bold">
-                            Schedule date to post blog<span class="text-warn"></span
+                            Schedule date to post blog<span
+                                class="text-warn"
+                            ></span
                         ></mat-label>
                         <input
                             matInput
                             [matDatepicker]="picker2"
                             formControlName="dateSchdule"
+                            [min]="todayDate"
                         />
                         <mat-hint>MM/DD/YYYY</mat-hint>
                         <mat-datepicker-toggle

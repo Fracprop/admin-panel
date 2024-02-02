@@ -13,6 +13,7 @@ export class EditAuctionCalenderComponent implements OnInit {
     form: FormGroup;
     confirmationDialog: FormGroup;
     public loading = false;
+    public todayDate=new Date();
     public propertyDetails: any;
     public userID: String;
     public propertyList$ = [
