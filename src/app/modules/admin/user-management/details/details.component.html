@@ -26,7 +26,7 @@
                 <thead>
                     <tr>
                         <th class="py-4 border border-slate-300">Item</th>
-                        <th class="py-4 border border-slate-300">Desciption</th>
+                        <th class="py-4 border border-slate-300">Description</th>
                     </tr>
                 </thead>
                 <tbody class="">
@@ -108,7 +108,7 @@
                             Investment objectives
                         </td>
                         <td class="p-4 border border-slate-300">
-                            {{ userDetails$?.investment_objectivesNew || "-" }}
+                            {{ userDetails$?.investment_objectivesNew.split(",").join(", ") || "-" }}
                         </td>
                     </tr>
                     <tr>

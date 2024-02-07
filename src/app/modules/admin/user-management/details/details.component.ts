@@ -72,7 +72,7 @@ export class DetailsComponent implements OnInit {
                     upload_director_id_document: response?.kycDetails
                         .upload_director_id_document
                         ? response?.kycDetails.upload_director_id_document.split(
-                              ','
+                              ', '
                           )
                         : '',
                 };
@@ -102,7 +102,7 @@ export class DetailsComponent implements OnInit {
                         this.matchingGrps();
                     } else {
                         this._router.navigate(['/users/list']);
-                        window.scroll(0,0);
+                        window.scroll(0, 0);
                     }
 
                     this.isLoading = false;
@@ -118,7 +118,7 @@ export class DetailsComponent implements OnInit {
             (response) => {
                 this.isLoading = false;
                 this._router.navigate(['/users/list']);
-                window.scroll(0,0);
+                window.scroll(0, 0);
                 this._changeDetectorRef.detectChanges();
             },
             (err) => {
