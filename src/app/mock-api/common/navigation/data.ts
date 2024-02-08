@@ -38,8 +38,8 @@ export const SuperAdminNavigation: FuseNavigationItem[] = [
         link: '/countries/list',
     },
     {
-        id: 'propterties',
-        title: 'Propterties',
+        id: 'properties',
+        title: 'Properties',
         type: 'basic',
         icon: 'heroicons_outline:office-building',
         link: '/properties/list',
