@@ -36,7 +36,7 @@
         </button>
     </div>
     <!-- Main -->
-    <div class="flex flex-auto overflow-hidden">
+    <div class="flex flex-auto overflow-hidden mt-2">
         <!-- Userslist -->
         <div
             class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto"
@@ -46,7 +46,7 @@
                     <div class="grid table_tr_bg">
                         <!-- Header -->
                         <div
-                            class="country-grid z-10 text-lg sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow  font-semibold"
+                            class="country-grid z-10 text-lg sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow font-semibold"
                             style="background-color: #ecf1f2"
                         >
                             <div class="hidden md:block">S No.</div>
@@ -55,7 +55,7 @@
                             <div class="hidden md:block">Currency Symbol</div>
                             <div class="hidden md:block">Inflation Rate</div>
                             <div class="hidden md:block">Taxation</div>
-                            <div class="hidden md:block">Action</div>
+                            <!-- <div class="hidden md:block">Action</div> -->
                         </div>
                         <!-- Rows -->
                         <ng-container>
@@ -97,7 +97,7 @@
                                         {{ item?.taxation || "-" }}
                                     </div>
 
-                                    <div class="flex justify-start">
+                                    <!-- <div class="flex justify-start"> -->
                                         <!-- Block button -->
                                         <!-- <mat-slide-toggle
                                             class="min-w-10 min-h-7 h-7 px-2 leading-6 ml-1"
@@ -117,7 +117,7 @@
                                         >
                                             View Details
                                         </button> -->
-                                    </div>
+                                    <!-- </div> -->
                                 </div>
                             </ng-container>
                         </ng-container>

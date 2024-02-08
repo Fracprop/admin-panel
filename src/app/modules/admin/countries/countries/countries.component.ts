@@ -24,7 +24,7 @@ export class CountriesComponent implements OnInit {
     isLoading: boolean = false;
     isBlocked: boolean = false;
     pagination: any = {
-        limit: 10,
+        limit: 5,
         pageNo: 0,
         TotalCount: 0,
         PageNo: 0,

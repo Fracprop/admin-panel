@@ -64,7 +64,7 @@
                                 <div
                                     class="blogs-grid font-medium grid items-center gap-4 py-3 px-6 md:px-8 border-b-2 border-gray-300"
                                 >
-                                    <div>
+                                    <div class="w-13">
                                         {{
                                             pagination?.PageNo *
                                                 pagination?.limit +
@@ -73,28 +73,33 @@
                                         }}
                                     </div>
                                     <!-- Category -->
-                                    <div class="">
+                                    <div class="w-44">
                                         {{
                                             item?.blogCategory?.category || "-"
                                         }}
                                     </div>
                                     <!-- Title -->
-                                    <div class="">
+                                    <div class="w-36">
                                         {{ item?.blog_title || "-" }}
                                     </div>
                                     <!-- Description -->
-                                    <div class="">
-                                        {{ item?.description | slice : 0 : 50 }} {{item?.description.length>100?'...':'  '}}
+                                    <div class="w-36">
+                                        {{ item?.description | slice : 0 : 50 }}
+                                        {{
+                                            item?.description.length > 100
+                                                ? "..."
+                                                : "  "
+                                        }}
                                     </div>
                                     <!-- date -->
-                                    <div class="">
+                                    <div class="w-36">
                                         {{
                                             item?.dateSchdule
                                                 | date : "dd/MM/yyyy"
                                         }}
                                     </div>
 
-                                    <div class="flex justify-start">
+                                    <div class="flex justify-start w-36">
                                         <button
                                             routerLink="/blogs/edit-blogs/{{
                                                 item?.id

@@ -20,11 +20,11 @@ import { PropertyBuyShareService } from '../property-buy-share.service';
                 }
 
                 @screen md {
-                    grid-template-columns: 100px 200px 250px 200px 200p;
+                    grid-template-columns: 200px 250px 250px 250px 250px;
                 }
 
                 @screen lg {
-                    grid-template-columns: 100px 200px 250px 200px 200p;
+                    grid-template-columns: 200px 250px 250px 250px 250px;
                 }
             }
         `,
