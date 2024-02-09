@@ -102,7 +102,8 @@ export class AddAuctionCalenderComponent implements OnInit {
         }
         if (
             Number(this.form.value.noofsharetoAuction) >
-            Number(this.propertyDetails.totalnumberShareavailable)
+            Number(this.propertyDetails.
+                fracropShare)
         ) {
             this._commonService.error(
                 'Number of shares cannot be greater than total number of available shares'
