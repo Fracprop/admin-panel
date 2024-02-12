@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CommonService } from 'app/modules/admin/common/common.service';
 import { AuctionCalenderService } from '../auction-calender.service';
 import { UserService } from 'app/core/user/user.service';
+import { ONLYNUMBER } from 'app/modules/admin/common/regex.constants';
 
 @Component({
     selector: 'app-add-auction-calender',
@@ -43,9 +44,9 @@ export class AddAuctionCalenderComponent implements OnInit {
             group_id: [null, [Validators.required]],
             startdate: [null, [Validators.required]],
             enddate: [null, [Validators.required]],
-            sellingPrice: [null, [Validators.required]],
+            sellingPrice: [null, [Validators.required,Validators.pattern(ONLYNUMBER)]],
 
-            noofsharetoAuction: [null, [Validators.required]],
+            noofsharetoAuction: [null, [Validators.required,Validators.pattern(ONLYNUMBER)]],
         });
         this.getProperties();
         this.getCommunities();

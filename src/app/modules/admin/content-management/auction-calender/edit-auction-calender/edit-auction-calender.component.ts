@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonService } from 'app/modules/admin/common/common.service';
 import { AuctionCalenderService } from '../auction-calender.service';
+import { ONLYNUMBER } from 'app/modules/admin/common/regex.constants';
 
 @Component({
     selector: 'app-edit-auction-calender',
@@ -46,9 +47,9 @@ export class EditAuctionCalenderComponent implements OnInit {
             group_id: [null, [Validators.required]],
             startdate: [null, [Validators.required]],
             enddate: [null, [Validators.required]],
-            sellingPrice: [null, [Validators.required]],
+            sellingPrice: [null, [Validators.required,Validators.pattern(ONLYNUMBER)]],
 
-            noofsharetoAuction: [null, [Validators.required]],
+            noofsharetoAuction: [null, [Validators.required,Validators.pattern(ONLYNUMBER)]],
         });
         this.getCommunities();
         this.getProperties();

@@ -10,3 +10,4 @@ export const NINID = /^[0-9]{10}$/;
 export const RRF_NO = /^[a-zA-Z 0-9]{15}$/;
 export const PASSWORD_REGEX =
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!"#$%&'()*+,-.\/:;<=>?\\@[\]^_`{|}~]).{8,64}$/;
+export const ONLYNUMBER=/^\d*\.?\d+$/
