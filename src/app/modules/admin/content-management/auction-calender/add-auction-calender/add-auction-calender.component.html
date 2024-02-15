@@ -86,16 +86,16 @@
 
                             <input
                                 matInput
-                                [matDatepicker]="picker2"
+                                [matDatepicker]="picker1"
                                 formControlName="startdate"
                                 [min]="todayDate"
                             />
                             <mat-hint>MM/DD/YYYY</mat-hint>
                             <mat-datepicker-toggle
                                 matIconSuffix
-                                [for]="picker2"
+                                [for]="picker1"
                             ></mat-datepicker-toggle>
-                            <mat-datepicker #picker2></mat-datepicker>
+                            <mat-datepicker #picker1></mat-datepicker>
                         </mat-form-field>
                     </div>
                     <div class="flex flex-col gt-xs:flex-row">
@@ -106,16 +106,16 @@
 
                             <input
                                 matInput
-                                [matDatepicker]="picker1"
+                                [matDatepicker]="picker2"
                                 formControlName="enddate"
                                 [min]="todayDate"
                             />
                             <mat-hint>MM/DD/YYYY</mat-hint>
                             <mat-datepicker-toggle
                                 matIconSuffix
-                                [for]="picker1"
+                                [for]="picker2"
                             ></mat-datepicker-toggle>
-                            <mat-datepicker #picker1></mat-datepicker>
+                            <mat-datepicker #picker2></mat-datepicker>
                         </mat-form-field>
                     </div>
                 </div>

@@ -14,7 +14,7 @@ import { ONLYNUMBER } from 'app/modules/admin/common/regex.constants';
 export class AddAuctionCalenderComponent implements OnInit {
     form: FormGroup;
     confirmationDialog: FormGroup;
-    public todayDate=new Date();
+    public todayDate = new Date();
     public loading = false;
     public propertyDetails: any;
     public userID: String;
@@ -44,9 +44,15 @@ export class AddAuctionCalenderComponent implements OnInit {
             group_id: [null, [Validators.required]],
             startdate: [null, [Validators.required]],
             enddate: [null, [Validators.required]],
-            sellingPrice: [null, [Validators.required,Validators.pattern(ONLYNUMBER)]],
+            sellingPrice: [
+                null,
+                [Validators.required, Validators.pattern(ONLYNUMBER)],
+            ],
 
-            noofsharetoAuction: [null, [Validators.required,Validators.pattern(ONLYNUMBER)]],
+            noofsharetoAuction: [
+                null,
+                [Validators.required, Validators.pattern(ONLYNUMBER)],
+            ],
         });
         this.getProperties();
         this.getCommunities();
@@ -90,21 +96,21 @@ export class AddAuctionCalenderComponent implements OnInit {
             this.loading = false;
             return;
         }
+
         if (
-            Date.parse(this.form.value.startdate) <=
-            Date.parse(this.form.value.endadate)
+            Date.parse(this.form.value.startdate) >=
+            Date.parse(this.form.value.enddate)
         ) {
             this.loading = false;
             this._commonService.error(
                 'End Date should be greater than start date'
             );
-            this.loading = false;
+
             return;
         }
         if (
             Number(this.form.value.noofsharetoAuction) >
-            Number(this.propertyDetails.
-                fracropShare)
+            Number(this.propertyDetails.fracropShare)
         ) {
             this._commonService.error(
                 'Number of shares cannot be greater than total number of available shares'
@@ -112,6 +118,7 @@ export class AddAuctionCalenderComponent implements OnInit {
             this.loading = false;
             return;
         }
+
         this._auctionService
             .addAuction({
                 ...this.form.value,
