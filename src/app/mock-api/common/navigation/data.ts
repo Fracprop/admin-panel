@@ -31,6 +31,13 @@ export const SuperAdminNavigation: FuseNavigationItem[] = [
         link: '/buy-share/list',
     },
     {
+        id: 'auction-content',
+        title: 'Auction Calendar',
+        type: 'basic',
+        icon: 'heroicons_outline:office-building',
+        link: '/auction-calendar/list',
+    },
+    {
         id: 'countries',
         title: 'Countries',
         type: 'basic',
@@ -94,13 +101,7 @@ export const SuperAdminNavigation: FuseNavigationItem[] = [
 
                 link: '/dividend-calendar/list',
             },
-            {
-                id: 'auction-content',
-                title: 'Auction Calendar',
-                type: 'basic',
-
-                link: '/auction-calendar/list',
-            },
+          
         ],
     },
     {
