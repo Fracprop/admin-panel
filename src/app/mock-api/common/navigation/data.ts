@@ -13,7 +13,7 @@ export const SuperAdminNavigation: FuseNavigationItem[] = [
         id: 'user',
         title: 'User Management',
         type: 'basic',
-        icon: 'heroicons_outline:office-building',
+        icon: 'heroicons_outline:user',
         link: '/users/list',
     },
     {
@@ -34,14 +34,14 @@ export const SuperAdminNavigation: FuseNavigationItem[] = [
         id: 'auction-content',
         title: 'Auction Calendar',
         type: 'basic',
-        icon: 'heroicons_outline:office-building',
+        icon: 'heroicons_outline:calendar',
         link: '/auction-calendar/list',
     },
     {
         id: 'countries',
         title: 'Countries',
         type: 'basic',
-        icon: 'heroicons_outline:office-building',
+        icon: 'heroicons_outline:flag',
         link: '/countries/list',
     },
     {
@@ -101,14 +101,13 @@ export const SuperAdminNavigation: FuseNavigationItem[] = [
 
                 link: '/dividend-calendar/list',
             },
-          
         ],
     },
     {
         id: 'Finance',
         title: 'Finance',
         type: 'collapsable',
-        icon: 'heroicons_outline:user',
+        icon: 'heroicons_outline:credit-card',
 
         children: [
             {
