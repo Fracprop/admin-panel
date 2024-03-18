@@ -38,7 +38,7 @@ export class FundingOwnershipComponent implements OnInit {
             fundingTarget: [null, [Validators.required]],
             internalRateofReturn: [null, [Validators.required]],
             estimatedNetRental: [null, [Validators.required]],
-            marketValuation: [null, [Validators.required]],
+            marketValuation: [null, []],
             percentageOwnewshipshare: [null, [Validators.required]],
             totalnumberShareavailable: [null, [Validators.required]],
             minimumInvestmentAmount: [null, [Validators.required]],

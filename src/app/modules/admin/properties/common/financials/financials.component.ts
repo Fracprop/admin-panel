@@ -47,10 +47,10 @@ export class FinancialsComponent implements OnInit {
     ngOnInit(): void {
         this.form = this._formBuilder.group({
             projectedReturns: [null, [Validators.required]],
-            potentialRentalincome: [null, [Validators.required]],
-            estimatedExpenses: [null, [Validators.required]],
-            estimatedReserveFund: [null, [Validators.required]],
-            TaxesandOtherfees: [null, [Validators.required]],
+            potentialRentalincome: [null, []],
+            estimatedExpenses: [null, []],
+            estimatedReserveFund: [null, []],
+            TaxesandOtherfees: [null, []],
             floorplanImages: [null, []],
             termsAndCondition: [null, []],
             openingDate: [null, [Validators.required]],
@@ -255,7 +255,6 @@ export class FinancialsComponent implements OnInit {
                     (err) => {
                         this.loading = false;
                         this._commonService.error(err.error.message);
-                        
                     }
                 );
             }
