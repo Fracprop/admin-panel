@@ -37,7 +37,7 @@ export class PropertyComponent implements OnInit {
     }
     ngOnInit(): void {
         this.form = this._formBuilder.group({
-            groupcriteriaId: [null, [Validators.required]],
+            groupcriteriaId: [null, []],
             propertyCost: [null, [Validators.required]],
             property_name: [null, [Validators.required]],
             property_type: [null, [Validators.required]],

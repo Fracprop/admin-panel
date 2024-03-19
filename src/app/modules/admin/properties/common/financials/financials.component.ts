@@ -46,15 +46,15 @@ export class FinancialsComponent implements OnInit {
 
     ngOnInit(): void {
         this.form = this._formBuilder.group({
-            projectedReturns: [null, [Validators.required]],
+            projectedReturns: [null, []],
             potentialRentalincome: [null, []],
             estimatedExpenses: [null, []],
             estimatedReserveFund: [null, []],
             TaxesandOtherfees: [null, []],
             floorplanImages: [null, []],
             termsAndCondition: [null, []],
-            openingDate: [null, [Validators.required]],
-            closingDate: [null, [Validators.required]],
+            openingDate: [null, []],
+            closingDate: [null, []],
         });
         let savedInfo = this.isEditForm
             ? localStorage.getItem('propertyData')
@@ -177,14 +177,14 @@ export class FinancialsComponent implements OnInit {
         if (this.form.invalid) {
             return;
         } else {
-            if (!this.floorplanImages.length) {
-                this._commonService.error('Please add floor plan images!');
-                return;
-            }
-            if (!this.agreementImages.length) {
-                this._commonService.error('Please add agreement pdf!');
-                return;
-            }
+            // if (!this.floorplanImages.length) {
+            //     this._commonService.error('Please add floor plan images!');
+            //     return;
+            // }
+            // if (!this.agreementImages.length) {
+            //     this._commonService.error('Please add agreement pdf!');
+            //     return;
+            // }
             if (
                 Date.parse(this.form.value.closingDate) <=
                 Date.parse(this.form.value.openingDate)
